@@ -19,7 +19,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	      'SEI' => array(
  	          'URL' => 'http://localhost/sei',
  	          'Producao' => false,
- 	          'RepositorioArquivos' => '/var/sei/dados'),
+ 	          'RepositorioArquivos' => '/var/sei/arquivos'),
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
@@ -38,7 +38,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	          'Porta' => getenv("DB_PORT_3306_TCP_PORT"),
  	          'Banco' => 'sei',
  	          'Usuario' => 'sei_user',
- 	          'Senha' => '123456',
+ 	          'Senha' => 'sei_user',
  	          'Tipo' => 'MySql'), //MySql ou SqlServer
  	       
  	      'Editor' => array(

@@ -5,14 +5,11 @@
 # Baseado no CentOS 6.X
 ############################################################
 
-# Define a imagem de base para o CentOS 6.X
+# Definição da imagem de base para o CentOS 6.X
 FROM centos:centos6
 
 # Autor e mantenedor do container
-MAINTAINER MPOG\Guilherme Andrade Del Cantoni
-
-# Atualiza o source list do repositório
-RUN yum -y update && yum -y upgrade
+MAINTAINER PEN - Processo Eletrônico Nacional
 
 ################## INICIO DA INSTALACAO ######################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
@@ -22,10 +19,12 @@ RUN yum -y update && yum -y upgrade
 RUN yum install -y wget unzip
 
 # Instalação do pacote Java JDK 
-RUN yum install -y java-1.7.0-openjdk-devel
+RUN yum -y update java-1.7.0-openjdk-devel && \
+    yum install -y java-1.7.0-openjdk-devel
 
 # Instalação do pacote office responsável pela conversão para PDF
-RUN yum install -y libreoffice libreoffice-headless
+RUN yum -y update libreoffice libreoffice-headless && \
+    yum install -y libreoffice libreoffice-headless
 
 # Instalação da api de serviços de conversão de documentos
 RUN wget -q -O /opt/jodconverter-tomcat-2.2.2.zip http://sourceforge.net/projects/jodconverter/files/JODConverter/2.2.2/jodconverter-tomcat-2.2.2.zip/download
@@ -37,8 +36,8 @@ RUN chmod +x /run.sh
 
 ##################### FIM DA INSTALACAO #####################
 
-# Expõe a porta padrão do MySQL Server
+# Exposição da porta de conexão ao Apache
 EXPOSE 8080
 
-# Default port to execute the entrypoint (MongoDB)
+# Inicialização dos serviços Apache e Memcache
 CMD ["/run.sh"]

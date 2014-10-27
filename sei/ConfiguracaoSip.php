@@ -33,7 +33,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	          'Porta' => getenv("DB_PORT_3306_TCP_PORT"),
  	          'Banco' => 'sip',
  	          'Usuario' => 'sip_user',
- 	          'Senha' => '123456',
+ 	          'Senha' => 'sip_user',
  	          'Tipo' => 'MySql'), //MySql ou SqlServer),
  	       
  	      'HostWebService' => array(

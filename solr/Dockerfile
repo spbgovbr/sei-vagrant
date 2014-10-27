@@ -5,24 +5,25 @@
 # Baseado no CentOS 6.X
 ############################################################
 
-# Define a imagem de base para o CentOS 6.X
+# Definição da imagem de base para o CentOS 6.X
 FROM centos:centos6
 
 # Autor e mantenedor do container
-MAINTAINER MPOG\Guilherme Andrade Del Cantoni
+MAINTAINER PEN - Processo Eletrônico Nacional
 
 # Atualização do source list do repositório
-RUN yum update -y && yum upgrade -y
+# RUN yum update -y && yum upgrade -y
 
 ################## INICIO DA INSTALACAO ######################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 # Ref: http://<WIKI DO PROJETO>#<SESSAO DE INSTALAÇÃO DO MYSQL>
 
 # Instalação do pacote Java JDK 
-RUN yum install -y java-1.7.0-openjdk-devel
+RUN yum update -y java-1.7.0-openjdk-devel && \ 
+    yum install -y java-1.7.0-openjdk-devel
 
 # Instalação dos utilitários utilizados no provisionamento
-RUN yum install -y wget tar which curl
+RUN yum install -y wget tar curl
 
 # Criação de usuário de execução do serviço
 RUN useradd -r -s /bin/bash solr
@@ -104,8 +105,8 @@ RUN service solr start && sleep 6 && \
 ##################### FIM DA INSTALACAO #####################
 WORKDIR /opt/solr-4.9.0/example
 
-# Expõe a porta padrão do MySQL Server
+# Exposição da porta de conexão ao Apache
 EXPOSE 8983
 
-# Default port to execute the entrypoint (MongoDB)
+# Inicialização dos serviços Apache e Memcache
 CMD ["java", "-jar", "start.jar"]
