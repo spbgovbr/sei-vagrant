@@ -57,6 +57,10 @@ RUN service mysqld start && \
 RUN service mysqld start && \
     mysql -e "delete from auditoria_protocolo;" sei
 
+# Configuração para utilizar autenticação nativa do SEI/SIP
+RUN service mysqld start && \
+    mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
+
 # Alteração das configurações padrões do MySQL
 RUN service mysqld start && \
     mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
