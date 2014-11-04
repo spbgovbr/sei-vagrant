@@ -16,10 +16,15 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	public function getArrConfiguracoes(){
  	  return array(
  	      'Sip' => array(
+ 	      	  // Endereço de acesso à aplicação SEI
  	          'URL' => 'http://localhost/sip',
+
+ 	          // Habilita melhorias de performance casa aplicação esteja em produção
  	          'Producao' => false),
  	       
- 	      'PaginaSip' => array('NomeSistema' => 'SIP'),
+ 	      'PaginaSip' => array(
+ 	          'NomeSistema' => 'SIP',
+ 	          'NomeSistemaComplemento' => 'v2.5.1'),
 
  	      'SessaoSip' => array(
  	          'SiglaOrgaoSistema' => 'ABC',
@@ -39,7 +44,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	      'HostWebService' => array(
  	          'Replicacao' => array('*'), //endereço ou IP da máquina que implementa o serviço de replicação de usuários
  	          'Pesquisa' => array('*'), //endereços/IPs das máquinas do SEI
- 	          'Autenticacao' => array('*')), //endereços/IPs das máquinas do SEI
+ 	          'Autenticacao' => array('*') //endereços/IPs das máquinas do SEI
+ 	          ), 
  	      
  	      'InfraMail' => array(
  	          'Tipo' => '1', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP

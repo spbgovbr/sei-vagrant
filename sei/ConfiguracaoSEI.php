@@ -17,13 +17,23 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	  return array(
 
  	      'SEI' => array(
+ 	      	  // Endereço de acesso à aplicação SEI
  	          'URL' => 'http://localhost/sei',
+
+ 	          // Habilita melhorias de performance casa aplicação esteja em produção
  	          'Producao' => false,
- 	          'RepositorioArquivos' => '/var/sei/arquivos'),
+
+ 	          // Local de armazenamento dos arquivos externos
+ 	          'RepositorioArquivos' => '/var/sei/arquivos',
+
+ 	          // Conjunto de módulos integrados na aplicação. 
+ 	          // Exemplo: 'Modulos' => array('ModuloA' => dirname(__FILE__).'/moduloa')
+ 	          'Modulos' => array(),
+ 	          ),
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
- 	          'NomeSistemaComplemento' => '',
+ 	          'NomeSistemaComplemento' => 'v2.5.1',
  	          'LogoMenu' => ''),
  	       
  	      'SessaoSEI' => array(
@@ -82,7 +92,17 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
  	      'HostWebService' => array(
  	          'Edoc' => array('[Servidor .NET]'),
- 	          'Sip' => array('*')),
+
+ 	          //Referências (IP e nome na rede) da máquina que hospeda o SIP
+ 	          'Sip' => array('*'),
+
+ 	          //Referências (IP e nome na rede) das máquinas de veículos de publicação externos cadastrados no SEI.
+ 	          'Publicacao' => array('*'), 
+
+ 	          //Referências (IP e nome na rede) da máquina que hospeda o formulário de Ouvidoria personalizado. 
+ 	          //Se utilizar o formulário padrão do SEI, então configurar com as máquinas dos nós de aplicação do SEI.
+ 	          'Ouvidoria' => array('*'), 
+ 	          ),
  	       
  	      'InfraMail' => array(
  	          'Tipo' => '1', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
@@ -92,8 +112,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	          'Autenticar' => false, //se true então informar Usuario e Senha
  	          'Usuario' => '',
  	          'Senha' => '',
- 	          'Protegido' => ''),  //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
- 	       
+ 	          'Protegido' => ''),  //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email) 	       
  	  );
  	}
 }

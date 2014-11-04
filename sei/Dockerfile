@@ -1,5 +1,5 @@
 ###########################################################
-# Dockerfile de construção do container WebApp 
+# Dockerfile de construção do container WebApp
 # utilizado pelo SEI e pelo SIP
 #
 # Baseado no CentOS 6.X
@@ -15,7 +15,7 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 # Ref: http://sei.processoeletronico.gov.br/wiki/manual_de_instalacao#<SESSAO DE INSTALAÇÃO DO SEI e SIP>
 
-# Instalação do servidor web Apache 2.2, memcache e demais componentes 
+# Instalação do servidor web Apache 2.2, memcache e demais componentes
 RUN yum -y update httpd-2.2.* mysql-5.1.* memcached openssl curl unzip gcc java-1.7.0-openjdk libxml2 && \
     yum -y install httpd-2.2.* mysql-5.1.* memcached openssl curl unzip gcc java-1.7.0-openjdk libxml2
 
@@ -27,7 +27,7 @@ RUN yum -y update php-* && \
     yum -y install php-5.3.* php-common php-cli php-pear php-bcmath php-gd php-gmp \
 	php-imap php-intl php-ldap php-mbstring php-mysql php-odbc php-pdo php-pecl-apc \
 	php-pspell php-zlib php-snmp php-soap php-xml php-xmlrpc php-zts php-devel \
-	php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop     
+	php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop
 
 # Instalação do componentes UploadProgress
 RUN pecl install uploadprogress && \

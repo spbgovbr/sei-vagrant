@@ -11,55 +11,52 @@ FROM centos:centos6
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
 
-# Atualização do source list do repositório
-# RUN yum update -y && yum upgrade -y
-
 ################## INICIO DA INSTALACAO ######################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 # Ref: http://<WIKI DO PROJETO>#<SESSAO DE INSTALAÇÃO DO MYSQL>
 
 # Instalação do pacote Java JDK 
-RUN yum update -y java-1.7.0-openjdk-devel && \ 
-    yum install -y java-1.7.0-openjdk-devel
+RUN yum update -y java-1.7.0-openjdk && \ 
+    yum install -y java-1.7.0-openjdk
 
 # Instalação dos utilitários utilizados no provisionamento
-RUN yum install -y wget tar curl
+RUN yum install -y wget tar curl which
 
 # Criação de usuário de execução do serviço
-RUN useradd -r -s /bin/bash solr
+RUN useradd solr
 
-# Obtenção do pacote de instalação do Solr 4.9
-RUN wget -q -O /opt/solr-4.9.0.tgz http://archive.apache.org/dist/lucene/solr/4.9.0/solr-4.9.0.tgz
+# Obtenção do pacote de instalação do Solr 4.0
+RUN wget -q -O /opt/solr-4.0.0.tgz http://archive.apache.org/dist/lucene/solr/4.0.0/apache-solr-4.0.0.tgz
 
-# Instalação do Solr
-RUN tar xvz -C /opt -f /opt/solr-4.9.0.tgz && chown -R solr:solr /opt/solr-4.9.0 && rm /opt/solr-4.9.0.tgz
+# Instalação do Apache Solr
+RUN tar xvz -C /opt -f /opt/solr-4.0.0.tgz && mv /opt/apache-solr-4.0.0 /opt/solr && \
+    chown -R solr:solr /opt/solr && rm /opt/solr-4.0.0.tgz
 
 # Configuração dos parâmetros default
-RUN echo "JAVA_OPTIONS='-Dsolr.solr.home=/opt/solr-4.9.0/example/solr $JAVA_OPTIONS'" | tee -a /etc/default/jetty && \
-    echo "JETTY_HOME=/opt/solr-4.9.0/example" | tee -a /etc/default/jetty && \
+RUN echo "JAVA_OPTIONS='-Dsolr.solr.home=/opt/solr/example/solr $JAVA_OPTIONS'" | tee -a /etc/default/jetty && \
+    echo "JETTY_HOME=/opt/solr/example" | tee -a /etc/default/jetty && \
     echo "JETTY_USER=solr" | tee -a /etc/default/jetty
 
 # Configuração do script de inicialização automática
-RUN wget -q -O /etc/init.d/solr http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-distribution/src/main/resources/bin/jetty.sh
-RUN chmod +x /etc/init.d/solr
+RUN wget -q -O /etc/init.d/solr http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-distribution/src/main/resources/bin/jetty.sh && chmod +x /etc/init.d/solr
 
 # Criação dos diretório de armazenamento de índices
 RUN mkdir /var/opt/sei && \
-    mkdir /var/opt/sei/sei-protocolos && ln -s /var/opt/sei/sei-protocolos  /opt/solr-4.9.0/example/solr/ && \
-    mkdir /var/opt/sei/sei-bases-conhecimento && ln -s /var/opt/sei/sei-bases-conhecimento  /opt/solr-4.9.0/example/solr/ && \
-    mkdir /var/opt/sei/sei-publicacoes && ln -s /var/opt/sei/sei-publicacoes /opt/solr-4.9.0/example/solr/
+    mkdir /var/opt/sei/sei-protocolos && ln -s /var/opt/sei/sei-protocolos  /opt/solr/example/solr/ && \
+    mkdir /var/opt/sei/sei-bases-conhecimento && ln -s /var/opt/sei/sei-bases-conhecimento  /opt/solr/example/solr/ && \
+    mkdir /var/opt/sei/sei-publicacoes && ln -s /var/opt/sei/sei-publicacoes /opt/solr/example/solr/
 
 # Copia do conjunto de configurações padrão do Solr 
-RUN cp -R /opt/solr-4.9.0/example/solr/collection1/conf /var/opt/sei/sei-protocolos/ && \
-    cp -R /opt/solr-4.9.0/example/solr/collection1/conf /var/opt/sei/sei-bases-conhecimento/ && \
-    cp -R /opt/solr-4.9.0/example/solr/collection1/conf /var/opt/sei/sei-publicacoes/
+RUN cp -R /opt/solr/example/solr/collection1/conf /var/opt/sei/sei-protocolos/ && \
+    cp -R /opt/solr/example/solr/collection1/conf /var/opt/sei/sei-bases-conhecimento/ && \
+    cp -R /opt/solr/example/solr/collection1/conf /var/opt/sei/sei-publicacoes/
 
 # Removeção dos arquivos schema.xml e solrconfig.xml das cópias
 RUN rm /var/opt/sei/sei-protocolos/conf/schema.xml && \
-    rm /var/opt/sei/sei-bases-conhecimento/conf/schema.xml && \
-    rm /var/opt/sei/sei-publicacoes/conf/schema.xml && \
     rm /var/opt/sei/sei-protocolos/conf/solrconfig.xml && \
+    rm /var/opt/sei/sei-bases-conhecimento/conf/schema.xml && \
     rm /var/opt/sei/sei-bases-conhecimento/conf/solrconfig.xml && \
+    rm /var/opt/sei/sei-publicacoes/conf/schema.xml && \
     rm /var/opt/sei/sei-publicacoes/conf/solrconfig.xml
 
 # Configuração dos índices do SEI
@@ -76,34 +73,44 @@ RUN mkdir /var/opt/sei/sei-protocolos/conteudo && \
     mkdir /var/opt/sei/sei-publicacoes/conteudo
 
 # Configuração dos links a instalação do Solr e o índice Protocolo
-RUN ln -s /opt/solr-4.9.0/contrib/ /var/opt/sei/sei-protocolos/contrib && \
-	ln -s /opt/solr-4.9.0/dist/ /var/opt/sei/sei-protocolos/dist && \
-	ln -s /opt/solr-4.9.0/example/lib/ /var/opt/sei/sei-protocolos/lib
+RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-protocolos/contrib && \
+	ln -s /opt/solr/dist/ /var/opt/sei/sei-protocolos/dist && \
+	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-protocolos/lib
 
 # Configuração dos links a instalação do Solr e o índice Base de Conhecimento
-RUN ln -s /opt/solr-4.9.0/contrib/ /var/opt/sei/sei-bases-conhecimento/contrib && \
-	ln -s /opt/solr-4.9.0/dist/ /var/opt/sei/sei-bases-conhecimento/dist && \
-	ln -s /opt/solr-4.9.0/example/lib/ /var/opt/sei/sei-bases-conhecimento/lib
+RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-bases-conhecimento/contrib && \
+	ln -s /opt/solr/dist/ /var/opt/sei/sei-bases-conhecimento/dist && \
+	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-bases-conhecimento/lib
 
 # Configuração dos links a instalação do Solr e o índice Publicações
-RUN ln -s /opt/solr-4.9.0/contrib/ /var/opt/sei/sei-publicacoes/contrib && \
-	ln -s /opt/solr-4.9.0/dist/ /var/opt/sei/sei-publicacoes/dist && \
-	ln -s /opt/solr-4.9.0/example/lib/ /var/opt/sei/sei-publicacoes/lib
+RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-publicacoes/contrib && \
+	ln -s /opt/solr/dist/ /var/opt/sei/sei-publicacoes/dist && \
+	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-publicacoes/lib
 
 # Configuração de log e permissões de pastas
 RUN mkdir /var/log/solr
-RUN chown solr:solr -R /opt/solr-4.9.0 /var/opt/sei /var/log/solr 
+RUN chown solr:solr -R /opt/solr /var/opt/sei /var/log/solr 
 
-# Construção dos índices do SEI
-RUN service solr start && sleep 6 && \
-	curl http://localhost/solr/admin/cores?action=CREATE&name=seiprotocolos&instanceDir=/var/opt/sei/sei-protocolos&config=sei-protocolosconfig.xml&schema=sei-protocolos-schema.xml&dataDir=/var/opt/sei/sei-protocolos/conteudo && \
-	curl http://localhost/solr/admin/cores?action=CREATE&name=sei-basesconhecimento&instanceDir=/var/opt/sei/sei-bases-conhecimento&config=sei-bases-conhecimentoconfig.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/var/opt/sei/sei-basesconhecimento/conteudo && \
-	curl http://localhost/solr/admin/cores?action=CREATE&name=seipublicacoes&instanceDir=/var/opt/sei/sei-publicacoes&config=sei-publicacoesconfig.xml&schema=sei-publicacoes-schema.xml&dataDir=/var/opt/sei/sei-publicacoes/conteudo
+# Construção dos índices de protocolos do SEI
+RUN service solr start && sleep 20 && \
+	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-protocolos&instanceDir=/var/opt/sei/sei-protocolos&config=sei-protocolos-config.xml&schema=sei-protocolos-schema.xml&dataDir=/var/opt/sei/sei-protocolos/conteudo'
 
-#RUN service solr start && sleep 6 && curl http://localhost/solr/admin/cores?action=RELOAD
+# Construção dos índices da base de conhecimento do SEI
+RUN service solr start && sleep 20 && \    
+	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-bases-conhecimento&instanceDir=/var/opt/sei/sei-bases-conhecimento&config=sei-bases-conhecimento-config.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/var/opt/sei/sei-bases-conhecimento/conteudo'
+
+# Construção dos índices de publicações do SEI
+RUN service solr start && sleep 20 && \    
+	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-publicacoes&instanceDir=/var/opt/sei/sei-publicacoes&config=sei-publicacoes-config.xml&schema=sei-publicacoes-schema.xml&dataDir=/var/opt/sei/sei-publicacoes/conteudo'
+
+# Construção dos índices de publicações do SEI
+RUN service solr start && sleep 20 && \ 
+    curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-protocolos' && \
+    curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-bases-conhecimento' && \
+    curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-publicacoes'
 
 ##################### FIM DA INSTALACAO #####################
-WORKDIR /opt/solr-4.9.0/example
+WORKDIR /opt/solr/example
 
 # Exposição da porta de conexão ao Apache
 EXPOSE 8983

@@ -14,5 +14,4 @@ mkdir /var/www/html/sip/upload && chmod -R 666 /var/www/html/sip/upload
 /etc/init.d/memcached start 2>&1 > /dev/null
 
 # Inicialização do servidor web
-/usr/sbin/httpd -DFOREGROUND 
-
+/usr/sbin/httpd -DFOREGROUND
