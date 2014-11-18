@@ -76,28 +76,28 @@ SCRIPT
     docker.build_image "/mnt/sei/ops/jod", args: "-t 'sei.gov/jod'"
 
     # Provisiona docker containers na máquina virtual
-    # docker run -d --name sei_data -v -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
+    # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
     docker.run "sei_data", image: "centos:centos6", 
       daemonize: true, 
       args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
       cmd: "true"
 
-    # docker run -t -i --name sei_db -p 3306:3306 --rm --volumes-from se, "/mnt_data sei.gov/mysql:latest
+    # docker run -it --name sei_db -p 3306:3306 --rm  sei.gov/mysql:latest
     docker.run "sei_db",  image: "sei.gov/mysql:latest", 
       daemonize: true, 
       args: "-p 3306:3306"
 
-    # docker run -t -i --name sei_solr -p 8983:8983 --rm -v /mnt/sei/src/sei/solr:/mnt/sei/index sei.gov/solr:latest
+    # docker run -it --name sei_solr -p 8983:8983 --rm -v /mnt/sei/src/sei/solr:/mnt/sei/index sei.gov/solr:latest
     docker.run "sei_solr", image: "sei.gov/solr:latest",
       daemonize: true, 
       args: "-p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index"
 
-    # docker run -t -i --name sei_jod -p 8080:8080 --rm sei.gov/jod:latest
+    # docker run -it --name sei_jod -p 8080:8080 --rm sei.gov/jod:latest
     docker.run "sei_jod", image: "sei.gov/jod:latest",
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -t -i --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html sei.gov/sei:latest
+    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html sei.gov/sei:latest
     docker.run "sei_www", image: "sei.gov/sei:latest", 
       daemonize: true, 
       args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data"

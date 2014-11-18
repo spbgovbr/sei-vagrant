@@ -16,8 +16,8 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 # Ref: http://sei.processoeletronico.gov.br/wiki/manual_de_instalacao#<SESSAO DE INSTALAÇÃO DO SEI e SIP>
 
 # Instalação do servidor web Apache 2.2, memcache e demais componentes
-RUN yum -y update httpd-2.2.* mysql-5.1.* memcached openssl curl unzip gcc java-1.7.0-openjdk libxml2 && \
-    yum -y install httpd-2.2.* mysql-5.1.* memcached openssl curl unzip gcc java-1.7.0-openjdk libxml2
+RUN yum -y update httpd-2.2.* mysql-5.1.* memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 && \
+    yum -y install httpd-2.2.* mysql-5.1.* memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2
 
 # Configuração do charset do Apache
 RUN echo "AddDefaultCharset iso-8859-1" | tee -a /etc/httpd/conf/httpd.conf

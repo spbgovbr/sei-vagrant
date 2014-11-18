@@ -33,7 +33,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
- 	          'NomeSistemaComplemento' => 'v2.5.1',
+ 	          'NomeSistemaComplemento' => 'v2.5.2',
  	          'LogoMenu' => ''),
  	       
  	      'SessaoSEI' => array(
@@ -59,6 +59,9 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	      'CacheSEI' => array(
  	          'Servidor' => '127.0.0.1',
  	          'Porta' => '11211'),
+
+              // Endereço do WebService utilizado para busca de cargos e funções externas
+              'RH' => array('CargoFuncao' => ''),
  	       
  	      'JODConverter' => array('Servidor' => 'http://'.getenv("JOD_PORT_8080_TCP_ADDR").':'.getenv("JOD_PORT_8080_TCP_PORT").'/converter/service'),
 

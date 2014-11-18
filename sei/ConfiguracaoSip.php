@@ -24,7 +24,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	       
  	      'PaginaSip' => array(
  	          'NomeSistema' => 'SIP',
- 	          'NomeSistemaComplemento' => 'v2.5.1'),
+ 	          'NomeSistemaComplemento' => 'v2.5.2'),
 
  	      'SessaoSip' => array(
  	          'SiglaOrgaoSistema' => 'ABC',
