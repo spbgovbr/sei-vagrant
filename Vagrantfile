@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "guilhermeadc/centos65"
-  config.vm.box_download_checksum = "1014130dff98564ca18dbf7914c89b46"
+  config.vm.box_download_checksum = "5354836abdc890e57f035020965ea70e"
   config.vm.box_download_checksum_type = "md5"
 
   # Disable automatic box update checking. If you disable this, then
@@ -78,7 +78,7 @@ SCRIPT
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
     docker.run "sei_data", image: "centos:centos6", 
-      daemonize: true, 
+      #daemonize: true, 
       args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
       cmd: "true"
 
