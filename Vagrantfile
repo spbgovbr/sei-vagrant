@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "guilhermeadc/centos65"
-  config.vm.box_download_checksum = "5354836abdc890e57f035020965ea70e"
+  config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   config.vm.box_download_checksum_type = "md5"
 
   # Disable automatic box update checking. If you disable this, then
