@@ -4,10 +4,10 @@
 source_dir: "../sei"
 
 # Localização do dump do banco de dados do SEI (Ps: Sem instrução CREATE DATABASE)
-script_sei: "mysql/sei_2_5_1.sql"
+script_sei: "../sei-db-ref-executivo/sei_2_5_2_BD_Ref_Exec.sql"
 
 # Localização do dump do banco de dados do SIP (Ps: Sem instrução CREATE DATABASE)
-script_sip: "mysql/sip_2_5_1.sql"
+script_sip: "../sei-db-ref-executivo/sip_2_5_2_BD_Ref_Exec.sql"
 
 # Diretório da máquina host para disponibilização dos arquivos externos do SIE
 repositorio_arquivos: "../sei-arquivos"
