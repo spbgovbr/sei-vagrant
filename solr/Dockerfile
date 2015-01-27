@@ -38,7 +38,7 @@ RUN echo "JAVA_OPTIONS='-Dsolr.solr.home=/opt/solr/example/solr $JAVA_OPTIONS'" 
     echo "JETTY_USER=solr" | tee -a /etc/default/jetty
 
 # Configuração do script de inicialização automática
-RUN wget -q -O /etc/init.d/solr http://dev.eclipse.org/svnroot/rt/org.eclipse.jetty/jetty/trunk/jetty-distribution/src/main/resources/bin/jetty.sh && chmod +x /etc/init.d/solr
+RUN wget -q -O /etc/init.d/solr https://raw.githubusercontent.com/eclipse/jetty.project/jetty-7/jetty-distribution/src/main/resources/bin/jetty.sh && chmod +x /etc/init.d/solr
 
 # Criação dos diretório de armazenamento de índices
 RUN mkdir /var/opt/sei && \
