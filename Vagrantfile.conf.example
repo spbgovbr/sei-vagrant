@@ -4,17 +4,10 @@
 source_dir: "../sei-src"
 
 # Localização do dump do banco de dados do SEI (Ps: Sem instrução CREATE DATABASE)
-<<<<<<< HEAD
 script_sei: "../sei-db-ref-executivo/sei_2_5_2_BD_Ref_Exec.sql"
 
 # Localização do dump do banco de dados do SIP (Ps: Sem instrução CREATE DATABASE)
 script_sip: "../sei-db-ref-executivo/sip_2_5_2_BD_Ref_Exec.sql"
-=======
-script_sei: "../sei-db/sei_2_5_1.sql"
-
-# Localização do dump do banco de dados do SIP (Ps: Sem instrução CREATE DATABASE)
-script_sip: "../sei-db/sip_2_5_1.sql"
->>>>>>> 34d72d7624c416dcb645c3cbeb3545c3812700b7
 
 # Diretório da máquina host para disponibilização dos arquivos externos do SIE
 repositorio_arquivos: "../sei-arquivos"
