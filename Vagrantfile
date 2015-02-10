@@ -78,7 +78,6 @@ SCRIPT
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
     docker.run "sei_data", image: "centos:centos6", 
-      #daemonize: true, 
       args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
       cmd: "true"
 
@@ -97,11 +96,15 @@ SCRIPT
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html sei.gov/sei:latest
+    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data sei.gov/sei:latest
     docker.run "sei_www", image: "sei.gov/sei:latest", 
       daemonize: true, 
       args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data"
   end
 
+  # Limpeza de arquivos temporários criados durante o provisionamento do sistema
+  config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
+
+  # Inicialização dos containers em caso de reinicialização da máquina host
   config.vm.provision "shell", run: "always", inline: "docker start sei_data sei_db sei_solr sei_jod sei_www"
 end
