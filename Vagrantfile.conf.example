@@ -1,7 +1,7 @@
 ##### PARAMETROS DE CONSTRUÇÃO DO AMBIENTE DE DESENVOLVIMENTO #####
 
 # Localização dos códigos-fontes do projeto SEI
-source_dir: "../sei-src"
+source_dir: "../sei"
 
 # Localização do dump do banco de dados do SEI (Ps: Sem instrução CREATE DATABASE)
 script_sei: "../sei-db-ref-executivo/sei_2_5_2_BD_Ref_Exec.sql"
