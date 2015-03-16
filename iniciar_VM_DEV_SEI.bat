@@ -1,0 +1,3 @@
+vagrant up
+
+pause
