@@ -1,0 +1,3 @@
+JAVA_OPTIONS='-Dsolr.solr.home=/opt/apache-solr-4.0.0/example/solr $JAVA_OPTIONS'
+JETTY_HOME='/opt/apache-solr-4.0.0/example/'
+JETTY_USER=solr

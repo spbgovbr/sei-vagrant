@@ -13,4 +13,4 @@ script_sip: "../sei-db-ref-executivo/sip_2_5_2_BD_Ref_Exec.sql"
 repositorio_arquivos: "../sei-arquivos"
 
 # Quantidade de memória utilizada pela VM do VirtualBox (em Megabytes)
-memoria_vm: "2048"
+memoria_vm: "1024"

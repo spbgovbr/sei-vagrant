@@ -15,22 +15,18 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 # Ref: http://<WIKI DO PROJETO>#<SESSAO DE INSTALAÇÃO DO MYSQL>
 
-# Instalação do pacote Java JDK 
-RUN yum update -y java-1.7.0-openjdk && \ 
-    yum install -y java-1.7.0-openjdk
-
-# Instalação dos utilitários utilizados no provisionamento
-RUN yum install -y wget tar curl which
+# Instalação do pacote Java JDK e utilitários utilizados no provisionamento
+RUN yum update -y && \ 
+    yum install -y java-1.7.0-openjdk wget tar curl which
 
 # Criação de usuário de execução do serviço
 RUN useradd solr
 
 # Obtenção do pacote de instalação do Solr 4.0
-RUN wget -q -O /opt/solr-4.0.0.tgz http://archive.apache.org/dist/lucene/solr/4.0.0/apache-solr-4.0.0.tgz
+ADD apache-solr-4.0.0.tgz /opt/
 
 # Instalação do Apache Solr
-RUN tar xvz -C /opt -f /opt/solr-4.0.0.tgz && mv /opt/apache-solr-4.0.0 /opt/solr && \
-    chown -R solr:solr /opt/solr && rm /opt/solr-4.0.0.tgz
+RUN mv /opt/apache-solr-4.0.0 /opt/solr && chown -R solr:solr /opt/solr
 
 # Configuração dos parâmetros default
 RUN echo "JAVA_OPTIONS='-Dsolr.solr.home=/opt/solr/example/solr $JAVA_OPTIONS'" | tee -a /etc/default/jetty && \
@@ -74,18 +70,18 @@ RUN mkdir /var/opt/sei/sei-protocolos/conteudo && \
 
 # Configuração dos links a instalação do Solr e o índice Protocolo
 RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-protocolos/contrib && \
-	ln -s /opt/solr/dist/ /var/opt/sei/sei-protocolos/dist && \
-	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-protocolos/lib
+    ln -s /opt/solr/dist/ /var/opt/sei/sei-protocolos/dist && \
+    ln -s /opt/solr/example/lib/ /var/opt/sei/sei-protocolos/lib
 
 # Configuração dos links a instalação do Solr e o índice Base de Conhecimento
 RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-bases-conhecimento/contrib && \
-	ln -s /opt/solr/dist/ /var/opt/sei/sei-bases-conhecimento/dist && \
-	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-bases-conhecimento/lib
+    ln -s /opt/solr/dist/ /var/opt/sei/sei-bases-conhecimento/dist && \
+    ln -s /opt/solr/example/lib/ /var/opt/sei/sei-bases-conhecimento/lib
 
 # Configuração dos links a instalação do Solr e o índice Publicações
 RUN ln -s /opt/solr/contrib/ /var/opt/sei/sei-publicacoes/contrib && \
-	ln -s /opt/solr/dist/ /var/opt/sei/sei-publicacoes/dist && \
-	ln -s /opt/solr/example/lib/ /var/opt/sei/sei-publicacoes/lib
+    ln -s /opt/solr/dist/ /var/opt/sei/sei-publicacoes/dist && \
+    ln -s /opt/solr/example/lib/ /var/opt/sei/sei-publicacoes/lib
 
 # Configuração de log e permissões de pastas
 RUN mkdir /var/log/solr
@@ -93,15 +89,15 @@ RUN chown solr:solr -R /opt/solr /var/opt/sei /var/log/solr
 
 # Construção dos índices de protocolos do SEI
 RUN service solr start && sleep 20 && \
-	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-protocolos&instanceDir=/var/opt/sei/sei-protocolos&config=sei-protocolos-config.xml&schema=sei-protocolos-schema.xml&dataDir=/var/opt/sei/sei-protocolos/conteudo'
+    curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-protocolos&instanceDir=/var/opt/sei/sei-protocolos&config=sei-protocolos-config.xml&schema=sei-protocolos-schema.xml&dataDir=/var/opt/sei/sei-protocolos/conteudo'
 
 # Construção dos índices da base de conhecimento do SEI
 RUN service solr start && sleep 20 && \    
-	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-bases-conhecimento&instanceDir=/var/opt/sei/sei-bases-conhecimento&config=sei-bases-conhecimento-config.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/var/opt/sei/sei-bases-conhecimento/conteudo'
+    curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-bases-conhecimento&instanceDir=/var/opt/sei/sei-bases-conhecimento&config=sei-bases-conhecimento-config.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/var/opt/sei/sei-bases-conhecimento/conteudo'
 
 # Construção dos índices de publicações do SEI
 RUN service solr start && sleep 20 && \    
-	curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-publicacoes&instanceDir=/var/opt/sei/sei-publicacoes&config=sei-publicacoes-config.xml&schema=sei-publicacoes-schema.xml&dataDir=/var/opt/sei/sei-publicacoes/conteudo'
+    curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-publicacoes&instanceDir=/var/opt/sei/sei-publicacoes&config=sei-publicacoes-config.xml&schema=sei-publicacoes-schema.xml&dataDir=/var/opt/sei/sei-publicacoes/conteudo'
 
 # Construção dos índices de publicações do SEI
 RUN service solr start && sleep 20 && \ 

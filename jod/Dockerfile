@@ -27,7 +27,8 @@ RUN yum -y update libreoffice libreoffice-headless && \
     yum install -y libreoffice libreoffice-headless
 
 # Instalação da api de serviços de conversão de documentos
-RUN wget -q -O /opt/jodconverter-tomcat-2.2.2.zip http://sourceforge.net/projects/jodconverter/files/JODConverter/2.2.2/jodconverter-tomcat-2.2.2.zip/download
+ADD jodconverter-tomcat-2.2.2.zip /opt/
+# RUN wget -q -O /opt/jodconverter-tomcat-2.2.2.zip http://sourceforge.net/projects/jodconverter/files/JODConverter/2.2.2/jodconverter-tomcat-2.2.2.zip/download
 RUN unzip /opt/jodconverter-tomcat-2.2.2.zip -d /opt && rm /opt/jodconverter-tomcat-2.2.2.zip
 
 # Script de inicialização dos serviços

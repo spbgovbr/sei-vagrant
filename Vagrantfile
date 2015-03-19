@@ -10,7 +10,7 @@ params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.c
 params_source_dir = params["source_dir"] || "../sei"
 params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/sei_2_5_2_BD_Ref_Exec.sql"
 params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/sip_2_5_2_BD_Ref_Exec.sql"
-params_memoria_vm = params["memoria_vm"] || "2048"
+params_memoria_vm = params["memoria_vm"] || "1024"
 params_repo_arquivos = params["repositorio_arquivos"] || "../sei-arquivos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -22,9 +22,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "sei-vagrant"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "guilhermeadc/centos65"
-  config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
-  config.vm.box_download_checksum_type = "md5"
+  # config.vm.box = "guilhermeadc/centos65"
+  # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
+  # config.vm.box_download_checksum_type = "md5"
+  config.vm.box = "chef/centos-7.0"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -33,10 +34,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
-  config.vm.network :forwarded_port, guest: 80, host: 80      # SIP e SEI (Apache)
-  config.vm.network :forwarded_port, guest: 3306, host: 3306  # Banco de Dados (Mysql)
-  config.vm.network :forwarded_port, guest: 8080,  host: 8080 # Jod Converter (Tomcat)
-  config.vm.network :forwarded_port, guest: 8983,  host: 8983 # Solr Indexer (Jetty)
+  config.vm.network :forwarded_port, guest: 80,   host: 80   # SIP e SEI (Apache)
+  config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
+  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter (Tomcat)
+  config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
 
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
@@ -62,6 +63,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
 SCRIPT
 
+# Atualização da VM de host do docker
+  config.vm.provision "shell", run: "always", inline: "yum -y update && yum -y upgrade"
+
   config.vm.provision "shell", 
     inline: $script_banco_dados, 
     args: [File.basename(params_script_sei), File.basename(params_script_sip)]
@@ -70,10 +74,10 @@ SCRIPT
   config.vm.provision "docker" do |docker|    
     
     # Constrói imagens dos containers utilizados no provicionamento
-    docker.build_image "/mnt/sei/ops/mysql", args: "-t 'sei.gov/mysql'"
-    docker.build_image "/mnt/sei/ops/sei", args: "-t 'sei.gov/sei'"
-    docker.build_image "/mnt/sei/ops/solr", args: "-t 'sei.gov/solr'"
-    docker.build_image "/mnt/sei/ops/jod", args: "-t 'sei.gov/jod'"
+    docker.build_image "/mnt/sei/ops/solr",  args: "-t 'processoeletronico/solr'"
+    docker.build_image "/mnt/sei/ops/mysql", args: "-t 'processoeletronico/mysql'"
+    docker.build_image "/mnt/sei/ops/sei",   args: "-t 'processoeletronico/sei'"
+    docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
 
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
@@ -81,23 +85,23 @@ SCRIPT
       args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
       cmd: "true"
 
-    # docker run -it --name sei_db -p 3306:3306 --rm  sei.gov/mysql:latest
-    docker.run "sei_db",  image: "sei.gov/mysql:latest", 
+    # docker run -it --name sei_db -p 3306:3306 --rm  processoeletronico/mysql:latest
+    docker.run "sei_db",  image: "processoeletronico/mysql:latest", 
       daemonize: true, 
       args: "-p 3306:3306"
 
-    # docker run -it --name sei_solr -p 8983:8983 --rm -v /mnt/sei/src/sei/solr:/mnt/sei/index sei.gov/solr:latest
-    docker.run "sei_solr", image: "sei.gov/solr:latest",
+    # docker run -it --name sei_solr -p 8983:8983 --rm -v /mnt/sei/src/sei/solr:/mnt/sei/index processoeletronico/solr:latest
+    docker.run "sei_solr", image: "processoeletronico/solr:latest",
       daemonize: true, 
       args: "-p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index"
 
-    # docker run -it --name sei_jod -p 8080:8080 --rm sei.gov/jod:latest
-    docker.run "sei_jod", image: "sei.gov/jod:latest",
+    # docker run -it --name sei_jod -p 8080:8080 --rm processoeletronico/jod:latest
+    docker.run "sei_jod", image: "processoeletronico/jod:latest",
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data sei.gov/sei:latest
-    docker.run "sei_www", image: "sei.gov/sei:latest", 
+    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data processoeletronico/sei:latest
+    docker.run "sei_www", image: "processoeletronico/sei:latest", 
       daemonize: true, 
       args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data"
   end
@@ -106,5 +110,5 @@ SCRIPT
   config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker start sei_data sei_db sei_solr sei_jod sei_www"
+  config.vm.provision "shell", run: "always", inline: "docker start sei_db sei_solr sei_jod sei_www"
 end
