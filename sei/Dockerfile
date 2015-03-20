@@ -22,6 +22,9 @@ RUN yum -y update && \
 # Configuração do charset do Apache
 RUN echo "AddDefaultCharset iso-8859-1" | tee -a /etc/httpd/conf/httpd.conf
 
+# Correção do bug do VirtualBox relacionado ao Sendfile. http://docs.vagrantup.com/v2/synced-folders/virtualbox.html
+RUN echo "EnableSendfile Off" | tee -a /etc/httpd/conf/httpd.conf
+
 # Instalação do PHP 5 e demais bibliotecas
 RUN yum -y update && \
     yum -y install php-5.3.* php-common php-cli php-pear php-bcmath php-gd php-gmp \
