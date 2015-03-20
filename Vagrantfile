@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  config.vm.box_check_update = true
+  # config.vm.box_check_update = true
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
@@ -63,8 +63,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
 SCRIPT
 
-# Atualização da VM de host do docker
-  config.vm.provision "shell", run: "always", inline: "yum -y update && yum -y upgrade"
+  # Atualização da VM de host do docker
+  config.vm.provision "shell", inline: "yum -y update"
 
   config.vm.provision "shell", 
     inline: $script_banco_dados, 
