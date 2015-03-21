@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.box = "guilhermeadc/centos65"
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
-  config.vm.box = "chef/centos-7.0"
+  config.vm.box = "hashicorp/precise64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -55,20 +55,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", params_memoria_vm, "--usb", "off", "--audio", "none"]
   end
 
-  $script_banco_dados = <<SCRIPT
-    mkdir -p /mnt/sei/ops/mysql/.tmp/
-    cp /mnt/sei/db_sei/$1 /mnt/sei/ops/mysql/.tmp/sei_mysql.sql
-    cp /mnt/sei/db_sip/$2 /mnt/sei/ops/mysql/.tmp/sip_mysql.sql
-    cp /mnt/sei/ops/sei/ConfiguracaoSEI.php /mnt/sei/src/sei/ConfiguracaoSEI.php
-    cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
+  # Correção da bug do VirtualBox relacionado ao Guest Additions
+  config.vm.provision "shell", inline: <<SCRIPT
+    apt-get update -y
+    apt-get install linux-headers-$(uname -r) dkms
+    /etc/init.d/vboxadd setup
 SCRIPT
 
-  # Atualização da VM de host do docker
-  config.vm.provision "shell", inline: "yum -y update"
-
   config.vm.provision "shell", 
-    inline: $script_banco_dados, 
-    args: [File.basename(params_script_sei), File.basename(params_script_sip)]
+    args: [File.basename(params_script_sei), File.basename(params_script_sip)],
+    inline: <<SCRIPT
+      mkdir -p /mnt/sei/ops/mysql/.tmp/
+      cp /mnt/sei/db_sei/$1 /mnt/sei/ops/mysql/.tmp/sei_mysql.sql
+      cp /mnt/sei/db_sip/$2 /mnt/sei/ops/mysql/.tmp/sip_mysql.sql
+      cp /mnt/sei/ops/sei/ConfiguracaoSEI.php /mnt/sei/src/sei/ConfiguracaoSEI.php
+      cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
+SCRIPT
 
   # Provisionamento da Máquina Virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|    
