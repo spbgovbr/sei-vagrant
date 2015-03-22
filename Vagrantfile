@@ -56,9 +56,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Correção da bug do VirtualBox relacionado ao Guest Additions
-  config.vm.provision "shell", inline: <<SCRIPT
+  config.vm.provision "shell", run: "always", inline: <<SCRIPT
     apt-get update -y
-    apt-get install linux-headers-$(uname -r) dkms
+    apt-get install -y linux-headers-$(uname -r) dkms
     /etc/init.d/vboxadd setup
 SCRIPT
 
