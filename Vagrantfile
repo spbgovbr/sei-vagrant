@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.box = "guilhermeadc/centos65"
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "processoeletronico/centos-6.6"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -55,13 +55,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", params_memoria_vm, "--usb", "off", "--audio", "none"]
   end
 
-  # Correção da bug do VirtualBox relacionado ao Guest Additions
-  config.vm.provision "shell", run: "always", inline: <<SCRIPT
-    apt-get update -y
-    apt-get install -y linux-headers-$(uname -r) dkms
-    /etc/init.d/vboxadd setup
-SCRIPT
-
   config.vm.provision "shell", 
     args: [File.basename(params_script_sei), File.basename(params_script_sip)],
     inline: <<SCRIPT
@@ -87,22 +80,22 @@ SCRIPT
       args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
       cmd: "true"
 
-    # docker run -it --name sei_db -p 3306:3306 --rm  processoeletronico/mysql:latest
+    # docker run -d --name sei_db -p 3306:3306 processoeletronico/mysql:latest
     docker.run "sei_db",  image: "processoeletronico/mysql:latest", 
       daemonize: true, 
       args: "-p 3306:3306"
 
-    # docker run -it --name sei_solr -p 8983:8983 --rm -v /mnt/sei/src/sei/solr:/mnt/sei/index processoeletronico/solr:latest
+    # docker run -d --name sei_solr -p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index processoeletronico/solr:latest
     docker.run "sei_solr", image: "processoeletronico/solr:latest",
       daemonize: true, 
       args: "-p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index"
 
-    # docker run -it --name sei_jod -p 8080:8080 --rm processoeletronico/jod:latest
+    # docker run -d --name sei_jod -p 8080:8080 processoeletronico/jod:latest
     docker.run "sei_jod", image: "processoeletronico/jod:latest",
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -it --name sei_www -p 80:80 --rm --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data processoeletronico/sei:latest
+    # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data processoeletronico/sei:latest
     docker.run "sei_www", image: "processoeletronico/sei:latest", 
       daemonize: true, 
       args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data"
