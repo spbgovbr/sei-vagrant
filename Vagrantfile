@@ -22,7 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = "sei-vagrant"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  # config.vm.box = "guilhermeadc/centos65"
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
   config.vm.box = "processoeletronico/centos-6.6"
