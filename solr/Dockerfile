@@ -12,16 +12,18 @@ FROM centos:centos6
 MAINTAINER PEN - Processo Eletrônico Nacional
 
 ################## INICIO DA INSTALACAO ######################
-# Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
-# Ref: http://<WIKI DO PROJETO>#<SESSAO DE INSTALAÇÃO DO MYSQL>
+# Instalação do Apache Solr seguindo as recomendações descritas na documentação do SEI
+# Ref: https://processoeletronico.gov.br/projects/sei/wiki
 
 # Instalação do pacote Java JDK e utilitários utilizados no provisionamento
 RUN yum update -y && \ 
-    yum install -y java-1.7.0-openjdk wget tar curl which
+    yum install -y java-1.7.0-openjdk wget tar curl which && \
+    yum -y clean all
 
 # Criação de usuário de execução do serviço
 RUN useradd solr
 
+# TODO: Utilizar wget para obter o pacote da web, removendo-o posteriormente para otimizar o tamanho da imagem
 # Obtenção do pacote de instalação do Solr 4.0
 ADD apache-solr-4.0.0.tgz /opt/
 
@@ -34,7 +36,8 @@ RUN echo "JAVA_OPTIONS='-Dsolr.solr.home=/opt/solr/example/solr $JAVA_OPTIONS'" 
     echo "JETTY_USER=solr" | tee -a /etc/default/jetty
 
 # Configuração do script de inicialização automática
-RUN wget -q -O /etc/init.d/solr https://raw.githubusercontent.com/eclipse/jetty.project/jetty-7/jetty-distribution/src/main/resources/bin/jetty.sh && chmod +x /etc/init.d/solr
+RUN wget -q -O /etc/init.d/solr https://raw.githubusercontent.com/eclipse/jetty.project/jetty-7/jetty-distribution/src/main/resources/bin/jetty.sh && \
+    chmod +x /etc/init.d/solr
 
 # Criação dos diretório de armazenamento de índices
 RUN mkdir /var/opt/sei && \

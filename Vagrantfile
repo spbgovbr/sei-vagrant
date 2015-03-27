@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
   config.vm.synced_folder params_source_dir, "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
-  config.vm.synced_folder params_repo_arquivos, "/mnt/sei/arquivos", create: true, mount_options: ["dmode=777", "fmode=777"]
+  #config.vm.synced_folder params_repo_arquivos, "/mnt/sei/arquivos", create: true, mount_options: ["dmode=777", "fmode=777"]
   config.vm.synced_folder File.dirname(params_script_sei), "/mnt/sei/db_sei" 
   config.vm.synced_folder File.dirname(params_script_sip), "/mnt/sei/db_sip" 
 
@@ -75,9 +75,9 @@ SCRIPT
 
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
-    docker.run "sei_data", image: "centos:centos6", 
-      args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
-      cmd: "true"
+    # docker.run "sei_data", image: "centos:centos6", 
+    #   args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
+    #   cmd: "true"
 
     # docker run -d --name sei_db -p 3306:3306 processoeletronico/mysql:latest
     docker.run "sei_db",  image: "processoeletronico/mysql:latest", 
@@ -94,10 +94,10 @@ SCRIPT
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data processoeletronico/sei:latest
+    # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei processoeletronico/sei:latest
     docker.run "sei_www", image: "processoeletronico/sei:latest", 
       daemonize: true, 
-      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei --volumes-from sei_data"
+      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei"
   end
 
   # Limpeza de arquivos temporários criados durante o provisionamento do sistema

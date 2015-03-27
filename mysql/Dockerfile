@@ -11,19 +11,18 @@ FROM centos:centos6
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
 
-# Atualização dos componentes utilizados na instalação
-RUN yum -y update mysql-server-5.* unzip
+################## INICIO DA INSTALACAO ######################
+# Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
+# Ref: https://processoeletronico.gov.br/projects/sei/wiki
+
+# Instalação do MySQL Server 5.X
+RUN yum update -y && \
+    yum install -y mysql-server-5.* && \
+    yum -y clean all
 
 # Cópia dos backups dos bancos de dados do SEI e SIP
 ADD .tmp/sei_mysql.sql /tmp/sei_mysql.sql
 ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
-	
-################## INICIO DA INSTALACAO ######################
-# Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
-# Ref: http://sei.processoeletronico.gov.br/wiki/manual_de_instalacao#<SESSAO DE INSTALAÇÃO DO MYSQL>
-
-# Instalação do MySQL Server 5.X
-RUN yum install -y mysql-server-5.*
 
 # Configuração da estrutura inicial do banco de dados
 RUN mysql_install_db
@@ -44,7 +43,7 @@ RUN service mysqld start && \
 RUN service mysqld start && cd /tmp && \
     mysql sei < sei_mysql.sql && \
     mysql sip < sip_mysql.sql && \
-    rm /tmp/sei_mysql.sql /tmp/sip_mysql.sql
+    rm -f /tmp/sei_mysql.sql /tmp/sip_mysql.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 RUN service mysqld start && \
@@ -61,7 +60,7 @@ RUN service mysqld start && \
 RUN service mysqld start && \
     mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 
-# Alteração das configurações padrões do MySQL
+# Atribuição de permissões de acesso externo para o usuário root, senha root
 RUN service mysqld start && \
     mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
 
