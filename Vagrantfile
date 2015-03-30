@@ -94,10 +94,10 @@ SCRIPT
       daemonize: true, 
       args: "-p 8080:8080"
 
-    # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei processoeletronico/sei:latest
+    # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/var/www/htmlops/sei processoeletronico/sei:latest
     docker.run "sei_www", image: "processoeletronico/sei:latest", 
       daemonize: true, 
-      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html -v /mnt/sei/ops/sei:/mnt/sei/ops/sei"
+      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/var/www/html"
   end
 
   # Limpeza de arquivos temporários criados durante o provisionamento do sistema
