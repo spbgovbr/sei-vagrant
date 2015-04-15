@@ -4,10 +4,10 @@
 source_dir: "../sei"
 
 # Localização do dump do banco de dados do SEI (Ps: Sem instrução CREATE DATABASE)
-script_sei: "../sei-db-ref-executivo/v2.5.2/sei_2_5_2_BD_Ref_Exec.sql"
+script_sei: "../sei-db-ref-executivo/v2.6.0/sei_2_6_0_BD_Ref_Exec.sql"
 
 # Localização do dump do banco de dados do SIP (Ps: Sem instrução CREATE DATABASE)
-script_sip: "../sei-db-ref-executivo/v2.5.2/sip_2_5_2_BD_Ref_Exec.sql"
+script_sip: "../sei-db-ref-executivo/v2.6.0/sip_2_6_0_BD_Ref_Exec.sql"
 
 # Quantidade de memória utilizada pela VM do VirtualBox (em Megabytes)
 memoria_vm: "1024"
