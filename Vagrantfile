@@ -8,8 +8,8 @@ VAGRANTFILE_API_VERSION = "2"
 # Parâmetros de customização do ambiente de desenvolvimento
 params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.conf") else {} end
 params_source_dir = params["source_dir"] || "../sei"
-params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/v2.6.0/sei_2_6_0_BD_Ref_Exec.sql"
-params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/v2.6.0/sip_2_6_0_BD_Ref_Exec.sql"
+params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/sei_2_6_0_BD_Ref_Exec.sql"
+params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/sip_2_6_0_BD_Ref_Exec.sql"
 params_memoria_vm = params["memoria_vm"] || "1024"
 #params_repo_arquivos = params["repositorio_arquivos"] || "../sei-arquivos"
 
