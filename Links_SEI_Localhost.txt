@@ -1,0 +1,21 @@
+Links do SEI Localhost:
+
+Tela de Acesso ao SEI:
+
+	http://localhost/sei
+
+Tela de Acesso de Usuário Externo:
+
+	http://localhost/sei/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
+
+Autenticidade de Documentos:
+
+	http://localhost/sei/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
+	
+Publicações Eletrônicas:
+	
+	http://localhost/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
+
+WSDL de integração do SEI:
+
+	http://localhost/sei/ws/SeiWS.php
