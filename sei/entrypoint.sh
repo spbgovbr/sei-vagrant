@@ -3,8 +3,13 @@
 echo "127.0.0.1 sip_www" | tee -a /etc/hosts
 
 # Atribuição dos parâmetros de configuração do SEI
-cp /opt/sei/ConfiguracaoSEI.php /var/www/html/sei/ConfiguracaoSEI.php
-cp /opt/sip/ConfiguracaoSip.php /var/www/html/sip/ConfiguracaoSip.php
+if [ ! -f /var/www/html/sei/ConfiguracaoSEI.php ]; then
+    cp /opt/sei/ConfiguracaoSEI.php /var/www/html/sei/ConfiguracaoSEI.php
+fi
+
+if [ ! -f /var/www/html/sip/ConfiguracaoSip.php ]; then
+    cp /opt/sei/ConfiguracaoSip.php /var/www/html/sip/ConfiguracaoSip.php
+fi
 
 # Criação do diretório padrão de upload de arquivos
 mkdir /var/www/html/sei/upload && chmod -R 666 /var/www/html/sei/upload
