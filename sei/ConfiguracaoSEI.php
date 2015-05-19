@@ -33,7 +33,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
- 	          'NomeSistemaComplemento' => 'v2.6.0',
+ 	          'NomeSistemaComplemento' => SEI_VERSAO,
  	          'LogoMenu' => ''),
  	       
  	      'SessaoSEI' => array(
