@@ -31,6 +31,9 @@ RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
 
 ##################### FIM DA INSTALACAO #####################
 
+# Definição do terminal a ser utilizado
+ENV TERM xterm
+
 # Exposição da porta de conexão ao Apache
 EXPOSE 8080
 

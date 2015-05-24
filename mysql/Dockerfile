@@ -66,6 +66,9 @@ RUN service mysqld start && \
 
 ##################### FIM DA INSTALACAO #####################
 
+# Definição do terminal a ser utilizado
+ENV TERM xterm
+
 # Exposição da porta de conexão ao MySQL Server
 EXPOSE 3306
 

@@ -109,6 +109,10 @@ RUN service solr start && sleep 20 && \
     curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-publicacoes'
 
 ##################### FIM DA INSTALACAO #####################
+
+# Definição do terminal a ser utilizado
+ENV TERM xterm
+
 WORKDIR /opt/solr/example
 
 # Exposição da porta de conexão ao Apache
