@@ -14,7 +14,7 @@ if [ -f /var/www/html/sip/ConfiguracaoSip.php ]; then
     cp /var/www/html/sip/ConfiguracaoSip.php /var/www/html/sip/ConfiguracaoSip.php~
 fi
 
-cp /opt/sei/ConfiguracaoSip.php /var/www/html/sip/ConfiguracaoSip.php
+cp /opt/sip/ConfiguracaoSip.php /var/www/html/sip/ConfiguracaoSip.php
 
 
 # Criação do diretório padrão de upload de arquivos
