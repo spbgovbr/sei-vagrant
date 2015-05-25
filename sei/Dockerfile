@@ -46,6 +46,7 @@ ADD ConfiguracaoSip.php /opt/sip/ConfiguracaoSip.php
 
 # Copia arquivos necessários para a instalação
 ADD sei.ini /etc/php.d/sei.ini
+ADD sei.conf /etc/httpd/conf.d/sei.conf
 
 RUN mkdir -p /var/sei/arquivos && \
     chmod -R 777 /var/sei/arquivos
