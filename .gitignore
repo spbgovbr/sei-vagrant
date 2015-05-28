@@ -2,3 +2,4 @@
 mysql/.tmp
 Vagrantfile.conf
 *~
+*.swp
