@@ -1,0 +1,3 @@
+Dentro da pasta do diretório de códigos do GIT correspondente, utilizando o cmd, executar o seguinte comando para desativar a verificação de SSL:
+
+	git config --global http.sslVerify false
