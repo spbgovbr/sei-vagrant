@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Testes_SEI" resourceRoot="${projectDir}" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" id="b24eeb34-0f0f-44a6-bd24-c19fe8d2fb63" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SeiBinding" type="wsdl" bindingName="{Sei}SeiBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost/sei/controlador_ws.php?servico=sei" id="ff2fc44a-7af3-42e5-85b9-1b9db7f5151c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost/sei/controlador_ws.php?servico=sei"><con:part><con:url>http://localhost/sei/controlador_ws.php?servico=sei</con:url><con:content><![CDATA[<wsdl:definitions name="SeiWS" targetNamespace="Sei" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="Sei">
+<con:soapui-project activeEnvironment="Default" name="Testes_SEI_Localhost" resourceRoot="${projectDir}" soapui-version="5.1.3" abortOnError="false" runType="SEQUENTIAL" id="b24eeb34-0f0f-44a6-bd24-c19fe8d2fb63" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SeiBinding" type="wsdl" bindingName="{Sei}SeiBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost/sei/controlador_ws.php?servico=sei" id="ff2fc44a-7af3-42e5-85b9-1b9db7f5151c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost/sei/controlador_ws.php?servico=sei"><con:part><con:url>http://localhost/sei/controlador_ws.php?servico=sei</con:url><con:content><![CDATA[<wsdl:definitions name="SeiWS" targetNamespace="Sei" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="Sei">
   <wsdl:types>
     <xsd:schema targetNamespace="Sei">
       <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -621,7 +621,7 @@
          <SiglaSistema xsi:type="xsd:string">TESTES_SOAP-UI</SiglaSistema>
          <IdentificacaoServico xsi:type="xsd:string">Testes_Integracao</IdentificacaoServico>
          <IdUnidade xsi:type="xsd:string"></IdUnidade>
-         <ProtocoloDocumento xsi:type="xsd:string">0001300</ProtocoloDocumento>
+         <ProtocoloDocumento xsi:type="xsd:string">0000001</ProtocoloDocumento>
       </sei:consultarDocumento>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="SeiAction"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="SeiAction" name="consultarProcedimento" bindingOperationName="consultarProcedimento" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="03a19fcb-23fb-48e2-b577-d59fb67e3aba"><con:settings/><con:call name="Consulta Processo" id="4e3ff550-4a4b-4c53-a499-db5ef2e8c425"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/sei/ws/SeiWS.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sei="Sei">
@@ -631,7 +631,7 @@
          <SiglaSistema xsi:type="xsd:string">TESTES_SOAP-UI</SiglaSistema>
          <IdentificacaoServico xsi:type="xsd:string">Testes_Integracao</IdentificacaoServico>
          <IdUnidade xsi:type="xsd:string"></IdUnidade>
-         <ProtocoloProcedimento xsi:type="xsd:string">53557.200001/2014-36</ProtocoloProcedimento>
+         <ProtocoloProcedimento xsi:type="xsd:string">?</ProtocoloProcedimento>
       </sei:consultarProcedimento>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="SeiAction"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="SeiAction" name="disponibilizarBloco" bindingOperationName="disponibilizarBloco" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1bc2683b-84b2-4358-812d-c0175f769297"><con:settings/><con:call name="Request 1" id="67fc55d0-8ac4-4ffb-b78b-a4a3679170a1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost/sei/ws/SeiWS.php</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sei="Sei">
@@ -674,17 +674,17 @@
       <sei:gerarProcedimento soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <SiglaSistema xsi:type="xsd:string">TESTES_SOAP-UI</SiglaSistema>
          <IdentificacaoServico xsi:type="xsd:string">Testes_Integracao</IdentificacaoServico>
-         <IdUnidade xsi:type="xsd:string">110000834</IdUnidade>
+         <IdUnidade xsi:type="xsd:string">110000001</IdUnidade>
          <Procedimento xsi:type="sei:Procedimento">
             <!--You may enter the following 6 items in any order-->
-            <IdTipoProcedimento xsi:type="xsd:string">100000783</IdTipoProcedimento>
+            <IdTipoProcedimento xsi:type="xsd:string">100000381</IdTipoProcedimento>
             <!--Optional:-->
             <Especificacao xsi:type="xsd:string">Testes do SOAP-UI para integração</Especificacao>
             <Assuntos xsi:type="sei:ArrayOfAssunto" soapenc:arrayType="sei:Assunto[]"/>
             <Interessados xsi:type="sei:ArrayOfInteressado" soapenc:arrayType="sei:Interessado[]">
 			<Interessado>
             		<Sigla xsi:type="xsd:string"></Sigla>
-            		<Nome xsi:type="xsd:string">Nome Interessado criado 2</Nome>
+            		<Nome xsi:type="xsd:string">Usuario de Teste de Integração</Nome>
             	</Interessado>
             </Interessados>
             <Observacao xsi:type="xsd:string">Processo iniciado por meio de integração de testes utilizando SOAP-UI</Observacao>
@@ -701,24 +701,24 @@
       <sei:incluirDocumento soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <SiglaSistema xsi:type="xsd:string">TESTES_SOAP-UI</SiglaSistema>
          <IdentificacaoServico xsi:type="xsd:string">Testes_Integracao</IdentificacaoServico>
-         <IdUnidade xsi:type="xsd:string">110000834</IdUnidade>
+         <IdUnidade xsi:type="xsd:string">110000001</IdUnidade>
          <Documento xsi:type="sei:Documento">
             <!--You may enter the following 13 items in any order-->
             <Tipo xsi:type="xsd:string">R</Tipo>
-            <IdProcedimento xsi:type="xsd:string">6779</IdProcedimento>
-            <IdSerie xsi:type="xsd:string">113</IdSerie>
-            <Numero xsi:type="xsd:string">do Usuário do SEI</Numero>
-            <Data xsi:type="xsd:string">16/07/2013</Data>
+            <IdProcedimento xsi:type="xsd:string">5</IdProcedimento>
+            <IdSerie xsi:type="xsd:string">80</IdSerie>
+            <Numero xsi:type="xsd:string">do Cidadão</Numero>
+            <Data xsi:type="xsd:string">16/07/2015</Data>
             <Descricao xsi:type="xsd:string"></Descricao>
             <Remetente xsi:type="sei:Remetente">
                <!--You may enter the following 2 items in any order-->
                <Sigla xsi:type="xsd:string"></Sigla>
-               <Nome xsi:type="xsd:string">Nei Jobson da Costa Carneiro</Nome>
+               <Nome xsi:type="xsd:string">Usuario de Teste de Integração</Nome>
             </Remetente>
             <Interessados xsi:type="sei:ArrayOfInteressado" soapenc:arrayType="sei:Interessado[]">
 			<Interessado>
-            		<Sigla xsi:type="xsd:string">marialucia</Sigla>
-            		<Nome xsi:type="xsd:string"></Nome>
+            		<Sigla xsi:type="xsd:string"></Sigla>
+            		<Nome xsi:type="xsd:string">Usuario de Teste de Integração</Nome>
             	</Interessado>
             </Interessados>
             <Destinatarios xsi:type="sei:ArrayOfDestinatario" soapenc:arrayType="sei:Destinatario[]"/>
@@ -735,19 +735,19 @@
       <sei:incluirDocumento soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <SiglaSistema xsi:type="xsd:string">TESTES_SOAP-UI</SiglaSistema>
          <IdentificacaoServico xsi:type="xsd:string">Testes_Integracao</IdentificacaoServico>
-         <IdUnidade xsi:type="xsd:string">110000834</IdUnidade>
+         <IdUnidade xsi:type="xsd:string">110000001</IdUnidade>
          <Documento xsi:type="sei:Documento">
             <!--You may enter the following 13 items in any order-->
             <Tipo xsi:type="xsd:string">G</Tipo>
-            <IdProcedimento xsi:type="xsd:string">4048</IdProcedimento>
-            <IdSerie xsi:type="xsd:string">3</IdSerie>
+            <IdProcedimento xsi:type="xsd:string">5</IdProcedimento>
+            <IdSerie xsi:type="xsd:string">5</IdSerie>
             <Numero xsi:type="xsd:string"></Numero>
             <Data xsi:type="xsd:string"></Data>
             <Descricao xsi:type="xsd:string">Teste Descrição para Documento Interno</Descricao>
             <Interessados xsi:type="sei:ArrayOfInteressado" soapenc:arrayType="sei:Interessado[]">
 			<Interessado>
-            		<Sigla xsi:type="xsd:string">neijobson</Sigla>
-            		<Nome xsi:type="xsd:string"></Nome>
+            		<Sigla xsi:type="xsd:string"></Sigla>
+            		<Nome xsi:type="xsd:string">Usuario de Teste de Integração</Nome>
             	</Interessado>
             </Interessados>
             <Destinatarios xsi:type="sei:ArrayOfDestinatario" soapenc:arrayType="sei:Destinatario[]"/>
