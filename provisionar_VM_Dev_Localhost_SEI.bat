@@ -1,3 +1,3 @@
-vagrant init processoeletronico/sei-2.5.2
+vagrant init processoeletronico/sei-2.6.0
 
 pause
