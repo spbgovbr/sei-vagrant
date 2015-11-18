@@ -1,4 +1,5 @@
-#Ambiente de Desenvolvimento - Vagrant
+
+# Ambiente de Desenvolvimento - Vagrant
 
 O objetivo dessa documentação é descrever os procedimentos para preparar um ambiente de desenvolvimento ou testes do SEI de forma rápida e padronizada através do Vagrant. Essa ferramenta permite que seja provisionado automaticamente todo um ambiente funcional na máquina de trabalho do desenvolvedor, sem que seja necessário a instalação de servidores de aplicação e banco de dados pelo mesmo. Outra vantagem é que esse ambiente é completamente provisionado utilizando máquinas virtuais, necessitando que o desenvolvedor apenas configure sua IDE ou editor de texto preferido.
 
@@ -52,7 +53,7 @@ O VirtualBox Extensions é instalado dentro do VirtualBox, acessando o menu File
 Feito a instalação dos pré-requisitos, siga os passos abaixo para ativar o ambiente virtual do SEI:
  
 
-##CONFIGURAÇÃO DO AMBIENTE
+## CONFIGURAÇÃO DO AMBIENTE
 
 ### 1) Via prompt de comandos, navegue até o diretório onde está contido os códigos-fontes do SEI.
 
@@ -123,7 +124,7 @@ O JOD Converter também estará disponível para testes e poderá ser acesso pel
 
  
 
-##INFORMAÇÕES ADICIONAIS
+## INFORMAÇÕES ADICIONAIS
 
 A operação do ambiente de desenvolvimento virtualizado pelo vagrant poderá ser feito de 2 formas:
 
