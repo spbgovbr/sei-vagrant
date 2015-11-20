@@ -1,4 +1,4 @@
-# -*- mode: ruby -*-
+﻿# -*- mode: ruby -*-
 # vi: set ft=ruby :
 require "yaml"
  
@@ -10,7 +10,7 @@ params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.c
 params_source_dir = params["source_dir"] || "../sei"
 params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/sei_2_6_0_BD_Ref_Exec.sql"
 params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/sip_2_6_0_BD_Ref_Exec.sql"
-params_memoria_vm = params["memoria_vm"] || "1024"
+params_memoria_vm = params["memoria_vm"] || "2048"
 #params_repo_arquivos = params["repositorio_arquivos"] || "../sei-arquivos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -69,9 +69,9 @@ SCRIPT
     
     # Constrói imagens dos containers utilizados no provicionamento
     docker.build_image "/mnt/sei/ops/solr",  args: "-t 'processoeletronico/solr'"
+    docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
     docker.build_image "/mnt/sei/ops/mysql", args: "-t 'processoeletronico/mysql'"
     docker.build_image "/mnt/sei/ops/sei",   args: "-t 'processoeletronico/sei'"
-    docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
 
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
@@ -104,5 +104,5 @@ SCRIPT
   config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker start sei_db sei_solr sei_jod sei_www"
+  config.vm.provision "shell", run: "always", inline: "docker start sei_db sei_www sei_jod sei_solr"
 end
