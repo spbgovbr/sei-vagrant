@@ -58,11 +58,11 @@ mkdir /var/www/html/sip/upload && chmod -R 666 /var/www/html/sip/upload
 chmod +x /var/www/html/sei/ferramentas/wkhtmltopdf-amd64
 
 # Inicialização do serviço de cache
-service memcached start
+/etc/init.d/memcached start
 
 # Inicialização das rotinas de agendamento
-service rsyslog start 
-service crond start 
+/etc/init.d/rsyslog start 
+/etc/init.d/crond start 
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND
