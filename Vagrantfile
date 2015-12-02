@@ -24,7 +24,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
-  config.vm.box = "processoeletronico/centos-6.6"
+  config.vm.box = "minimum/centos-7-docker"
+  #config.vm.box = "centos/7"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -41,7 +42,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
   config.vm.synced_folder params_source_dir, "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
-  #config.vm.synced_folder params_repo_arquivos, "/mnt/sei/arquivos", create: true, mount_options: ["dmode=777", "fmode=777"]
   config.vm.synced_folder File.dirname(params_script_sei), "/mnt/sei/db_sei" 
   config.vm.synced_folder File.dirname(params_script_sip), "/mnt/sei/db_sip" 
 
@@ -104,5 +104,6 @@ SCRIPT
   config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker start sei_db sei_solr sei_jod sei_www"
+  # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
+  config.vm.provision "shell", run: "always", inline: "docker restart sei_solr && docker restart sei_jod && docker restart sei_db && docker restart sei_www"
 end

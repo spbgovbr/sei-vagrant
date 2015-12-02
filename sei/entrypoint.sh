@@ -3,20 +3,20 @@
 echo "127.0.0.1 sip_www" | tee -a /etc/hosts
 
 # Configura localização das aplicações SEI e SIP
-ln -s /mnt/sei/src/sei /var/www/html/sei
-ln -s /mnt/sei/src/sip /var/www/html/sip
+ln -s /mnt/sei/src/sei /var/www/html/
+ln -s /mnt/sei/src/sip /var/www/html/
 
 # Configura localização correta da infra_php
 if [ -d /mnt/sei/src/infra/infra_php ]; then dir_infra_php="/mnt/sei/src/infra/infra_php"; else dir_infra_php="/mnt/sei/src/infra_php"; fi
-ln -sf $dir_infra_php /var/www/html/infra_php
+ln -sf $dir_infra_php /var/www/html/
 
 # Configura localização correta da infra_js
 if [ -d /mnt/sei/src/infra/infra_js ]; then dir_infra_js="/mnt/sei/src/infra/infra_js"; else dir_infra_js="/mnt/sei/src/infra_js"; fi
-ln -sf $dir_infra_js /var/www/html/infra_js
+ln -sf $dir_infra_js /var/www/html/
 
 # Configura localização correta da infra_css
 if [ -d /mnt/sei/src/infra/infra_css ]; then dir_infra_css="/mnt/sei/src/infra/infra_css"; else dir_infra_css="/mnt/sei/src/infra_css"; fi
-ln -sf $dir_infra_css /var/www/html/infra_css
+ln -sf $dir_infra_css /var/www/html/
 
 # Atribuição dos parâmetros de configuração do SEI
 if [ -f /var/www/html/sei/ConfiguracaoSEI.php ] && [ ! -f /var/www/html/sei/ConfiguracaoSEI.php~ ]; then
@@ -58,11 +58,11 @@ mkdir /var/www/html/sip/upload && chmod -R 666 /var/www/html/sip/upload
 chmod +x /var/www/html/sei/ferramentas/wkhtmltopdf-amd64
 
 # Inicialização do serviço de cache
-service memcached start
+/etc/init.d/memcached start
 
 # Inicialização das rotinas de agendamento
-service rsyslog start 
-service crond start 
+/etc/init.d/rsyslog start 
+/etc/init.d/crond start 
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND

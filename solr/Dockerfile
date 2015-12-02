@@ -23,7 +23,6 @@ RUN yum update -y && \
 # Criação de usuário de execução do serviço
 RUN useradd solr
 
-# TODO: Utilizar wget para obter o pacote da web, removendo-o posteriormente para otimizar o tamanho da imagem
 # Obtenção do pacote de instalação do Solr 4.0
 ADD apache-solr-4.0.0.tgz /opt/
 
@@ -91,19 +90,19 @@ RUN mkdir /var/log/solr
 RUN chown solr:solr -R /opt/solr /var/opt/sei /var/log/solr 
 
 # Construção dos índices de protocolos do SEI
-RUN service solr start && sleep 20 && \
+RUN /etc/init.d/solr start && sleep 20 && \
     curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-protocolos&instanceDir=/var/opt/sei/sei-protocolos&config=sei-protocolos-config.xml&schema=sei-protocolos-schema.xml&dataDir=/var/opt/sei/sei-protocolos/conteudo'
 
 # Construção dos índices da base de conhecimento do SEI
-RUN service solr start && sleep 20 && \    
+RUN /etc/init.d/solr start && sleep 20 && \    
     curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-bases-conhecimento&instanceDir=/var/opt/sei/sei-bases-conhecimento&config=sei-bases-conhecimento-config.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/var/opt/sei/sei-bases-conhecimento/conteudo'
 
 # Construção dos índices de publicações do SEI
-RUN service solr start && sleep 20 && \    
+RUN /etc/init.d/solr start && sleep 20 && \    
     curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-publicacoes&instanceDir=/var/opt/sei/sei-publicacoes&config=sei-publicacoes-config.xml&schema=sei-publicacoes-schema.xml&dataDir=/var/opt/sei/sei-publicacoes/conteudo'
 
 # Construção dos índices de publicações do SEI
-RUN service solr start && sleep 20 && \ 
+RUN /etc/init.d/solr start && sleep 20 && \ 
     curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-protocolos' && \
     curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-bases-conhecimento' && \
     curl 'http://localhost:8983/solr/admin/cores?action=RELOAD&core=sei-publicacoes'

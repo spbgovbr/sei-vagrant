@@ -24,11 +24,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	       
  	      'PaginaSip' => array(
  	          'NomeSistema' => 'SIP',
-<<<<<<< HEAD
  	          'NomeSistemaComplemento' => SIP_VERSAO),
-=======
- 	          'NomeSistemaComplemento' => 'Localhost'),
->>>>>>> c799bdce223d03a069cd8c6b84606ecd4db6a70c
 
  	      'SessaoSip' => array(
  	          'SiglaOrgaoSistema' => 'ABC',

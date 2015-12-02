@@ -33,11 +33,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
-<<<<<<< HEAD
  	          'NomeSistemaComplemento' => SEI_VERSAO,
-=======
- 	          'NomeSistemaComplemento' => 'Localhost',
->>>>>>> c799bdce223d03a069cd8c6b84606ecd4db6a70c
  	          'LogoMenu' => ''),
  	       
  	      'SessaoSEI' => array(

@@ -28,40 +28,40 @@ ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
 RUN mysql_install_db
 
 # Criação dos bancos de dados do sistema
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysqladmin create sip && \
     mysqladmin create sei
 
 # Criação dos usuários utilizados na conexão com SEI e SIP 
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysql -e "CREATE USER 'sip_user'@'%' IDENTIFIED BY 'sip_user'" sip && \
     mysql -e "CREATE USER 'sei_user'@'%' IDENTIFIED BY 'sei_user'" sei && \
     mysql -e "GRANT ALL PRIVILEGES ON sip.* TO 'sip_user'@'%'" sip && \
     mysql -e "GRANT ALL PRIVILEGES ON sei.* TO 'sei_user'@'%'" sei 
 
 # Restauração dos bancos de dados
-RUN service mysqld start && cd /tmp && \
+RUN /etc/init.d/mysqld start && cd /tmp && \
     mysql sei < sei_mysql.sql && \
     mysql sip < sip_mysql.sql && \
     rm -f /tmp/sei_mysql.sql /tmp/sip_mysql.sql
 
 # Atualização dos parâmetros do SEI e do SIP
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip && \
     mysql -e "update sistema set pagina_inicial='http://localhost/sip' where sigla='SIP';" sip && \ 
     mysql -e "update sistema set pagina_inicial='http://localhost/sei/inicializar.php', web_service='http://localhost/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip && \
     mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sei
 
 # Temp: Remove registros de auditoria presentes na base de referência
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysql -e "delete from auditoria_protocolo;" sei
 
 # Configuração para utilizar autenticação nativa do SEI/SIP
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 
 # Atribuição de permissões de acesso externo para o usuário root, senha root
-RUN service mysqld start && \
+RUN /etc/init.d/mysqld start && \
     mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
 
 ##################### FIM DA INSTALACAO #####################
