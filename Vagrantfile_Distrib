@@ -11,8 +11,8 @@ Vagrant.configure(2) do |config|
   config.vm.box = "processoeletronico/sei-2.5.2"
 
   # Usuários ssh de acesso à máquina virtual
-  # config.ssh.username = "vagrant"
-  # config.ssh.password = "vagrant"
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
 
   # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
   config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
