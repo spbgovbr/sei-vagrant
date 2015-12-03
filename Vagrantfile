@@ -24,8 +24,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
-  config.vm.box = "minimum/centos-7-docker"
-  #config.vm.box = "centos/7"
+  # config.vm.box = "minimum/centos-7-docker"
+  # config.vm.box = "centos/7"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
