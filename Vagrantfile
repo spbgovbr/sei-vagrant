@@ -106,5 +106,5 @@ SCRIPT
   config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker restart sei_solr sei_jod sei_db sei_www"
+  config.vm.provision "shell", run: "always", inline: "docker restart sei_solr && docker restart sei_jod && docker restart sei_db && docker restart sei_www"
 end

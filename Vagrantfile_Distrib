@@ -25,5 +25,5 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker start sei_db sei_solr sei_jod sei_www"
+  config.vm.provision "shell", run: "always", inline: "docker restart sei_solr && docker restart sei_jod && docker restart sei_db && docker restart sei_www"
 end
