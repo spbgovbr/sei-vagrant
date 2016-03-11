@@ -1,4 +1,4 @@
-﻿# -*- mode: ruby -*-
+# -*- mode: ruby -*-
 # vi: set ft=ruby :
 require "yaml"
  
@@ -10,7 +10,7 @@ params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.c
 params_source_dir = params["source_dir"] || "../sei"
 params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/sei_2_6_0_BD_Ref_Exec.sql"
 params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/sip_2_6_0_BD_Ref_Exec.sql"
-params_memoria_vm = params["memoria_vm"] || "2048"
+params_memoria_vm = params["memoria_vm"] || "1024"
 #params_repo_arquivos = params["repositorio_arquivos"] || "../sei-arquivos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -24,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # config.vm.box_download_checksum = "76a2a61de2d89f6cfd4d795e57cc4406"
   # config.vm.box_download_checksum_type = "md5"
-  # config.vm.box = "processoeletronico/centos-6.6"
+  # config.vm.box = "minimum/centos-7-docker"
   # config.vm.box = "centos/7"
   config.vm.box = "ubuntu/trusty64"
 
@@ -43,7 +43,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
   config.vm.synced_folder params_source_dir, "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
-  #config.vm.synced_folder params_repo_arquivos, "/mnt/sei/arquivos", create: true, mount_options: ["dmode=777", "fmode=777"]
   config.vm.synced_folder File.dirname(params_script_sei), "/mnt/sei/db_sei" 
   config.vm.synced_folder File.dirname(params_script_sip), "/mnt/sei/db_sip" 
 
@@ -71,9 +70,9 @@ SCRIPT
     
     # Constrói imagens dos containers utilizados no provicionamento
     docker.build_image "/mnt/sei/ops/solr",  args: "-t 'processoeletronico/solr'"
-    docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
     docker.build_image "/mnt/sei/ops/mysql", args: "-t 'processoeletronico/mysql'"
     docker.build_image "/mnt/sei/ops/sei",   args: "-t 'processoeletronico/sei'"
+    docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
 
     # Provisiona docker containers na máquina virtual
     # docker run -it --name sei_data -v /mnt/sei/arquivos:/var/sei/arquivos centos:centos6 true
@@ -106,5 +105,6 @@ SCRIPT
   config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
+  # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
   config.vm.provision "shell", run: "always", inline: "docker restart sei_solr && docker restart sei_jod && docker restart sei_db && docker restart sei_www"
 end

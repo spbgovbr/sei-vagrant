@@ -23,7 +23,6 @@ RUN yum update -y && \
 # Criação de usuário de execução do serviço
 RUN useradd solr
 
-# TODO: Utilizar wget para obter o pacote da web, removendo-o posteriormente para otimizar o tamanho da imagem
 # Obtenção do pacote de instalação do Solr 4.0
 ADD apache-solr-4.0.0.tgz /opt/
 
