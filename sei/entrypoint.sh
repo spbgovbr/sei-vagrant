@@ -37,8 +37,11 @@ if [ ! -f /var/www/html/sip/ConfiguracaoSip.php ]; then
 fi
 
 # Criação do diretório padrão de upload de arquivos
-mkdir /var/www/html/sei/upload && chmod -R 666 /var/www/html/sei/upload
-mkdir /var/www/html/sip/upload && chmod -R 666 /var/www/html/sip/upload
+mkdir /var/www/html/sei/upload && \
+mkdir /var/www/html/sip/upload && \
+chmod -R 777 /var/www/html/sei/upload && \
+chmod -R 777 /var/www/html/sip/upload
+chmod -R 777 /var/sei/arquivos
 
 # Permissão de execução para utilitário de conversão de PDFs
 chmod +x /var/www/html/sei/ferramentas/wkhtmltopdf-amd64
@@ -49,6 +52,10 @@ chmod +x /var/www/html/sei/ferramentas/wkhtmltopdf-amd64
 # Inicialização das rotinas de agendamento
 /etc/init.d/rsyslog start 
 /etc/init.d/crond start 
+
+# Inicialização do Gearman e Supervisor, componentes para integração com Processo Eletrônico Nacional
+/etc/init.d/gearmand start 
+/etc/init.d/supervisord start
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND
