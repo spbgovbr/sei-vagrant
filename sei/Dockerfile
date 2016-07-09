@@ -21,7 +21,7 @@ RUN yum install -y epel-release && \
     yum -y install httpd-2.2.* mysql-5.1.* memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 dos2unix crontabs \
     php-5.3.* php-common php-cli php-pear php-bcmath php-gd php-gmp php-imap php-intl php-ldap php-mbstring php-mysql \ 
     php-odbc php-pdo php-pecl-apc php-pspell php-zlib php-snmp php-soap php-xml php-xmlrpc php-zts php-devel \
-    php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop \
+    php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop php-intl \
     php-mcrypt php-pecl-xdebug \
     supervisor gearmand libgearman libgearman-devel php-pecl-gearman && \
     yum -y clean all
