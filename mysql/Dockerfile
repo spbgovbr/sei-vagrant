@@ -21,8 +21,11 @@ RUN yum update -y && \
     yum -y clean all
 
 # Cópia dos backups dos bancos de dados do SEI e SIP
-ADD .tmp/sei_mysql.sql /tmp/sei_mysql.sql
-ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
+#ADD .tmp/sei_mysql.sql /tmp/sei_mysql.sql
+#ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
+ADD sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
+ADD sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
+
 
 # Configuração da estrutura inicial do banco de dados
 RUN mysql_install_db

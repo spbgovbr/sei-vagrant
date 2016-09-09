@@ -1,0 +1,3 @@
+[submodule "mysql/sei-db-ref-executivo"]
+	path = mysql/sei-db-ref-executivo
+	url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git

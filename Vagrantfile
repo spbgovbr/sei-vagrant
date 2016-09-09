@@ -8,10 +8,9 @@ VAGRANTFILE_API_VERSION = "2"
 # Parâmetros de customização do ambiente de desenvolvimento
 params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.conf") else {} end
 params_source_dir = params["source_dir"] || "../sei"
-params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql"
-params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql"
+#params_script_sei = params["script_sei"] || "../sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql"
+#params_script_sip = params["script_sip"] || "../sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql"
 params_memoria_vm = params["memoria_vm"] || "1024"
-#params_repo_arquivos = params["repositorio_arquivos"] || "../sei-arquivos"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -43,8 +42,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
   config.vm.synced_folder params_source_dir, "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
-  config.vm.synced_folder File.dirname(params_script_sei), "/mnt/sei/db_sei" 
-  config.vm.synced_folder File.dirname(params_script_sip), "/mnt/sei/db_sip" 
+ # config.vm.synced_folder File.dirname(params_script_sei), "/mnt/sei/db_sei" 
+ # config.vm.synced_folder File.dirname(params_script_sip), "/mnt/sei/db_sip" 
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -56,11 +55,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", 
-    args: [File.basename(params_script_sei), File.basename(params_script_sip)],
+    #args: [File.basename(params_script_sei), File.basename(params_script_sip)],
     inline: <<SCRIPT
       mkdir -p /mnt/sei/ops/mysql/.tmp/
-      cp /mnt/sei/db_sei/$1 /mnt/sei/ops/mysql/.tmp/sei_mysql.sql
-      cp /mnt/sei/db_sip/$2 /mnt/sei/ops/mysql/.tmp/sip_mysql.sql
+      #cp /mnt/sei/db_sei/$1 /mnt/sei/ops/mysql/.tmp/sei_mysql.sql
+      #cp /mnt/sei/db_sip/$2 /mnt/sei/ops/mysql/.tmp/sip_mysql.sql
       cp /mnt/sei/ops/sei/ConfiguracaoSEI.php /mnt/sei/src/sei/ConfiguracaoSEI.php
       cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
 SCRIPT
@@ -102,7 +101,7 @@ SCRIPT
   end
 
   # Limpeza de arquivos temporários criados durante o provisionamento do sistema
-  config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
+  # config.vm.provision "shell", inline: "rm -rf /mnt/sei/ops/mysql/.tmp"
 
   # Inicialização dos containers em caso de reinicialização da máquina host
   # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
