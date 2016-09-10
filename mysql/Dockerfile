@@ -25,7 +25,7 @@ RUN yum update -y && \
 #ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
 ADD sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
 ADD sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
-
+ADD my.cnf /etc/my.cnf
 
 # Configuração da estrutura inicial do banco de dados
 RUN mysql_install_db
