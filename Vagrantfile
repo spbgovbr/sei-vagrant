@@ -79,6 +79,10 @@ SCRIPT
     #   args: "-v /mnt/sei/arquivos:/var/sei/arquivos",
     #   cmd: "true"
 
+    docker.run "sei_smtp", image: "munkyboy/fakesmtp",
+      daemonize: true,
+      args: "-p 2525:25"
+
     # docker run -d --name sei_db -p 3306:3306 processoeletronico/mysql:latest
     docker.run "sei_db",  image: "processoeletronico/mysql:latest", 
       daemonize: true, 
@@ -97,7 +101,7 @@ SCRIPT
     # docker run -d --name sei_www -p 80:80 --link sei_solr:solr --link sei_db:db --link sei_jod:jod -v /mnt/sei/src:/mnt/sei/src  processoeletronico/sei:latest
     docker.run "sei_www", image: "processoeletronico/sei:latest", 
       daemonize: true, 
-      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod -v /mnt/sei/src:/mnt/sei/src"
+      args: "-p 80:80 --link sei_db:db --link sei_solr:solr --link sei_jod:jod --link sei_smtp:smtp -v /mnt/sei/src:/mnt/sei/src"
   end
 
   # Limpeza de arquivos temporários criados durante o provisionamento do sistema
