@@ -109,8 +109,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	       
  	      'InfraMail' => array(
  	          'Tipo' => '2', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
- 	          'Servidor' => getenv("JOD_PORT_8080_TCP_ADDR"),
- 	          'Porta' => getenv("JOD_PORT_8080_TCP_PORT"),
+ 	          'Servidor' => getenv("SMTP_PORT_1025_TCP_ADDR"),
+ 	          'Porta' => getenv("SMTP_PORT_1025_TCP_PORT"),
  	          'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
  	          'Autenticar' => false, //se true então informar Usuario e Senha
  	          'Usuario' => '',
