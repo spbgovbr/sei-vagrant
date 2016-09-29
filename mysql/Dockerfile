@@ -13,16 +13,18 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 
 ################## INICIO DA INSTALACAO ######################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
-# Ref: https://processoeletronico.gov.br/projects/sei/wiki
+
+# Instalar o yum repo rpm package
+RUN yum install -y wget && \
+    wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm && \
+    rpm -ivh mysql-community-release-el6-5.noarch.rpm
 
 # Instalação do MySQL Server 5.X
 RUN yum update -y && \
-    yum install -y mysql-server-5.* && \
+    yum install -y mysql-server && \
     yum -y clean all
 
 # Cópia dos backups dos bancos de dados do SEI e SIP
-#ADD .tmp/sei_mysql.sql /tmp/sei_mysql.sql
-#ADD .tmp/sip_mysql.sql /tmp/sip_mysql.sql
 ADD sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
 ADD sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
 ADD my.cnf /etc/my.cnf
@@ -76,4 +78,4 @@ ENV TERM xterm
 EXPOSE 3306
 
 # Inicialização do serviço 
-CMD ["/usr/bin/mysqld_safe", "--bind-address=0.0.0.0"]
+CMD ["/usr/bin/mysqld", "--bind-address=0.0.0.0"]
