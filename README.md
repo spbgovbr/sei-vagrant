@@ -12,7 +12,7 @@ Outra fator importante de ser feito, antes do início dos trabalhos de desenvolv
 
 Voltando para à configuração do ambiente de desenvolvimento, as tecnologias utilizadas nesse trabalho foram as listadas abaixo. Sugerimos uma breve leitura de suas documentações para melhor entendimento.
 
-* Virtual Box - https://www.virtualbox.org/
+* VirtualBox - https://www.virtualbox.org/
 * Vagrant - https://www.vagrantup.com/
 * Git - https://git-scm.com/
 
@@ -33,9 +33,9 @@ O Vagrant trabalha com o conceito de Box, basicamente uma "imagem/iso" para se c
 
 Para configurar o ambiente, será necessário a instalação dos seguintes pré-requisitos:
 
-* **VirtualBox** Download: https://www.virtualbox.org/wiki/Download_Old_Builds_4_3
+* **VirtualBox** Download: https://www.virtualbox.org/wiki/Downloads
 
-* **VirtualBox Extensions** Download: http://download.virtualbox.org/virtualbox/4.3.30/Oracle_VM_VirtualBox_Extension_Pack-4.3.30-101610.vbox-extpack
+* **VirtualBox Extensions** Download: https://www.virtualbox.org/wiki/Downloads
 
 * **Vagrant** Download: https://www.vagrantup.com/downloads.html
 
