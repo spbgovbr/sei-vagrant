@@ -1,14 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-require "yaml"
  
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
-
-# Parâmetros de customização do ambiente de desenvolvimento
-params = if File.exists?("Vagrantfile.conf") then YAML::load_file("Vagrantfile.conf") else {} end
-params_source_dir = params["source_dir"] || "../sei"
-params_memoria_vm = params["memoria_vm"] || "1024"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -27,22 +21,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Diretórios compartilhados com a durante a execução
   config.vm.synced_folder ".", "/mnt/sei/ops" 
-  config.vm.synced_folder params_source_dir, "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
+  config.vm.synced_folder "../sei", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
   config.vm.provider "virtualbox" do |vb|
-    # vb.gui = true
-    # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", params_memoria_vm, "--usb", "off", "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--usb", "off", "--audio", "none"]
   end
 
-  config.vm.provision "shell", 
-    inline: <<SCRIPT
-      mkdir -p /mnt/sei/ops/mysql/.tmp/
-      cp /mnt/sei/ops/sei/ConfiguracaoSEI.php /mnt/sei/src/sei/ConfiguracaoSEI.php
-      cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
-SCRIPT
+#  config.vm.provision "shell", 
+#    inline: <<SCRIPT
+#      mkdir -p /mnt/sei/ops/mysql/.tmp/
+#      cp /mnt/sei/ops/sei/ConfiguracaoSEI.php /mnt/sei/src/sei/ConfiguracaoSEI.php
+#      cp /mnt/sei/ops/sei/ConfiguracaoSip.php /mnt/sei/src/sip/ConfiguracaoSip.php
+#SCRIPT
 
   # Provisionamento da Máquina Virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|    

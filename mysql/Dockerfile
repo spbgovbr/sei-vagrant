@@ -78,4 +78,4 @@ ENV TERM xterm
 EXPOSE 3306
 
 # Inicialização do serviço 
-CMD ["/usr/bin/mysqld", "--bind-address=0.0.0.0"]
+CMD ["/usr/bin/mysqld_safe", "--bind-address=0.0.0.0"]
