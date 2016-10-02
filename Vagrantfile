@@ -48,6 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.build_image "/mnt/sei/ops/mysql", args: "-t 'processoeletronico/mysql'"
     docker.build_image "/mnt/sei/ops/sei",   args: "-t 'processoeletronico/sei'"
     docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
+    docker.pull_images "schickling/mailcatcher"
 
     docker.run "sei_smtp", image: "schickling/mailcatcher",
       daemonize: true,
