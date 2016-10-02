@@ -14,60 +14,14 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 ################## INICIO DA INSTALACAO ######################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 
-# Instalar o yum repo rpm package
-RUN yum install -y wget && \
-    wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm && \
-    rpm -ivh mysql-community-release-el6-5.noarch.rpm
-
-# Instalação do MySQL Server 5.X
-RUN yum update -y && \
-    yum install -y mysql-server && \
-    yum -y clean all
-
 # Cópia dos backups dos bancos de dados do SEI e SIP
-ADD sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
-ADD sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
+ADD sei-db-ref-executivo/mysql/sei_2_6_0_BD_Ref_Exec.sql /opt/sei_mysql.sql
+ADD sei-db-ref-executivo/mysql/sip_2_6_0_BD_Ref_Exec.sql /opt/sip_mysql.sql
 ADD my.cnf /etc/my.cnf
+ADD install.sh /install.sh
 
-# Configuração da estrutura inicial do banco de dados
-RUN mysql_install_db
-
-# Criação dos bancos de dados do sistema
-RUN /etc/init.d/mysqld start && \
-    mysqladmin create sip && \
-    mysqladmin create sei
-
-# Criação dos usuários utilizados na conexão com SEI e SIP 
-RUN /etc/init.d/mysqld start && \
-    mysql -e "CREATE USER 'sip_user'@'%' IDENTIFIED BY 'sip_user'" sip && \
-    mysql -e "CREATE USER 'sei_user'@'%' IDENTIFIED BY 'sei_user'" sei && \
-    mysql -e "GRANT ALL PRIVILEGES ON sip.* TO 'sip_user'@'%'" sip && \
-    mysql -e "GRANT ALL PRIVILEGES ON sei.* TO 'sei_user'@'%'" sei 
-
-# Restauração dos bancos de dados
-RUN /etc/init.d/mysqld start && cd /tmp && \
-    mysql sei < sei_mysql.sql && \
-    mysql sip < sip_mysql.sql && \
-    rm -f /tmp/sei_mysql.sql /tmp/sip_mysql.sql
-
-# Atualização dos parâmetros do SEI e do SIP
-RUN /etc/init.d/mysqld start && \
-    mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip && \
-    mysql -e "update sistema set pagina_inicial='http://localhost/sip' where sigla='SIP';" sip && \ 
-    mysql -e "update sistema set pagina_inicial='http://localhost/sei/inicializar.php', web_service='http://localhost/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip && \
-    mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sei
-
-# Temp: Remove registros de auditoria presentes na base de referência
-RUN /etc/init.d/mysqld start && \
-    mysql -e "delete from auditoria_protocolo;" sei
-
-# Configuração para utilizar autenticação nativa do SEI/SIP
-RUN /etc/init.d/mysqld start && \
-    mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
-
-# Atribuição de permissões de acesso externo para o usuário root, senha root
-RUN /etc/init.d/mysqld start && \
-    mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+# Instalação do MySQL 5.7 e demais componentes
+RUN bash install.sh
 
 ##################### FIM DA INSTALACAO #####################
 
