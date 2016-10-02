@@ -1,5 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+
+#unless Vagrant.has_plugin?("vagrant-vbguest")
+#  raise "\n\nAmbiente de desenvolvimento não pode ser criado não foi encontrado o plugin vagrant-vbguest.\n"+
+#	"Para solucionar o problema, execute o seguinte comando no diretório raiz do projeto.\n\n"+
+#	"> vagrant plugin install vagrant-vbguest \n\n"
+#end
  
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
