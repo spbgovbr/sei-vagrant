@@ -1,21 +1,20 @@
-
 # Ambiente de Desenvolvimento - Vagrant
 
-O objetivo dessa documentação é descrever os procedimentos para preparar um ambiente de desenvolvimento ou testes do SEI de forma rápida e padronizada através do Vagrant. Essa ferramenta permite que seja provisionado automaticamente todo um ambiente funcional na máquina de trabalho do desenvolvedor, sem que seja necessário a instalação de servidores de aplicação e banco de dados pelo mesmo. Outra vantagem é que esse ambiente é completamente provisionado utilizando máquinas virtuais, necessitando que o desenvolvedor apenas configure sua IDE ou editor de texto preferido.
+O objetivo dessa documentação é descrever os procedimentos para preparar um ambiente de desenvolvimento ou testes do SEI de forma rápida e padronizada através do [Vagrant](https://www.vagrantup.com/ "Clique para acessar"). Essa ferramenta permite que seja provisionado automaticamente todo um ambiente funcional na máquina de trabalho do desenvolvedor, sem que seja necessário a instalação de servidores de aplicação e banco de dados pelo mesmo. Outra vantagem é que esse ambiente é completamente provisionado utilizando máquinas virtuais, necessitando que o desenvolvedor apenas configure sua IDE ou editor de texto preferido.
 
 Antes, gostariamos de reforçar a necessidade que todo o desenvolvimento esteja alinhado com as diretivas e padrões de interface, codificação php e modelagem de banco de dados utilizados pelo SEI. A documentação dos padrões estão disponíveis na comunidade do SEI:
 
-* Documentação Técnica do SEI
-* Padrão de Codificação PHP 
-* Padrão de Modelagem de Dados
+* [Documentação Técnica do SEI](https://softwarepublico.gov.br/social/sei/manuais/documentacao-de-apoio "Clique para acessar")
+* [Padrão de Codificação PHP](https://softwarepublico.gov.br/social/sei/manuais/padrao-de-codificacao-php/sumario "Clique para acessar")
+* [Padrão de Modelagem de Dados](https://softwarepublico.gov.br/social/sei/manuais/padrao-de-modelagem-de-dados/sumario "Clique para acessar")
 
-Outra fator importante de ser feito, antes do início dos trabalhos de desenvolvimento, é a indicação da demanda previamente aprovada (Lista de Demandas do Projeto), juntamente com a Especificação de Requisitos, para avaliação, revisão e aprovação do Comitê Gestor. De acordo com o padrão trabalho estabelecido, todos as novas funcionalidades que serão implementadas no SEI precisarão de uma aprovação prévia do Comitê Gestor para que possam ser implementadas e, posteriormente, homologadas e integradas ao sistema.
+Outra fator importante de ser feito, antes do início dos trabalhos de desenvolvimento, é a indicação da demanda previamente aprovada ([Lista de Demandas do Projeto](https://softwarepublico.gov.br/gitlab/groups/sei/issues?project_id=&scope=all&state=opened "Clique para acessar")), juntamente com a Especificação de Requisitos, para avaliação, revisão e aprovação do Comitê Gestor. De acordo com o padrão trabalho estabelecido, todos as novas funcionalidades que serão implementadas no SEI precisarão de uma aprovação prévia do Comitê Gestor para que possam ser implementadas e, posteriormente, homologadas e integradas ao sistema.
 
 Voltando para à configuração do ambiente de desenvolvimento, as tecnologias utilizadas nesse trabalho foram as listadas abaixo. Sugerimos uma breve leitura de suas documentações para melhor entendimento.
 
-* ​Virtual Box - https://www.virtualbox.org/
-* ​Vagrant - https://www.vagrantup.com/
-* ​Git - https://git-scm.com/
+* VirtualBox - https://www.virtualbox.org/
+* Vagrant - https://www.vagrantup.com/
+* Git - https://git-scm.com/
 
 Outros recursos para melhor entendimento das tecnologias citadas acima:
 
@@ -34,28 +33,39 @@ O Vagrant trabalha com o conceito de Box, basicamente uma "imagem/iso" para se c
 
 Para configurar o ambiente, será necessário a instalação dos seguintes pré-requisitos:
 
-* **VirtualBox**
-Download: https://www.virtualbox.org/wiki/Download_Old_Builds_4_3
+* **VirtualBox** Download: https://www.virtualbox.org/wiki/Downloads
 
-* **VirtualBox Extensions**
-Download: http://download.virtualbox.org/virtualbox/4.3.30/Oracle_VM_VirtualBox_Extension_Pack-4.3.30-101610.vbox-extpack
+* **VirtualBox Extensions** Download: https://www.virtualbox.org/wiki/Downloads
 
-* **Vagrant**
-Download: https://www.vagrantup.com/downloads.html
+* **Vagrant** Download: https://www.vagrantup.com/downloads.html
 
-* **Git**
-Download: https://git-scm.com/downloads
+* **Git** Download: https://git-scm.com/downloads
 
 Todos os componentes acima precisam ser instalados na máquina de desenvolvimento, prestando atenção nas seguintes considerações:
 
-O VirtualBox Extensions é instalado dentro do VirtualBox, acessando o menu File > Preferences > Extensions. Sugerimos a instalação do Git com a funcionalidade GitBash ativado. Essa ativação é feita pelo Wizard de instalação do software e ele permitirá o acesso direto ao prompt de comando das máquinas virtuais Linux, caso necessário.
-
-Feito a instalação dos pré-requisitos, siga os passos abaixo para ativar o ambiente virtual do SEI:
- 
+* O VirtualBox Extensions é instalado dentro do VirtualBox, acessando o menu File > Preferences > Extensions. Sugerimos a instalação do Git com a funcionalidade GitBash ativado. Essa ativação é feita pelo Wizard de instalação do software e ele permitirá o acesso direto ao prompt de comando das máquinas virtuais Linux, caso necessário.
 
 ## CONFIGURAÇÃO DO AMBIENTE
 
-### 1) Via prompt de comandos, navegue até o diretório onde está contido os códigos-fontes do SEI.
+### 1) Proxy para acesso a internet
+
+Se a máquina localhost (desktop ou notebook) onde vai ser instalado o ambiente padrão de desenvolvimento depender de um proxy para acesso à Internet, é necessário antes configurar o proxy como variável de ambiente conforme abaixo:
+
+    set http_proxy=http://proxy.anp.net:8080
+    set https_proxy=http://proxy.anp.net:8080
+
+Se o proxy exigir autenticação é necessário incluir o nome e senha do usuário, conforme este segundo exemplo:
+
+    set http_proxy=http://<usuario>:<senha>@proxy.anp.net:8080
+    set https_proxy=http://<usuario>:<senha>@proxy.anp.net:8080
+
+### 2) BIOS da máquina aceitar VM
+
+É necessário que a BIOS da máquina localhost (desktop ou notebook) onde vai ser instalado o ambiente padrão de desenvolvimento esteja com a opção para aceitar virtualização habilitada. Vide exemplo:
+
+    [imagem_exemplo_alteracao_BIOS_permitir_VM]
+
+### 3) Via prompt de comandos, navegue até o diretório onde está contido os códigos-fontes do SEI.
 
 O diretório é o mesmo disponibilizado para instalação e dentro dele deve conter os seguintes diretórios:
 
@@ -66,9 +76,10 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
     /infra_js
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
+
 Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost/sei
 
-### 2) Realizar a configuração inicial do Box do Vagrant/VirtualBox
+### 4) Realizar a configuração inicial do Box do Vagrant/VirtualBox
 
 No diretório citado anteriormente, execute o seguinte comando:
 
@@ -78,11 +89,11 @@ Esse comando irá criar uma arquivo de configuração iniciar para o vagrant con
 
 Outra alternativa para configuração pode ambiente pode ser realizada pelos scripts utilitários criados no ambiente colaborativo. Vide seção INFORMAÇÕES ADICIONAIS >> 2) Scritps utilitários .bat.
 
-### 3) Iniciar o Ambiente de Desenvolvimento Virtualizado
+### 5) Iniciar o Ambiente de Desenvolvimento Virtualizado
 
-No mesmo diretório, execute o comando :
+No mesmo diretório, execute o comando:
 
-vagrant up
+    vagrant up
 
 Esse comando irá iniciar a construção do ambiente de desenvolvimento começando pelo download da Box processoeletronico/sei-2.6.0 contendo todo o ambiente preparado para o desenvolvimento.
 
@@ -97,7 +108,7 @@ Ao final da inicialização do ambiente de desenvolvimento, será apresentada a 
     ===> default: sei_jod
     ===> default: sei_www
 
-### 4) Testar a Aplicação
+### 6) Testar a Aplicação
 
 **SEI**
 Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
@@ -116,13 +127,9 @@ O componente chamado sei_db , apresentado logo após o provisionamento do ambien
 
     Ex: mysql -h 127.0.0.1 -u root -p sei
 
-**Apache Solr**
-O Apache Solr também estará disponível para testes e poderá ser acessado pelo endereço http://localhost:8983/solr
-
-**JOD Converter**
-O JOD Converter também estará disponível para testes e poderá ser acesso pelo enderelo http://localhost:8080
-
- 
+* **Apache Solr** O Apache Solr também estará disponível para testes e poderá ser acessado pelo endereço: http://localhost:8983/solr
+* **JOD Converter** O JOD Converter também estará disponível para testes e poderá ser acesso pelo endereço: http://localhost:8080
+* **Serviço SMTP para visualizar e-mails enviados** O ambiente de desenvolvimento possui um serviço SMTP próprio para disparar os e-mails do sistema. Para visualizar os e-mails enviados acesse: http://localhost:1080
 
 ## INFORMAÇÕES ADICIONAIS
 
@@ -147,9 +154,13 @@ Reinicia todo o ambiente de desenvolvimento e sua máquina virtual.
 
 Como o nome diz, destroi todo o ambiente de desenvolvimento utilizado até o momento, apagando todas as informações persistidas no banco de dados. A simples execução do comando vagrant up reconstrói um novo ambiente limpo para o sistema SEI.
 
+    vagrant box update
+
+Atualizar o vagrant com nova imagem da VM atualizada com correções ou evoluções:
+
+
 #### 2) Scritps utilitários .bat
 Para simplificar a operação do ambiente virtual no Windows, o NeiJobson/Anatel criou os seguintes scripts .bat que estão disponíveis no ambiente colaborativo do SEI (https://softwarepublico.gov.br/gitlab/sei/sei-vagrant/tree/master​). Eles poderão ser baixados e copiados para o diretório onde está o código-fonte do sistema, cada um com as seguintes funções:
-
 
 ----------
 
