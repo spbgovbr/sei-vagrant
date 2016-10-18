@@ -15,35 +15,35 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	  return array(
 
  	      'SEI' => array(
- 	          'URL' => 'http://localhost/sei',
- 	          'Producao' => false,
- 	          'RepositorioArquivos' => '/var/sei/arquivos'),
+ 	          'URL' => 'http://[Servidor PHP]/sei',
+ 	          'Producao' => true,
+ 	          'RepositorioArquivos' => '/dados'),
 
  	      'PaginaSEI' => array(
  	          'NomeSistema' => 'SEI',
- 	          'NomeSistemaComplemento' => SEI_VERSAO,
+ 	          'NomeSistemaComplemento' => '',
  	          'LogoMenu' => ''),
  	       
  	      'SessaoSEI' => array(
  	          'SiglaOrgaoSistema' => 'ABC',
  	          'SiglaSistema' => 'SEI',
- 	          'PaginaLogin' => 'http://localhost/sip/login.php',
- 	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
+ 	          'PaginaLogin' => 'http://[Servidor PHP]/sip/login.php',
+ 	          'SipWsdl' => 'http://[Servidor PHP]/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
  	       
  	      'BancoSEI'  => array(
-                  'Servidor' => getenv("DB_PORT_3306_TCP_ADDR"),
-                  'Porta' => getenv("DB_PORT_3306_TCP_PORT"),
-                  'Banco' => 'sei',
-                  'Usuario' => 'sei_user',
-                  'Senha' => 'sei_user',
-                  'Tipo' => 'MySql'), //MySql ou SqlServer
+ 	          'Servidor' => '[servidor BD]',
+ 	          'Porta' => '',
+ 	          'Banco' => '',
+ 	          'Usuario' => '',
+ 	          'Senha' => '',
+ 	          'Tipo' => ''), //MySql, SqlServer ou Oracle
 
               'CacheSEI' => array(
-                  'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),
-	          'Porta' => getenv("MEMCACHED_PORT_11211_TCP_PORT")),
+                  'Servidor' => '[Servidor Memcache]',
+	          'Porta' => '11211'),
 
-              'JODConverter' => array('Servidor' => 'http://'.getenv("JOD_PORT_8080_TCP_ADDR").':'.getenv("JOD_PORT_8080_TCP_PORT").'/converter/service')
+ 	      'JODConverter' => array('Servidor' => 'http://[Servidor JODConverter]:8080/converter/service'),
 
  	      'Edoc' => array('Servidor' => 'http://[Servidor .NET]'),
  	       
@@ -57,24 +57,23 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
                   'TempoCommitPublicacoes' => 60),
 
 	      'HostWebService' => array(
-	          'Edoc' => array('*'),
-		  'Sip' => array('*'), 
-		  'Publicacao' => array('*'), 
-		  'Ouvidoria' => array('*'),),
+	          'Edoc' => array('[Servidor .NET]'),
+		  'Sip' => array('[Servidor PHP]'), 
+		  'Publicacao' => array(), 
+		  'Ouvidoria' => array(),),
  	       
  	      'InfraMail' => array(
-	   	  'Tipo' => '2', 
-		  'Servidor' => getenv("SMTP_PORT_1025_TCP_ADDR"),
-		  'Porta' => getenv("SMTP_PORT_1025_TCP_PORT"),
+	   	  'Tipo' => '1', 
+		  'Servidor' => '[Servidor E-Mail]',
+		  'Porta' => '25',
 		  'Codificacao' => '8bit', 
 		  'MaxDestinatarios' => 999, 
 		  'MaxTamAnexosMb' => 999, 
-		  'Seguranca' => '', 
+		  'Seguranca' => 'TLS', 
 		  'Autenticar' => false, 
-		  'Usuario' => '',
-		  'Senha' => '',
+		  'Usuario' => 'aaa',
+		  'Senha' => 'aaa',
 		  'Protegido' => '')
-
  	  );
  	}
 }

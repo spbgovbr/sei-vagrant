@@ -1,31 +1,13 @@
 #!/usr/bin/env bash
 
 set -e
-set -u
-set -o pipefail
 
-yum update -y
+echo "Inicialização do banco de dados"
+/entrypoint.sh
 
-# Instalar o yum repo rpm package
-yum install -y wget
-wget http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
-yum localinstall -y mysql57-community-release-el6-7.noarch.rpm
-
-# Instalação do MySQL Server 5.X
-yum install -y mysql-community-server
-
-# Inicialização do diretório de armazenamento do MySQL.
-# PS: Utilizando configuração insegura apenas para propósito de desenvolvimento
-rm -rf /var/lib/mysql/*
-chown -R mysql:mysql /var/lib/mysql
-mysqld --user=mysql --initialize-insecure  
-
-# Inicialização do banco de dados
-/etc/init.d/mysqld start
-
-# Criação dos bancos de dados do sistema
-mysqladmin create sip
-mysqladmin create sei
+echo "Criação dos bancos de dados do sistema"
+mysql -e "CREATE DATABASE IF NOT EXISTS 'sei';"
+mysql -e "CREATE DATABASE IF NOT EXISTS 'sip';"
 
 # Criação dos usuários utilizados na conexão com SEI e SIP
 mysql -e "CREATE USER 'sip_user'@'%' IDENTIFIED BY 'sip_user'" sip
@@ -52,8 +34,6 @@ mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 
 # Atribuição de permissões de acesso externo para o usuário root, senha root
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
-
-yum clean -y all
 
 
 exit 0

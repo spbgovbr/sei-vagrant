@@ -1,37 +1,29 @@
-###########################################################
-# Dockerfile de construção do container JOD
-# utilizado pelo SEI e pelo SIP
-#
-# Baseado no CentOS 6.X
-############################################################
+###########################################################################
+# Dockerfile de construção do container JOD utilizado pelo SEI e pelo SIP #
+###########################################################################
 
 # Definição da imagem de base para o CentOS 6.X
-FROM centos:centos6
+FROM openjdk:8
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
 
+ENV TERM xterm
+
 ################## INICIO DA INSTALACAO ######################
 # Instalação do JOD Converter seguindo as recomendações descritas na documentação do SEI
-# Ref: https://processoeletronico.gov.br/projects/sei/wiki
-
-# Instalação do pacote Java JDK e utilitários utilizados no provisionamento
-RUN yum -y update && \
-    yum install -y java-1.7.0-openjdk-devel wget unzip dos2unix libreoffice libreoffice-headless && \
-    yum -y clean all
 
 # Instalação da api de serviços de conversão de documentos
-ADD jodconverter-tomcat-2.2.2.zip /opt/
-RUN unzip /opt/jodconverter-tomcat-2.2.2.zip -d /opt && rm /opt/jodconverter-tomcat-2.2.2.zip
+COPY jodconverter-tomcat-2.2.2.zip /opt/
 
-# Script de inicialização do container entry-point
-ADD entrypoint.sh /entrypoint.sh
-RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
+# Script de inicialização do container entrypoint
+COPY entrypoint.sh /entrypoint.sh
+
+# Instalação do Jod Converter e Libreoffice
+COPY install.sh /install.sh
+RUN bash /install.sh
 
 ##################### FIM DA INSTALACAO #####################
-
-# Definição do terminal a ser utilizado
-ENV TERM xterm
 
 # Exposição da porta de conexão ao Apache
 EXPOSE 8080
