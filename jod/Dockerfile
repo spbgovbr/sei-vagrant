@@ -2,16 +2,16 @@
 # Dockerfile de construção do container JOD utilizado pelo SEI e pelo SIP #
 ###########################################################################
 
-# Definição da imagem de base para o CentOS 6.X
+# Definição da imagem de base para o OpenJDK 8
 FROM openjdk:8
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
 
-ENV TERM xterm
-
 ################## INICIO DA INSTALACAO ######################
 # Instalação do JOD Converter seguindo as recomendações descritas na documentação do SEI
+
+ENV TERM xterm
 
 # Instalação da api de serviços de conversão de documentos
 COPY jodconverter-tomcat-2.2.2.zip /opt/

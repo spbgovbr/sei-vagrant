@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 unless Vagrant.has_plugin?("vagrant-vbguest")
-  raise "\n\nAmbiente de desenvolvimento não pode ser criado não foi encontrado o plugin vagrant-vbguest.\n"+
+  raise "\n\nAmbiente de desenvolvimento não pode ser criado pois não foi encontrado o plugin vagrant-vbguest.\n"+
         "Para solucionar o problema, execute o seguinte comando no diretório raiz do projeto.\n\n"+
         "> vagrant plugin install vagrant-vbguest \n\n"
 end
@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   config.ssh.password = "vagrant"
 
   # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
-  config.vm.synced_folder ".", "/opt", mount_options: ["dmode=777", "fmode=777"]
+  config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
@@ -28,5 +28,6 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
+  config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
+
 end

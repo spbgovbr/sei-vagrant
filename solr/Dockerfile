@@ -2,16 +2,15 @@
 # Dockerfile de construção do container Solr utilizado pelo SEI e pelo SIP #
 ############################################################################
 
-# Definição da imagem de base para o CentOS 6.X
+# Definição da imagem de base para o OpenJDK 8
 FROM openjdk:8
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
 
-# Definição do terminal a ser utilizado
-ENV TERM xterm
-
 ################## INICIO DA INSTALACAO ######################
+
+ENV TERM xterm
 
 # Obtenção do pacote de instalação do Solr 4.0
 COPY install.sh /install.sh

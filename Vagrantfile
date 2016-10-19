@@ -1,14 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Atribuição do hostname da máquina virtual 
   config.vm.hostname = "sei-vagrant"
-
   config.vm.box = "ubuntu/trusty64"
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
@@ -23,11 +21,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/mnt/sei/ops" 
   config.vm.synced_folder "../sei", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
 
+  # Configurações padrão da máquina virtual host
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048", "--usb", "off", "--audio", "none"]
   end
 
-  # Provisionamento da Máquina Virtual responsável por manter os containers do Docker
+  # Provisionamento da máquina virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|    
     
     # Constrói imagens dos containers utilizados no provicionamento
@@ -35,11 +34,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.build_image "/mnt/sei/ops/mysql",     args: "-t 'processoeletronico/mysql'"
     docker.build_image "/mnt/sei/ops/sei",       args: "-t 'processoeletronico/sei'"
     docker.build_image "/mnt/sei/ops/memcached", args: "-t 'processoeletronico/memcached'"
-    docker.pull_images "schickling/mailcatcher"
-    #docker.build_image "/mnt/sei/ops/jod",   args: "-t 'processoeletronico/jod'"
+    docker.build_image "/mnt/sei/ops/fakesmtp",  args: "-t 'processoeletronico/fakesmtp'"
+    docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
 
     # docker run -d --name smtp -p 1080:1080 schickling/mailcatcher:latest
-    docker.run "smtp", image: "schickling/mailcatcher",
+    docker.run "smtp", image: "processoeletronico/fakesmtp",
       daemonize: true,
       args: "-p 1080:1080"
 
@@ -58,18 +57,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       daemonize: true, 
       args: "-p 8983:8983"
 
+    # Container do Jod desativado por questões de otimização
     # docker run -d --name jod -p 8080:8080 processoeletronico/jod:latest
-    #docker.run "jod", image: "processoeletronico/jod:latest",
-    #  daemonize: true, 
-    #  args: "-p 8080:8080"
+    docker.run "jod", image: "processoeletronico/jod:latest",
+      daemonize: true, 
+      args: "-p 8080:8080"
 
-    # docker run -d --name sei -p 80:80 --link solr:solr --link db:db --link memcached:memcached -v /mnt/sei/src:/opt  processoeletronico/sei:latest
+    # docker run -d --name sei -p 80:80 --link solr:solr --link db:db --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt  processoeletronico/sei:latest
     docker.run "sei", image: "processoeletronico/sei:latest", 
       daemonize: true, 
-      args: "-p 80:80 --link db:db --link solr:solr --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt"
+      args: "-p 80:80 --link db:db --link solr:solr --link memcached:memcached --link smtp:smtp --link jod:jod -v /mnt/sei/src:/opt"
   end
 
   # Inicialização dos containers em caso de reinicialização da máquina host
   # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
-  config.vm.provision "shell", run: "always", inline: "docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
+  config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
 end
