@@ -43,7 +43,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
                   'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),
 	          'Porta' => getenv("MEMCACHED_PORT_11211_TCP_PORT")),
 
-              'JODConverter' => array('Servidor' => 'http://'.getenv("JOD_PORT_8080_TCP_ADDR").':'.getenv("JOD_PORT_8080_TCP_PORT").'/converter/service')
+              'JODConverter' => array('Servidor' => 'http://'.getenv("JOD_PORT_8080_TCP_ADDR").':'.getenv("JOD_PORT_8080_TCP_PORT").'/converter/service'),
 
  	      'Edoc' => array('Servidor' => 'http://[Servidor .NET]'),
  	       

@@ -2,10 +2,6 @@
 
 echo "127.0.0.1 sip_www" >> /etc/hosts
 
-# Configura localização das aplicações SEI e SIP
-ln -s /mnt/sei/src/sei /opt/
-ln -s /mnt/sei/src/sip /opt/
-
 # Configura localização correta da infra_php
 #if [ -d /mnt/sei/src/infra/infra_php ]; then dir_infra_php="/mnt/sei/src/infra/infra_php"; else dir_infra_php="/mnt/sei/src/infra_php"; fi
 #ln -sf $dir_infra_php /var/www/html/
@@ -24,7 +20,7 @@ if [ -f /opt/sei/config/ConfiguracaoSEI.php ] && [ ! -f /opt/sei/config/Configur
 fi
 
 if [ ! -f /opt/sei/config/ConfiguracaoSEI.php ]; then
-    cp /opt/ConfiguracaoSEI.php /opt/sei/config/ConfiguracaoSEI.php
+    cp /ConfiguracaoSEI.php /opt/sei/config/ConfiguracaoSEI.php
 fi
 
 # Atribuição dos parâmetros de configuração do SIP
@@ -33,40 +29,28 @@ if [ -f /opt/sip/config/ConfiguracaoSip.php ] && [ ! -f /opt/sip/config/Configur
 fi
 
 if [ ! -f /opt/sip/config/ConfiguracaoSip.php ]; then
-    cp /opt/sip/config/ConfiguracaoSip.php /opt/sip/config/ConfiguracaoSip.php
+    cp /ConfiguracaoSip.php /opt/sip/config/ConfiguracaoSip.php
 fi
 
 # Criação do diretório padrão de upload de arquivos
 #SEI
-chown -R root.apache /opt/sei
-find /opt/sei -type d -exec chmod 2750 {} \;
-find /opt/sei -type f -exec chmod 0640 {} \;
-find /opt/sei/temp -type d -exec chmod 2570 {} \;
-chmod 0750 /opt/sei/bin/wkhtmltopdf-amd64
-
-#SIP
-chown -R root.apache /opt/sip
-find /opt/sip -type d -exec chmod 2750 {} \;
-find /opt/sip -type f -exec chmod 0640 {} \;
-find /opt/sip/temp -type d -exec chmod 2570 {} \;
-
-#Infra PHP
-chown -R root.apache /opt/infra
-find /opt/infra -type d -exec chmod 2750 {} \;
-find /opt/infra -type f -exec chmod 0640 {} \;
-
+chown -R www-data.www-data /opt/sei
+chown -R www-data.www-data /opt/infra
+chown -R www-data.www-data /opt/sip
+chmod +x /opt/sei/bin/wkhtmltopdf-amd64
+chmod -R 777 /opt/sei/temp
+chmod -R 777 /opt/sip/temp
 chmod -R 777 /var/sei/arquivos
 
 # Inicialização do serviço de cache
 #/etc/init.d/memcached start
 
 # Inicialização das rotinas de agendamento
-/etc/init.d/rsyslog start 
-/etc/init.d/crond start 
+service cron start 
 
 # Inicialização do Gearman e Supervisor, componentes para integração com Processo Eletrônico Nacional
-/etc/init.d/gearmand start 
-/etc/init.d/supervisord start
+gearmand &
+service supervisor start
 
 # Inicialização do servidor web
-/usr/sbin/httpd -DFOREGROUND
+apache2-foreground

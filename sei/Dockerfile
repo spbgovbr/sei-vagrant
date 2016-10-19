@@ -3,7 +3,7 @@
 ##############################################################################
 
 # Definição da imagem de base para o CentOS 6.X
-FROM centos:centos6
+FROM php:5.6-apache
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
@@ -14,51 +14,48 @@ ENV TERM xterm
 # Instalação do SEI seguindo as recomendações descritas na documentação do SEI
 
 # Instalação do servidor web Apache 2.2, memcache e demais componentes
- RUN yum install -y epel-release && \
-     yum -y update && \
-     yum -y install httpd-2.2.* mysql-5.1.* memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 dos2unix crontabs \
-     php-5.3.* php-common php-cli php-pear php-bcmath php-gd php-gmp php-imap php-intl php-ldap php-mbstring php-mysql \ 
-     php-odbc php-pdo php-pecl-apc php-pspell php-zlib php-snmp php-soap php-xml php-xmlrpc php-zts php-devel \
-     php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop php-intl php-mcrypt php-pecl-xdebug \
-     supervisor gearmand libgearman libgearman-devel php-pecl-gearman && \
-     yum -y clean all
+# RUN yum install -y epel-release && \
+#     yum -y update && \
+#     yum -y install httpd-2.4.6 mysql-5.6 openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 dos2unix crontabs \
+#     php-5.6.5 php-common php-cli php-pear php-bcmath php-gd php-gmp php-imap php-intl php-ldap php-mbstring php-mysqli \ 
+#     php-odbc php-pdo php-pecl-apc php-pspell php-zlib php-snmp php-soap php-xml php-xmlrpc php-zts php-devel \
+#     php-pecl-apc-devel php-pecl-memcache php-calendar php-shmop php-intl php-mcrypt php-pecl-xdebug \
+#     supervisor gearmand libgearman libgearman-devel php-pecl-gearman && \
+#     yum -y clean all
 
-# Configuração do charset do Apache
-#RUN echo "AddDefaultCharset iso-8859-1" >> /etc/httpd/conf/httpd.conf
+# Obtenção do pacote de instalação do Solr 4.0
+COPY install.sh /install.sh
 
-# Correção do bug do VirtualBox relacionado ao Sendfile. http://docs.vagrantup.com/v2/synced-folders/virtualbox.html
-#RUN echo "EnableSendfile Off" >> /etc/httpd/conf/httpd.conf
-
-# Instalação do componentes UploadProgress
-RUN pecl install uploadprogress && \
-    echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
+RUN bash /install.sh
 
 # Configuração dos parâmetros do SEI e SIP
-ADD ConfiguracaoSEI.php /opt/ConfiguracaoSEI.php
-ADD ConfiguracaoSip.php /opt/ConfiguracaoSip.php
+ADD ConfiguracaoSEI.php /ConfiguracaoSEI.php
+ADD ConfiguracaoSip.php /ConfiguracaoSip.php
 
 # Copia arquivos necessários para a instalação
-ADD sei.ini /etc/php.d/sei.ini
-ADD xdebug.ini /etc/php.d/xdebug.ini
-ADD sei.conf /etc/httpd/conf.d/sei.conf
+ADD sei.ini /usr/local/etc/php/conf.d
+ADD xdebug.ini /usr/local/etc/php/conf.d
+ADD sei.conf /etc/apache2/sites-available/sei.conf
+
+RUN a2ensite sei
 
 # Configuração do Gearman e Supervisor, componentes necessários para a integração do SEI com Processo Eletrônico Nacional
-ADD supervisord.conf /etc/supervisord.conf
+ADD supervisord.conf /etc/supervisor/conf.d/processo-eletronico.conf
 
-RUN mkdir -p /var/sei/arquivos && \
-    chmod -R 777 /var/sei/arquivos
+#RUN mkdir -p /var/sei/arquivos && \
+#    chmod -R 777 /var/sei/arquivos
 
 # Configuração dos serviços de background do Cron
-RUN mkdir /var/log/sei
-RUN sed -i '/session    required   pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/crond
-RUN echo "0 * * * * root /usr/bin/php -c /etc/php.ini /opt/sei/scripts/AgendamentoTarefaSEI.php 2>&1 >> /var/log/sei/agendamento_sei.log" >> /etc/cron.d/sei
-RUN echo "0 * * * * root /usr/bin/php -c /etc/php.ini /opt/sip/scripts/AgendamentoTarefaSip.php 2>&1 >> /var/log/sip/agendamento_sip.log" >> /etc/cron.d/sip
-RUN echo "00 01 * * * root rm -rf /opt/sei/temp/*" >> /etc/cron.d/sei
-RUN echo "00 01 * * * root rm -rf /opt/sip/temp/*" >> /etc/cron.d/sip
+#RUN mkdir /var/log/sei
+#RUN sed -i '/session    required   pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/crond
+#RUN echo "0 * * * * root /usr/bin/php -c /etc/php.ini /opt/sei/scripts/AgendamentoTarefaSEI.php 2>&1 >> /var/log/sei/agendamento_sei.log" >> /etc/cron.d/sei
+#RUN echo "0 * * * * root /usr/bin/php -c /etc/php.ini /opt/sip/scripts/AgendamentoTarefaSip.php 2>&1 >> /var/log/sip/agendamento_sip.log" >> /etc/cron.d/sip
+#RUN echo "00 01 * * * root rm -rf /opt/sei/temp/*" >> /etc/cron.d/sei
+#RUN echo "00 01 * * * root rm -rf /opt/sip/temp/*" >> /etc/cron.d/sip
 
 # Script de inicialização do container entry-point
 ADD entrypoint.sh /entrypoint.sh
-RUN dos2unix /entrypoint.sh && chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ##################### FIM DA INSTALACAO #####################
 
