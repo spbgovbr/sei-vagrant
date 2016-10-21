@@ -3,7 +3,7 @@
 ############################################################
 
 # Definição da imagem de base para o CentOS 6.X
-FROM mysql/mysql-server:5.7
+FROM mysql/mysql-server:5.6
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional
@@ -20,5 +20,5 @@ COPY sei-db-ref-executivo/mysql/sei_3_0_0_BD_Ref_Exec.sql /tmp/2-sei_mysql.sql
 COPY sei-db-ref-executivo/mysql/sip_3_0_0_BD_Ref_Exec.sql /tmp/3-sip_mysql.sql
 COPY 4-posinstall.sql /tmp/4-posinstall.sql
 
-RUN bash /install.sh
+#RUN bash /install.sh
 

@@ -1,4 +1,0 @@
-[submodule "mysql/sei-db-ref-executivo"]
-	path = mysql/sei-db-ref-executivo
-        branch = sei-v3.0.0
-	url = http://softwarepublico.gov.br/gitlab/mp/sei-db-ref-executivo.git
