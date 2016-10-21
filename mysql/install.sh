@@ -18,5 +18,6 @@ cat /tmp/4-posinstall.sql >> /docker-entrypoint-initdb.d/install.sql
 
 # Correção de problema com o registro de log de documentos contendo imagens
 echo "max_allowed_packet=268435456" >> /etc/my.cnf
+echo "sql-mode=NO_ENGINE_SUBSTITUTION" >> /etc/my.cnf
 
 exit 0

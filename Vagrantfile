@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
   config.vm.network :forwarded_port, guest: 80,   host: 80   # SIP e SEI (Apache)
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
-  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter (Tomcat)
+  #config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter (Tomcat)
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.build_image "/mnt/sei/ops/sei",       args: "-t 'processoeletronico/sei'"
     docker.build_image "/mnt/sei/ops/memcached", args: "-t 'processoeletronico/memcached'"
     docker.build_image "/mnt/sei/ops/fakesmtp",  args: "-t 'processoeletronico/fakesmtp'"
-    docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
+    #docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
 
     # docker run -d --name smtp -p 1080:1080 schickling/mailcatcher:latest
     docker.run "smtp", image: "processoeletronico/fakesmtp",
@@ -59,17 +59,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Container do Jod desativado por questões de otimização
     # docker run -d --name jod -p 8080:8080 processoeletronico/jod:latest
-    docker.run "jod", image: "processoeletronico/jod:latest",
-      daemonize: true, 
-      args: "-p 8080:8080"
+    #docker.run "jod", image: "processoeletronico/jod:latest",
+    #  daemonize: true, 
+    #  args: "-p 8080:8080"
 
     # docker run -d --name sei -p 80:80 --link solr:solr --link db:db --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt  processoeletronico/sei:latest
     docker.run "sei", image: "processoeletronico/sei:latest", 
       daemonize: true, 
-      args: "-p 80:80 --link db:db --link solr:solr --link memcached:memcached --link smtp:smtp --link jod:jod -v /mnt/sei/src:/opt"
+      args: "-p 80:80 --link db:db --link solr:solr --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt"
   end
 
   # Inicialização dos containers em caso de reinicialização da máquina host
   # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
-  config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
+  #config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
 end

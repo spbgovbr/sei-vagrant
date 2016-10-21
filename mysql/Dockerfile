@@ -3,7 +3,7 @@
 ############################################################
 
 # Definição da imagem de base para o CentOS 6.X
-FROM mysql/mysql-server:5.7
+FROM mysql/mysql-server:5.6
 
 # Autor e mantenedor do container
 MAINTAINER PEN - Processo Eletrônico Nacional

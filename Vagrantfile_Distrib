@@ -28,6 +28,5 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
   # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
-
+  config.vm.provision "shell", run: "always", inline: "docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
 end
