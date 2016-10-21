@@ -6,6 +6,7 @@ yum install -y epel-release && yum -y update
 
 yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 crontabs
 
+# Instalação do PHP e demais extenções necessárias para o projeto
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 wget https://centos6.iuscommunity.org/ius-release.rpm
 rpm -Uvh ius-release*.rpm
