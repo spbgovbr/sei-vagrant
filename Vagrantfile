@@ -71,5 +71,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Inicialização dos containers em caso de reinicialização da máquina host
   # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
-  #config.vm.provision "shell", run: "always", inline: "docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
+  config.vm.provision "shell", run: "always", inline: "docker restart solr && docker restart memcached && docker restart smtp && docker restart db && docker restart sei"
 end

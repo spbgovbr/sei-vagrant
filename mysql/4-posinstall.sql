@@ -1,3 +1,5 @@
+USE mysql;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
 
 USE sip;
 update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;

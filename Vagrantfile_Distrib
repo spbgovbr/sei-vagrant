@@ -2,9 +2,19 @@
 # vi: set ft=ruby :
 
 unless Vagrant.has_plugin?("vagrant-vbguest")
-  raise "\n\nAmbiente de desenvolvimento não pode ser criado pois não foi encontrado o plugin vagrant-vbguest.\n"+
-        "Para solucionar o problema, execute o seguinte comando no diretório raiz do projeto.\n\n"+
-        "> vagrant plugin install vagrant-vbguest \n\n"
+  warn "\n\n**********************************************************\n\n"+
+       "                          ATENÇAO !!!                        \n\n"+
+       "Não foi localizado o plugin vagrant-vbguest na máquina host. \n\n"+
+       "Recomendamos seu uso para evitar imcompatibilidades de versões \n"+
+       "entre o Virtualbox e VBGuest Addition, impactando o          \n"+
+       "compartilhamento de pastas. \n\n"+
+       "Para solucionar o problema, execute o seguinte comando no \n"+
+       "diretório raiz do projeto. \n\n"+
+       "> vagrant plugin install vagrant-vbguest                     \n"+
+       "\n********************************************************** \n\n"+
+       " Pressione ENTER para continuar ou (Ctrl + C) para finalizar ... \n\n"
+
+  $stdin.gets; puts "\n"
 end
 
 Vagrant.configure(2) do |config|
