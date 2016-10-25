@@ -29,6 +29,9 @@ COPY sei.conf /etc/httpd/conf.d/sei.conf
 # Configuração do Gearman e Supervisor, componentes necessários para a integração do SEI com Processo Eletrônico Nacional
 COPY supervisord.conf /etc/supervisord.conf
 
+# Orientações sobre mudança na localização dos arquivos do projeto
+COPY LEIAME.txt /var/www/html/
+
 # Script de inicialização do container entry-point
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

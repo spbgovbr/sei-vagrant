@@ -1,0 +1,1 @@
+Seguindo as orientações no manual de instalação do SEI 3.0.0, os códigos-fontes do projeto foram movidos para o diretório /opt
