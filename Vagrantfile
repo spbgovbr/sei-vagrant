@@ -33,17 +33,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.build_image "/mnt/sei/ops/solr",      args: "-t 'processoeletronico/solr'"
     docker.build_image "/mnt/sei/ops/mysql",     args: "-t 'processoeletronico/mysql'"
     docker.build_image "/mnt/sei/ops/sei",       args: "-t 'processoeletronico/sei'"
-    docker.build_image "/mnt/sei/ops/memcached", args: "-t 'processoeletronico/memcached'"
     docker.build_image "/mnt/sei/ops/fakesmtp",  args: "-t 'processoeletronico/fakesmtp'"
-    #docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
+    docker.pull_images "schickling/mailcatcher" 
+    docker.pull_images "memcached"
+    # docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
+    # docker.build_image "/mnt/sei/ops/memcached", args: "-t 'processoeletronico/memcached'"
 
     # docker run -d --name smtp -p 1080:1080 schickling/mailcatcher:latest
-    docker.run "smtp", image: "processoeletronico/fakesmtp",
+    docker.run "smtp", image: "schickling/mailcatcher",
       daemonize: true,
       args: "-p 1080:1080"
 
     # docker run -d --name memcached -p 11211:11211 processoeletronico/memcached:latest
-    docker.run "memcached", image: "processoeletronico/memcached",
+    docker.run "memcached", image: "memcached",
       daemonize: true,
       args: "-p 11211:11211"
 
