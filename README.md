@@ -71,9 +71,7 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
 
     /sei
     /sip
-    /infra_php
-    /infra_css
-    /infra_js
+    /infra
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
 
@@ -83,7 +81,7 @@ Com isso, as alterações feitas diretamente nos arquivos php durante do desenvo
 
 No diretório citado anteriormente, execute o seguinte comando:
 
-    vagrant init processoeletronico/sei-2.6.0
+    vagrant init processoeletronico/sei-3.0.0
 
 Esse comando irá criar uma arquivo de configuração iniciar para o vagrant contendo a referência para o BOX do SEI completamente configurado. Ao final da execução, um arquivo chamado Vagrantfile deverá estar presente no diretório atual.
 
@@ -95,7 +93,7 @@ No mesmo diretório, execute o comando:
 
     vagrant up
 
-Esse comando irá iniciar a construção do ambiente de desenvolvimento começando pelo download da Box processoeletronico/sei-2.6.0 contendo todo o ambiente preparado para o desenvolvimento.
+Esse comando irá iniciar a construção do ambiente de desenvolvimento começando pelo download da Box processoeletronico/sei-3.0.0 contendo todo o ambiente preparado para o desenvolvimento.
 
 É normal que a primeira execução desse comando demore vários minutos para ser concluído, pois a imagem/box, com cerca de 2GB, será baixada para a máquina de desenvolvimento. Após o fim da transferência, o ambiente estará disponível em questão de minutos.
 
@@ -103,10 +101,12 @@ Após a conclusão do primeiro provisionamento, o ambiente poderá ser destruíd
 
 Ao final da inicialização do ambiente de desenvolvimento, será apresentada a seguinte mensagem abaixo indicando que todos os serviços do SEI já estão em operação na máquina de desenvolvimento. A mensagem é :
 
-    ===> default: sei_db
-    ===> default: sei_solr
-    ===> default: sei_jod
-    ===> default: sei_www
+    ===> default: db
+    ===> default: solr
+    ===> default: smtp
+    ===> default: jod
+    ===> default: memcached    
+    ===> default: www
 
 ### 6) Testar a Aplicação
 
@@ -119,7 +119,7 @@ Importante mencionar que o sistema que está rodando nesse endereço se baseia e
 Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 **Banco de dados MySQL**
-O componente chamado sei_db , apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados do MySQL que estará acessível na máquina local através da portal 3306. O banco de dados poderá ser acesso pelo MySQL Workbench ou qualquer outra ferramenta de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:
+O componente chamado db , apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados do MySQL que estará acessível na máquina local através da portal 3306. O banco de dados poderá ser acesso pelo MySQL Workbench ou qualquer outra ferramenta de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:
 
     Usuário Root do MySQL: login:root / senha:root
     Usuário da Base de Dados do SEI: login: sei_user / senha: sei_user
@@ -129,6 +129,7 @@ O componente chamado sei_db , apresentado logo após o provisionamento do ambien
 
 * **Apache Solr** O Apache Solr também estará disponível para testes e poderá ser acessado pelo endereço: http://localhost:8983/solr
 * **JOD Converter** O JOD Converter também estará disponível para testes e poderá ser acesso pelo endereço: http://localhost:8080
+* **Memcached** Servidor de cache utilizado pela aplicação SEI e SIP http://localhost:11211
 * **Serviço SMTP para visualizar e-mails enviados** O ambiente de desenvolvimento possui um serviço SMTP próprio para disparar os e-mails do sistema. Para visualizar os e-mails enviados acesse: http://localhost:1080
 
 ## INFORMAÇÕES ADICIONAIS
@@ -167,7 +168,7 @@ Para simplificar a operação do ambiente virtual no Windows, o NeiJobson/Anatel
 
     provisionar_VM_Dev_Localhost_SEI.bat
 
-Responsável por criar a configuração inicial do ambiente de desenvolvimento do SEI (vagrantfile). Semelhante ao comando vagrant init processoeletronico/sei-2.6.0
+Responsável por criar a configuração inicial do ambiente de desenvolvimento do SEI (vagrantfile). Semelhante ao comando vagrant init processoeletronico/sei-3.0.0
 Download: https://softwarepublico.gov.br/gitlab/sei/sei-vagrant/raw/master/provisionar_VM_Dev_Localhost_SEI.bat
 
 
