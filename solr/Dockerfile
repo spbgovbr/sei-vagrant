@@ -12,7 +12,7 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 
 ENV TERM xterm
 
-# Obtenção do pacote de instalação do Solr 4.0
+# Obtenção do pacote de instalação do Solr
 COPY install.sh /install.sh
 COPY solr-6.1.0.tgz /tmp/
 COPY index/* /tmp/
@@ -21,8 +21,8 @@ RUN bash /install.sh
 
 ##################### FIM DA INSTALACAO #####################
 
-# Exposição da porta de conexão ao Apache
+# Exposição da porta de conexão ao Apache Solr
 EXPOSE 8983
 
-# Inicialização dos serviços Apache e Memcache
+# Inicialização do Apache Solr
 CMD ["/opt/solr/bin/solr", "start", "-f", "-p", "8983"]
