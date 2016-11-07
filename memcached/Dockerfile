@@ -1,5 +1,5 @@
 ##############################################################################
-# Dockerfile de construção do container WebApp utilizado pelo SEI e pelo SIP #
+# Dockerfile de construção do container de cache do utilizado pelo SEI e SIP #
 ##############################################################################
 
 # Definição da imagem de base para o CentOS 6.X
@@ -10,5 +10,3 @@ MAINTAINER PEN - Processo Eletrônico Nacional
 
 # Exposição da porta de conexão ao Apache
 EXPOSE 11211
-
-
