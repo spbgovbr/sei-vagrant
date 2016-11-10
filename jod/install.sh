@@ -3,15 +3,18 @@
 set -e
 
 # Instalação do pacote Java JDK e utilitários utilizados no provisionamento
-apt-get -y update
-apt-get install -y --no-install-recommends wget unzip libreoffice
-apt-get -y clean all
+yum -y update
+yum install -y java-1.7.0-openjdk-devel wget unzip dos2unix libreoffice libreoffice-headless && \
+yum -y clean all
+
+
 
 # Instalação da api de serviços de conversão de documentos
-unzip /opt/jodconverter-tomcat-2.2.2.zip -d /opt 
-rm /opt/jodconverter-tomcat-2.2.2.zip
+unzip /tmp/jodconverter-tomcat-2.2.2.zip -d /opt 
+rm /tmp/jodconverter-tomcat-2.2.2.zip
 
 # Script de inicialização do container entry-point
 chmod +x /entrypoint.sh
 
 exit 0
+
