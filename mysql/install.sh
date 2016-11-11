@@ -53,7 +53,7 @@ mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GR
 
 # Correção de problema com o registro de log de documentos contendo imagens
 echo "max_allowed_packet=268435456" >> /etc/my.cnf
-echo "sql-mode=NO_ENGINE_SUBSTITUTION" >> /etc/my.cnf
+echo "sql-mode=STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/my.cnf
 
 yum clean -y all
 
