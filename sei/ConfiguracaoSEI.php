@@ -31,14 +31,24 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
  	       
+              // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
  	      'BancoSEI'  => array(
-                  'Servidor' => getenv("DB_PORT_3306_TCP_ADDR"),
-                  'Porta' => getenv("DB_PORT_3306_TCP_PORT"),
+                  'Servidor' => getenv("MYSQL_PORT_3306_TCP_ADDR"),
+                  'Porta' => getenv("MYSQL_PORT_3306_TCP_PORT"),
                   'Banco' => 'sei',
                   'Usuario' => 'sei_user',
                   'Senha' => 'sei_user',
                   'Tipo' => 'MySql'), //MySql ou SqlServer
 
+	        // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
+        /*      'BancoSEI'  => array(
+                  'Servidor' => getenv("ORACLE_PORT_1521_TCP_ADDR"),
+                  'Porta' => getenv("ORACLE_PORT_1521_TCP_PORT"),
+                  'Banco' => 'sei',
+                  'Usuario' => 'sei',
+                  'Senha' => 'sei_user',
+                  'Tipo' => 'Oracle'), //MySql ou SqlServer
+        */
               'CacheSEI' => array(
                   'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),
 	          'Porta' => getenv("MEMCACHED_PORT_11211_TCP_PORT")),

@@ -9,11 +9,8 @@ yum -y  update
 yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 crontabs
 
 # Instalação do PHP e demais extenções necessárias para o projeto
-#wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 wget https://centos6.iuscommunity.org/ius-release.rpm
-#rpm -Uvh epel-release*.rpm
-#rpm -ivh epel-release-6-8.noarch.rpm
 rpm -ivh epel-release-latest-6.noarch.rpm
 rpm -ivh ius-release.rpm
 
@@ -30,6 +27,9 @@ echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
 
 # Instalação de componentes para teste do Barramento de Seriços do PEN
 yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
+
+# Instalação dos componentes de conexão ao Oracle (Oracle Instant Client)
+bash /tmp/install_oracle.sh
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos && \

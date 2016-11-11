@@ -25,14 +25,25 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	          'PaginaLogin' => 'http://localhost/sip/login.php',
  	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
- 	       
+
+ 	       // CONFIGURAÇÃO PARA BASE DE DADOS MYSQL
  	      'BancoSip'  => array(
-                  'Servidor' => getenv("DB_PORT_3306_TCP_ADDR"),
-                  'Porta' => getenv("DB_PORT_3306_TCP_PORT"),
+                  'Servidor' => getenv("MYSQL_PORT_3306_TCP_ADDR"),
+                  'Porta' => getenv("MYSQL_PORT_3306_TCP_PORT"),
                   'Banco' => 'sip',
                   'Usuario' => 'sip_user',
                   'Senha' => 'sip_user',
                   'Tipo' => 'MySql'), //MySql ou SqlServer),
+ 
+              // CONFIGURAÇÃO PARA BASE DE DADOS ORACLE
+/*              'BancoSip'  => array(
+                  'Servidor' => getenv("ORACLE_PORT_1521_TCP_ADDR"),
+                  'Porta' => getenv("ORACLE_PORT_1521_TCP_PORT"),
+                  'Banco' => 'sip',
+                  'Usuario' => 'sip',
+                  'Senha' => 'sip_user',
+                  'Tipo' => 'Oracle'), //MySql ou SqlServer),
+*/
 
 	      'CacheSip' => array(
                   'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),

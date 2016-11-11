@@ -15,6 +15,12 @@ ENV TERM xterm
 
 COPY install.sh /install.sh
 
+# Arquivos de instalação dos componentes do Oracle
+COPY oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY oracle/install_oracle.sh /tmp/
+
 RUN bash /install.sh
 
 # Configuração dos parâmetros do SEI e SIP
