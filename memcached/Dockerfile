@@ -1,12 +1,10 @@
-##############################################################################
-# Dockerfile de construção do container de cache do utilizado pelo SEI e SIP #
-##############################################################################
+################################################################################
+# Dockerfile de construção do container de cache do utilizado pelo SEI e SIP
+#
+# Container preparado e configurado para uso em desenvolvimento e testes
+################################################################################
 
-# Definição da imagem de base para o CentOS 6.X
+MAINTAINER PEN - Processo Eletrônico Nacional
 FROM memcached
 
-# Autor e mantenedor do container
-MAINTAINER PEN - Processo Eletrônico Nacional
-
-# Exposição da porta de conexão ao Apache
 EXPOSE 11211

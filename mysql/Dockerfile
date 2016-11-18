@@ -1,28 +1,24 @@
-############################################################
+################################################################################
 # Dockerfile de construção do container do MySQL utilizado pelo SEI e pelo SIP
-############################################################
+#
+# Container preparado e configurado para uso em desenvolvimento e testes
+################################################################################
 
-# Definição da imagem de base para o CentOS 6.X
+MAINTAINER PEN - Processo Eletrônico Nacional
 FROM centos:centos6
 
-# Autor e mantenedor do container
-MAINTAINER PEN - Processo Eletrônico Nacional
-
-################## INICIO DA INSTALACAO ######################
+############################# INÍCIO DA INSTALACAO #############################
 # Instalação do MySQL seguindo as recomendações descritas na documentação do SEI
 
 ENV TERM xterm
 
-
-COPY install.sh /install.sh
 COPY sei-db-ref-executivo/mysql/sei_3_0_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
 COPY sei-db-ref-executivo/mysql/sip_3_0_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
+COPY install.sh /install.sh
 
 RUN bash /install.sh
 
-# Exposição da porta de conexão ao MySQL Server
-EXPOSE 3306
- 
-# Inicialização do serviço 
-CMD ["/usr/bin/mysqld_safe", "--bind-address=0.0.0.0"]
+############################## FIM DA INSTALACAO ###############################
 
+EXPOSE 3306
+CMD ["/entrypoint.sh"]

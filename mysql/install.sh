@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-
 set -e
 
-yum update -y
-
-yum install -y wget
+yum -y update
 
 # Instalar o MySQL 5.6
+yum install -y wget
 wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
 rpm -ivh mysql-community-release-el6-5.noarch.rpm
 yum -y install mysql-server

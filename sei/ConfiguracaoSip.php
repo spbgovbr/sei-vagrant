@@ -16,7 +16,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	      'Sip' => array(
  	          'URL' => 'http://localhost/sip',
  	          'Producao' => false),
- 	       
+
  	      'PaginaSip' => array('NomeSistema' => 'SIP'),
 
  	      'SessaoSip' => array(
@@ -34,13 +34,13 @@ class ConfiguracaoSip extends InfraConfiguracao  {
                   'Usuario' => 'sip_user',
                   'Senha' => 'sip_user',
                   'Tipo' => 'MySql'), //MySql ou SqlServer),
- 
+
               // CONFIGURAÇÃO PARA BASE DE DADOS ORACLE
 /*              'BancoSip'  => array(
                   'Servidor' => getenv("ORACLE_PORT_1521_TCP_ADDR"),
                   'Porta' => getenv("ORACLE_PORT_1521_TCP_PORT"),
                   'Banco' => 'sip',
-                  'Usuario' => 'sip',
+                  'Usuario' => 'sip_user',
                   'Senha' => 'sip_user',
                   'Tipo' => 'Oracle'), //MySql ou SqlServer),
 */

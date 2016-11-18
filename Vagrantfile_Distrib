@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Alerta para instalação e configuração do plugin vbguest para atualização do
+# VirtualBox Guest Additions
 unless Vagrant.has_plugin?("vagrant-vbguest")
   warn "\n\n**********************************************************\n\n"+
        "                          ATENÇAO !!!                        \n\n"+

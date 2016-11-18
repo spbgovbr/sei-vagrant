@@ -4,4 +4,3 @@ update sistema set pagina_inicial='http://localhost/sei/inicializar.php', web_se
 update orgao set sin_autenticar='N' where id_orgao=0;
 
 EXIT;
-
