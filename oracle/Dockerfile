@@ -4,24 +4,23 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-MAINTAINER PEN - Processo Eletrônico Nacional
 FROM wnameless/oracle-xe-11g
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
 ############################# INÍCIO DA INSTALACAO #############################
-
+ENV TERM xterm
 ENV ORACLE_ALLOW_REMOTE=true
 ENV NLS_LANG=PORTUGUESE_BRAZIL.WE8ISO8859P1
 
-COPY pre-install.sql /tmp/pre-install.sql
-#todo: Necessário migrar dumps para git submodule
-COPY SEI_3.0.0.dmp /tmp/sei.dmp
-COPY SIP_3.0.0.dmp /tmp/sip.dmp
-COPY sei-config.sql /tmp/sei-config.sql
-COPY sip-config.sql /tmp/sip-config.sql
+COPY sei-db-ref-executivo/oracle/sei_2_6_0_BD_Ref_Exec.dmp /tmp/sei_oracle.dmp
+COPY sei-db-ref-executivo/oracle/sip_2_6_0_BD_Ref_Exec.dmp /tmp/sip_oracle.dmp
+
+COPY assets/pre-install.sql /tmp/pre-install.sql
+COPY assets/sei-config.sql /tmp/sei-config.sql
+COPY assets/sip-config.sql /tmp/sip-config.sql
 COPY install.sh /install.sh
 
 RUN bash /install.sh
-
 ############################## FIM DA INSTALACAO ###############################
 
 # Imagem de base já configura a exposição das portas 1521 e inicialização do

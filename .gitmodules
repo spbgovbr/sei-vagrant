@@ -2,3 +2,8 @@
 	path = mysql/sei-db-ref-executivo
 	url = http://softwarepublico.gov.br/gitlab/mp/sei-db-ref-executivo.git
 	branch = sei-v3.0.0-db
+
+[submodule "oracle/sei-db-ref-executivo"]
+	path = oracle/sei-db-ref-executivo
+	url = http://softwarepublico.gov.br/gitlab/mp/sei-db-ref-executivo.git
+	branch = sei-v3.0.0-db
