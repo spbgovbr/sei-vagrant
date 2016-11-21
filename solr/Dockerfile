@@ -4,21 +4,21 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-MAINTAINER PEN - Processo Eletrônico Nacional
-FROM openjdk:8
+#FROM alpine:latest
+FROM centos:centos7
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
-############################# INÍCIO DA INSTALACAO #############################
-
+############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
-# Obtenção do pacote de instalação do Solr
-COPY solr-6.1.0.tgz /tmp/
-COPY index/* /tmp/
+COPY assets/solr-6.1.0.tgz /tmp/
+COPY assets/index/* /tmp/
+COPY assets/sei-solr-6.1.0.sh /tmp/sei-solr-6.1.0.sh
 COPY install.sh /install.sh
+COPY entrypoint.sh /entrypoint.sh
 
-RUN bash /install.sh
-
+RUN sh /install.sh
 ############################## FIM DA INSTALACAO ###############################
 
 EXPOSE 8983
-CMD ["/opt/solr/bin/solr", "start", "-f", "-p", "8983"]
+CMD ["/entrypoint.sh"]

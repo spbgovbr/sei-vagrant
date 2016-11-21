@@ -1,16 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -e
 
-# Instalação do pacote Java JDK e utilitários utilizados no provisionamento
-yum -y update
-yum install -y java-1.7.0-openjdk-devel wget unzip dos2unix libreoffice libreoffice-headless && \
-yum -y clean all
+# Instalação do utilitários necessários para o provisionamento
+yum -y install unzip java-1.7.0-openjdk
 
 # Instalação da api de serviços de conversão de documentos
 unzip /tmp/jodconverter-tomcat-2.2.2.zip -d /opt
-rm /tmp/jodconverter-tomcat-2.2.2.zip
 
-# Script de inicialização do container entry-point
+# Remover arquivos temporários
+rm -rf /tmp/*
+yum clean all
+
+
+# Configuração de permissões de execução no script de inicialização do container
 chmod +x /entrypoint.sh
 
 exit 0

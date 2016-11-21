@@ -1,22 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -e
 
 yum -y update
 
 # Instalar o MySQL 5.6
 yum install -y wget
-wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
-rpm -ivh mysql-community-release-el6-5.noarch.rpm
+wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm -O /tmp/mysql-community-release-el6-5.noarch.rpm
+rpm -ivh /tmp/mysql-community-release-el6-5.noarch.rpm
 yum -y install mysql-server
 
 # Inicialização do diretório de armazenamento do MySQL.
 # PS: Utilizando configuração insegura apenas para propósito de desenvolvimento
 rm -rf /var/lib/mysql/*
 chown -R mysql:mysql /var/lib/mysql
-#mysqld --user=mysql --initialize-insecure
 mysql_install_db --user=mysql --datadir="/var/lib/mysql" --rpm --keep-my-cnf
 
-# Inicialização do banco de dados
 /etc/init.d/mysqld start
 
 # Criação dos bancos de dados do sistema
@@ -53,6 +51,8 @@ mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GR
 echo "max_allowed_packet=268435456" >> /etc/my.cnf
 echo "sql-mode=STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/my.cnf
 
-yum clean -y all
+# Remover arquivos temporários
+rm -rf /tmp/*
+yum clean all
 
 exit 0

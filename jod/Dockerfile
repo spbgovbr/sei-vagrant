@@ -4,17 +4,17 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-MAINTAINER PEN - Processo Eletrônico Nacional
-FROM centos:centos6
+FROM centos:centos7
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
-############################# INÍCIO DA INSTALACAO #############################
+############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
 COPY install.sh /install.sh
-COPY jodconverter-tomcat-2.2.2.zip /tmp/
 COPY entrypoint.sh /entrypoint.sh
+COPY assets/jodconverter-tomcat-2.2.2.zip /tmp/
 
-RUN bash /install.sh
+RUN sh /install.sh
 ############################## FIM DA INSTALACAO ###############################
 
 EXPOSE 8080
