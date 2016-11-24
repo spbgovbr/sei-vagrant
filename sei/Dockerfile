@@ -1,19 +1,14 @@
-###########################################################
+################################################################################
 # Dockerfile de construção do container WebApp utilizado pelo SEI e pelo SIP
-############################################################
+#
+# Container preparado e configurado para uso em desenvolvimento e testes
+################################################################################
 
-# Definição da imagem de base para o CentOS 6.X
 FROM centos:centos6
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
-# Autor e mantenedor do container
-MAINTAINER PEN - Processo Eletrônico Nacional
-
-################## INICIO DA INSTALACAO ######################
-# Instalação do SEI seguindo as recomendações descritas na documentação do SEI
-
+############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
-
-COPY install.sh /install.sh
 
 # Arquivos de instalação dos componentes do Oracle
 COPY oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/
@@ -21,32 +16,25 @@ COPY oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/
 COPY oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm /tmp/
 COPY oracle/install_oracle.sh /tmp/
 
+# Instalação do SEI e demais componentes acessórios
+COPY install.sh /install.sh
+COPY entrypoint.sh /entrypoint.sh
+
 RUN bash /install.sh
 
 # Configuração dos parâmetros do SEI e SIP
-COPY ConfiguracaoSEI.php /ConfiguracaoSEI.php
-COPY ConfiguracaoSip.php /ConfiguracaoSip.php
+COPY assets/LEIAME.txt /var/www/html/
+COPY assets/sei.ini /etc/php.d/sei.ini
+COPY assets/xdebug.ini /etc/php.d/xdebug.ini
+COPY assets/sei.conf /etc/httpd/conf.d/sei.conf
+COPY assets/ConfiguracaoSip.php /ConfiguracaoSip.php
+COPY assets/ConfiguracaoSEI.php /ConfiguracaoSEI.php
 
-# Copia arquivos necessários para a instalação
-COPY sei.ini /etc/php.d/sei.ini
-COPY xdebug.ini /etc/php.d/xdebug.ini
-COPY sei.conf /etc/httpd/conf.d/sei.conf
+# Configuração do Gearman e Supervisor, componentes necessários para a
+# integração do SEI com Processo Eletrônico Nacional
+COPY assets/supervisord.conf /etc/supervisord.conf
 
-# Configuração do Gearman e Supervisor, componentes necessários para a integração do SEI com Processo Eletrônico Nacional
-COPY supervisord.conf /etc/supervisord.conf
+##################### FIM DA INSTALAÇÃO #####################
 
-# Orientações sobre mudança na localização dos arquivos do projeto
-COPY LEIAME.txt /var/www/html/
-
-# Script de inicialização do container entry-point
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-##################### FIM DA INSTALACAO #####################
-
-# Exposição da porta de conexão ao Apache
 EXPOSE 80
-
-# Inicialização dos serviços Apache e Memcache
 CMD ["/entrypoint.sh"]
-

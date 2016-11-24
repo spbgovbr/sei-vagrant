@@ -55,4 +55,7 @@ echo "sql-mode=STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DAT
 rm -rf /tmp/*
 yum clean all
 
+# Configuração de permissões de execução no script de inicialização do container
+chmod +x /entrypoint.sh
+
 exit 0

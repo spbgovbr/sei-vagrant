@@ -4,7 +4,7 @@ set -e
 
 # Instalação dos componentes básicos do servidor web apache
 yum -y  update
-yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.7.0-openjdk libxml2 crontabs
+yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs
 
 # Instalação do PHP e demais extenções necessárias para o projeto
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
@@ -40,6 +40,11 @@ echo "0 * * * * root /usr/bin/php -c /etc/php.ini /opt/sip/scripts/AgendamentoTa
 echo "00 01 * * * root rm -rf /opt/sei/temp/*" >> /etc/cron.d/sei
 echo "00 01 * * * root rm -rf /opt/sip/temp/*" >> /etc/cron.d/sip
 
-yum -y clean all
+# Remover arquivos temporários
+rm -rf /tmp/*
+yum clean all
+
+# Configuração de permissões de execução no script de inicialização do container
+chmod +x /entrypoint.sh
 
 exit 0

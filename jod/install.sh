@@ -11,7 +11,6 @@ unzip /tmp/jodconverter-tomcat-2.2.2.zip -d /opt
 rm -rf /tmp/*
 yum clean all
 
-
 # Configuração de permissões de execução no script de inicialização do container
 chmod +x /entrypoint.sh
 

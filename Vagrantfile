@@ -29,61 +29,51 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Provisionamento da máquina virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|
-    #todo: Construir container fora do Vagrant e registrar no github
-    #docker.pull_images "processoeletronico/solr-6.1"
-    #docker.pull_images "processoeletronico/mysql-6.5"
     #docker.pull_images "processoeletronico/oracle-11g"
-    #docker.pull_images "processoeletronico/fakesmtp-x.x"
-    #docker.pull_images "processoeletronico/jod-2.2.2"
-    #docker.pull_images "processoeletronico/sei-3.0.0"
-
-    # Constrói imagens dos containers utilizados no provicionamento
-    docker.build_image "/mnt/sei/ops/solr",      args: "-t 'processoeletronico/solr'"
-    docker.build_image "/mnt/sei/ops/mysql",     args: "-t 'processoeletronico/mysql'"
-    docker.build_image "/mnt/sei/ops/oracle",    args: "-t 'processoeletronico/oracle'"
-    docker.build_image "/mnt/sei/ops/sei",       args: "-t 'processoeletronico/sei'"
-    docker.build_image "/mnt/sei/ops/fakesmtp",  args: "-t 'processoeletronico/fakesmtp'"
-    docker.build_image "/mnt/sei/ops/jod",       args: "-t 'processoeletronico/jod'"
-    docker.pull_images "schickling/mailcatcher"
-    docker.pull_images "memcached"
+    docker.pull_images "guilhermeadc/sei3_solr-6.1"
+    docker.pull_images "guilhermeadc/sei3_mysql-5.6"
+    docker.pull_images "guilhermeadc/sei3_jod-2.2.2"
+    docker.pull_images "guilhermeadc/sei3_httpd-2.4"
+    docker.pull_images "guilhermeadc/sei3_mailcatcher"
+    docker.pull_images "guilhermeadc/sei3_memcached"
 
     # docker run -d --name smtp -p 1080:1080 schickling/mailcatcher:latest
-    docker.run "smtp", image: "schickling/mailcatcher",
+    docker.run "smtp", image: "guilhermeadc/sei3_mailcatcher",
       daemonize: true,
       args: "-p 1080:1080"
 
     # docker run -d --name memcached -p 11211:11211 processoeletronico/memcached:latest
-    docker.run "memcached", image: "memcached",
+    docker.run "memcached", image: "guilhermeadc/sei3_memcached",
       daemonize: true,
       args: "-p 11211:11211"
 
     # docker run -d --name mysql -p 3306:3306 processoeletronico/mysql:latest
-    docker.run "mysql",  image: "processoeletronico/mysql:latest",
+    docker.run "mysql",  image: "guilhermeadc/sei3_mysql-5.6",
       daemonize: true,
       args: "-p 3306:3306"
 
     # docker run -d --name oracle -p 1521:1521 -p 8180:8080 processoeletronico/oracle:latest
-    docker.run "oracle",  image: "processoeletronico/oracle:latest",
+    docker.run "oracle",  image: "guilhermeadc/sei3_oracle-11g",
       daemonize: true,
       args: "-p 1521:1521 -p 8180:8080"
 
     # docker run -d --name solr -p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index processoeletronico/solr:latest
-    docker.run "solr", image: "processoeletronico/solr:latest",
+    docker.run "solr", image: "guilhermeadc/sei3_solr-6.1",
       daemonize: true,
       args: "-p 8983:8983"
 
     # docker run -d --name jod -p 8080:8080 processoeletronico/jod:latest
-    docker.run "jod", image: "processoeletronico/jod:latest",
+    docker.run "jod", image: "guilhermeadc/sei3_jod-2.2.2",
       daemonize: true,
       args: "-p 8080:8080"
 
     # docker run -d --name sei -p 80:80 --link oracle:oracle --link solr:solr --link db:db --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt  processoeletronico/sei:latest
-    docker.run "sei", image: "processoeletronico/sei:latest",
+    docker.run "httpd", image: "guilhermeadc/sei3_httpd-2.4",
       daemonize: true,
       args: "-p 80:80 --link oracle:oracle --link mysql:mysql --link solr:solr --link memcached:memcached --link jod:jod --link smtp:smtp -v /mnt/sei/src:/opt"
   end
 
   # Inicialização dos containers em caso de reinicialização da máquina host
   # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
-  config.vm.provision "shell", run: "always", inline: "docker restart oracle && docker restart mysql && docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart sei"
+  config.vm.provision "shell", run: "always", inline: "docker restart oracle && docker restart mysql && docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart httpd"
 end

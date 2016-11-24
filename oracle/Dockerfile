@@ -10,10 +10,10 @@ MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
 ENV ORACLE_ALLOW_REMOTE=true
-ENV NLS_LANG=PORTUGUESE_BRAZIL.WE8ISO8859P1
+ENV NLS_LANG=PORTUGUESE_BRAZIL.WE8MSWIN1252
 
-COPY sei-db-ref-executivo/oracle/sei_2_6_0_BD_Ref_Exec.dmp /tmp/sei_oracle.dmp
-COPY sei-db-ref-executivo/oracle/sip_2_6_0_BD_Ref_Exec.dmp /tmp/sip_oracle.dmp
+COPY sei-db-ref-executivo/oracle/sei_3_0_0_BD_Ref_Exec.dmp /tmp/sei_oracle.dmp
+COPY sei-db-ref-executivo/oracle/sip_3_0_0_BD_Ref_Exec.dmp /tmp/sip_oracle.dmp
 
 COPY assets/pre-install.sql /tmp/pre-install.sql
 COPY assets/sei-config.sql /tmp/sei-config.sql

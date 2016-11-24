@@ -4,7 +4,6 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-#FROM alpine:latest
 FROM centos:centos7
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
