@@ -1,9 +1,10 @@
 [submodule "mysql/sei-db-ref-executivo"]
-	path = mysql/sei-db-ref-executivo
-	url = http://softwarepublico.gov.br/gitlab/mp/sei-db-ref-executivo.git
-	branch = sei-v3.0.0-db
+  path = mysql/sei-db-ref-executivo
+  url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
+  branch = sei-db-ref-executivo-3.0.0_v1
 
 [submodule "oracle/sei-db-ref-executivo"]
-	path = oracle/sei-db-ref-executivo
-	url = http://softwarepublico.gov.br/gitlab/mp/sei-db-ref-executivo.git
-	branch = sei-v3.0.0-db
+  path = oracle/sei-db-ref-executivo
+  url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
+  branch = sei-db-ref-executivo-3.0.0_v1
+
