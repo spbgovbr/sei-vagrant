@@ -18,9 +18,18 @@ yum -y install php56u php56u-common php56u-cli php56u-pear php56u-bcmath php56u-
     php56u-odbc php56u-pdo php56u-pecl-apc php56u-pspell php56u-zlib php56u-snmp php56u-soap php56u-xml php56u-xmlrpc php56u-zts php56u-devel \
     php56u-pecl-apc-devel php56u-pecl-memcache php56u-calendar php56u-shmop php56u-intl php56u-mcrypt php56u-pecl-xdebug
 
+# Configuração do charset do Apache
+echo "AddDefaultCharset iso-8859-1" | tee -a /etc/httpd/conf/httpd.conf
+
+# Correção do bug do VirtualBox relacionado ao Sendfile. http://docs.vagrantup.com/v2/synced-folders/virtualbox.html
+echo "EnableSendfile Off" | tee -a /etc/httpd/conf/httpd.conf
+
 # Instalação do componentes UploadProgress
 pecl install uploadprogress && \
 echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
+
+# Instalação de pacote de fontes do windows
+rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 
 # Instalação de componentes para teste do Barramento de Seriços do PEN
 yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
@@ -29,7 +38,7 @@ yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearm
 bash /tmp/install_oracle.sh
 
 # Configuração de permissão do diretório de arquivos
-mkdir -p /var/sei/arquivos && \
+mkdir -p /var/sei/arquivos
 chmod -R 777 /var/sei/arquivos
 
 # Configuração dos serviços de background do Cron

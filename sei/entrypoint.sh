@@ -19,12 +19,12 @@ if [ ! -f /opt/sip/config/ConfiguracaoSip.php ]; then
 fi
 
 # Ajustes de permissões diversos para desenvolvimento do SEI
-chown -R apache.apache /opt
 chmod +x /opt/sei/bin/wkhtmltopdf-amd64
 chmod +x /opt/sei/bin/pdfboxmerge.jar
-chmod -R 777 /opt/sei/temp
-chmod -R 777 /opt/sip/temp
+chown -R 777 /opt
 chmod -R 777 /var/sei/arquivos
+#chmod -R 777 /opt/sei/temp
+#chmod -R 777 /opt/sip/temp
 
 # Inicialização das rotinas de agendamento
 /etc/init.d/rsyslog start

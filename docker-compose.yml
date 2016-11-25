@@ -1,27 +1,32 @@
 version: '2'
 services:
   jod:
-    image: guilhermeadc/sei3_jod-2.2.2:latest
+    image: guilhermeadc/sei3_jod-2.2.2
+    container_name: jod
     ports:
       - "8080:8080"
 
   smtp:
       image: guilhermeadc/sei3_mailcatcher
+      container_name: smtp
       ports:
         - "1080:1080"
 
   memcached:
     image: guilhermeadc/sei3_memcached
+    container_name: memcached
     ports:
       - "11211:11211"
 
   mysql:
     image: guilhermeadc/sei3_mysql-5.6
+    container_name: mysql
     ports:
       - "3306:3306"
 
   oracle:
     image: guilhermeadc/sei3_oracle-11g
+    container_name: oracle
     ports:
       - "1521:1521"
 
@@ -32,13 +37,14 @@ services:
 
   http:
     image: guilhermeadc/sei3_httpd-2.4
+    container_name: http
     ports:
       - "80:80"
     volumes:
-      - /home/guilhermeadc/git/softwarepublico.gov.br/SEI/sei:/opt/
+      - ../sei:/opt
     links:
       - mysql:mysql
-      - solr:solr
       - memcached:memcached
+      - solr:solr
       - smtp:smtp
       - jod:jod
