@@ -32,6 +32,7 @@ services:
 
   solr:
     image: guilhermeadc/sei3_solr-6.1
+    container_name: solr
     ports:
       - "8983:8983"
 

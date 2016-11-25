@@ -31,11 +31,14 @@ echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
 # Instalação de pacote de fontes do windows
 rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 
+# Instalação dos componentes de conexão do Oracle (Oracle Instant Client)
+bash /tmp/install_oracle.sh
+
+# Instalação dos componentes de conexão do SQL Server
+yum -y install freetds freetds-devel php-mssql
+
 # Instalação de componentes para teste do Barramento de Seriços do PEN
 yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
-
-# Instalação dos componentes de conexão ao Oracle (Oracle Instant Client)
-bash /tmp/install_oracle.sh
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
