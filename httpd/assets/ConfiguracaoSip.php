@@ -26,28 +26,38 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
 
- 	       // CONFIGURAÃ‡ÃƒO PARA BASE DE DADOS MYSQL
- 	      'BancoSip'  => array(
-                  'Servidor' => getenv("MYSQL_PORT_3306_TCP_ADDR"),
-                  'Porta' => getenv("MYSQL_PORT_3306_TCP_PORT"),
-                  'Banco' => 'sip',
-                  'Usuario' => 'sip_user',
-                  'Senha' => 'sip_user',
-                  'Tipo' => 'MySql'), //MySql ou SqlServer),
+ 	       // CONFIGURAÇÃO PARA BASE DE DADOS MYSQL
+	      // 'BancoSip'  => array(
+       //            'Servidor' => 'mysql',
+       //            'Porta' => 3306,
+       //            'Banco' => 'sip',
+       //            'Usuario' => 'sip_user',
+       //            'Senha' => 'sip_user',
+       //            'Tipo' => 'MySql'), //MySql ou SqlServer),
 
-              // CONFIGURAÃ‡ÃƒO PARA BASE DE DADOS ORACLE
-/*              'BancoSip'  => array(
-                  'Servidor' => getenv("ORACLE_PORT_1521_TCP_ADDR"),
-                  'Porta' => getenv("ORACLE_PORT_1521_TCP_PORT"),
+ 
+                  // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
+            // 'BancoSip'  => array(
+            //       'Servidor' => 'oracle',
+            //       'Porta' => 1521,
+            //       'Banco' => 'sip',
+            //       'Usuario' => 'sip',
+            //       'Senha' => 'sip_user',
+            //       'Tipo' => 'Oracle'), //MySql ou SqlServer
+
+                  // CONFIGURAÇÃO PARA BANCO DE DADOS SQL SERVER
+            'BancoSip'  => array(
+                  'Servidor' => 'sqlserver',
+                  'Porta' => 1433,
                   'Banco' => 'sip',
                   'Usuario' => 'sip_user',
                   'Senha' => 'sip_user',
-                  'Tipo' => 'Oracle'), //MySql ou SqlServer),
-*/
+                  'Tipo' => 'SqlServer'), //MySql ou SqlServer
+
 
 	      'CacheSip' => array(
-                  'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),
-                  'Porta' => getenv("MEMCACHED_PORT_11211_TCP_PORT")),
+                  'Servidor' => 'memcached',
+                  'Porta' => 11211),
 
  	      'HostWebService' => array(
  	          'Replicacao' => array('*'),
@@ -56,8 +66,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 
  	      'InfraMail' => array(
                   'Tipo' => '2',
-                  'Servidor' => getenv("SMTP_PORT_1025_TCP_ADDR"),
-                  'Porta' => getenv("SMTP_PORT_1025_TCP_PORT"),
+                  'Servidor' => 'smtp',
+                  'Porta' => 1025,
                   'Codificacao' => '8bit',
                   'MaxDestinatarios' => 999,
                   'MaxTamAnexosMb' => 999,

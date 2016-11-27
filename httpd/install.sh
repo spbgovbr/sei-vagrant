@@ -35,7 +35,7 @@ rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 bash /tmp/install_oracle.sh
 
 # Instalação dos componentes de conexão do SQL Server
-yum -y install freetds freetds-devel php-mssql
+yum -y install freetds freetds-devel php56u-mssql
 
 # Instalação de componentes para teste do Barramento de Seriços do PEN
 yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman

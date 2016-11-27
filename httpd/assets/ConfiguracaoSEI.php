@@ -31,35 +31,43 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
         'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
         'https' => false),
 
-      // CONFIGURAÃ‡ÃƒO PARA BANCO DE DADOS ORACLE
-      'BancoSEI'  => array(
-        'Servidor' => getenv("MYSQL_PORT_3306_TCP_ADDR"),
-        'Porta' => getenv("MYSQL_PORT_3306_TCP_PORT"),
-        'Banco' => 'sei',
-        'Usuario' => 'sei_user',
-        'Senha' => 'sei_user',
-        'Tipo' => 'MySql'), //MySql ou SqlServer
+      // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
+      // 'BancoSEI'  => array(
+      //   'Servidor' => 'mysql',
+      //   'Porta' => 3306,
+      //   'Banco' => 'sei',
+      //   'Usuario' => 'sei_user',
+      //   'Senha' => 'sei_user',
+      //   'Tipo' => 'MySql'), //MySql ou SqlServer
 
-        // CONFIGURAÃ‡ÃƒO PARA BANCO DE DADOS ORACLE
-        /*      'BancoSEI'  => array(
-        'Servidor' => getenv("ORACLE_PORT_1521_TCP_ADDR"),
-        'Porta' => getenv("ORACLE_PORT_1521_TCP_PORT"),
+        // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
+      // 'BancoSEI'  => array(
+      //   'Servidor' => 'oracle',
+      //   'Porta' => 1521,
+      //   'Banco' => 'sei',
+      //   'Usuario' => 'sei',
+      //   'Senha' => 'sei_user',
+      //   'Tipo' => 'Oracle'), //MySql ou SqlServer
+
+      // CONFIGURAÇÃO PARA BANCO DE DADOS SQL SERVER
+      'BancoSEI'  => array(
+        'Servidor' => 'sqlserver',
+        'Porta' => 1433,
         'Banco' => 'sei',
         'Usuario' => 'sei_user',
-        'Senha' => 'sei_user',
-        'Tipo' => 'Oracle'), //MySql ou SqlServer
-        */
+        'Senha' => 'yourStrong(!)Password',
+        'Tipo' => 'SqlServer'), //MySql ou SqlServer
 
         'CacheSEI' => array(
-          'Servidor' => getenv("MEMCACHED_PORT_11211_TCP_ADDR"),
-          'Porta' => getenv("MEMCACHED_PORT_11211_TCP_PORT")),
+          'Servidor' => 'memcached',
+          'Porta' => 11211),
 
-        'JODConverter' => array('Servidor' => 'http://'.getenv("JOD_PORT_8080_TCP_ADDR").':'.getenv("JOD_PORT_8080_TCP_PORT").'/converter/service'),
+        'JODConverter' => array('Servidor' => 'http://jod:8080/converter/service'),
 
         'Edoc' => array('Servidor' => 'http://[Servidor .NET]'),
 
         'Solr' => array(
-          'Servidor' => 'http://'.getenv("SOLR_PORT_8983_TCP_ADDR").':'.getenv("SOLR_PORT_8983_TCP_PORT").'/solr',
+          'Servidor' => 'http://solr:8983/solr',
           'CoreProtocolos' => 'sei-protocolos',
           'TempoCommitProtocolos' => 300,
           'CoreBasesConhecimento' => 'sei-bases-conhecimento',
@@ -75,8 +83,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
         'InfraMail' => array(
           'Tipo' => '2',
-          'Servidor' => getenv("SMTP_PORT_1025_TCP_ADDR"),
-          'Porta' => getenv("SMTP_PORT_1025_TCP_PORT"),
+          'Servidor' => 'smtp',
+          'Porta' => 1025,
           'Codificacao' => '8bit',
           'MaxDestinatarios' => 999,
           'MaxTamAnexosMb' => 999,

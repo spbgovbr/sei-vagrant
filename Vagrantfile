@@ -23,57 +23,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "../sei", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
 
   # Configurações padrão da máquina virtual host
+  # TODO: Reduzir a quantidade de memória utilizada para testes
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "2048", "--usb", "off", "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
   end
 
   # Provisionamento da máquina virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|
-    #docker.pull_images "processoeletronico/oracle-11g"
     docker.pull_images "guilhermeadc/sei3_solr-6.1"
     docker.pull_images "guilhermeadc/sei3_mysql-5.6"
     docker.pull_images "guilhermeadc/sei3_jod-2.2.2"
     docker.pull_images "guilhermeadc/sei3_httpd-2.4"
     docker.pull_images "guilhermeadc/sei3_mailcatcher"
     docker.pull_images "guilhermeadc/sei3_memcached"
-
-    # docker run -d --name smtp -p 1080:1080 schickling/mailcatcher:latest
-    docker.run "smtp", image: "guilhermeadc/sei3_mailcatcher",
-      daemonize: true,
-      args: "-p 1080:1080"
-
-    # docker run -d --name memcached -p 11211:11211 processoeletronico/memcached:latest
-    docker.run "memcached", image: "guilhermeadc/sei3_memcached",
-      daemonize: true,
-      args: "-p 11211:11211"
-
-    # docker run -d --name mysql -p 3306:3306 processoeletronico/mysql:latest
-    docker.run "mysql",  image: "guilhermeadc/sei3_mysql-5.6",
-      daemonize: true,
-      args: "-p 3306:3306"
-
-    # docker run -d --name oracle -p 1521:1521 -p 8180:8080 processoeletronico/oracle:latest
-    docker.run "oracle",  image: "guilhermeadc/sei3_oracle-11g",
-      daemonize: true,
-      args: "-p 1521:1521 -p 8180:8080"
-
-    # docker run -d --name solr -p 8983:8983 -v /mnt/sei/src/sei/solr:/mnt/sei/index processoeletronico/solr:latest
-    docker.run "solr", image: "guilhermeadc/sei3_solr-6.1",
-      daemonize: true,
-      args: "-p 8983:8983"
-
-    # docker run -d --name jod -p 8080:8080 processoeletronico/jod:latest
-    docker.run "jod", image: "guilhermeadc/sei3_jod-2.2.2",
-      daemonize: true,
-      args: "-p 8080:8080"
-
-    # docker run -d --name sei -p 80:80 --link oracle:oracle --link solr:solr --link db:db --link memcached:memcached --link smtp:smtp -v /mnt/sei/src:/opt  processoeletronico/sei:latest
-    docker.run "httpd", image: "guilhermeadc/sei3_httpd-2.4",
-      daemonize: true,
-      args: "-p 80:80 --link oracle:oracle --link mysql:mysql --link solr:solr --link memcached:memcached --link jod:jod --link smtp:smtp -v /mnt/sei/src:/opt"
   end
 
-  # Inicialização dos containers em caso de reinicialização da máquina host
-  # A inicialização é realizada de forma sequencial para evitar conflito no mapeamento de volumes no Docker
-  config.vm.provision "shell", run: "always", inline: "docker restart oracle && docker restart mysql && docker restart jod && docker restart solr && docker restart memcached && docker restart smtp && docker restart httpd"
+  config.vm.provision "shell", inline: 'curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &&  chmod +x /usr/local/bin/docker-compose'
+  config.vm.provision "shell", run: "always", inline: "cd /mnt/sei/ops && docker-compose up -d"
 end

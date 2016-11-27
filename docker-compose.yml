@@ -30,6 +30,12 @@ services:
     ports:
       - "1521:1521"
 
+  sqlserver:
+    image: guilhermeadc/sei3_sqlserver-2016
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+
   solr:
     image: guilhermeadc/sei3_solr-6.1
     container_name: solr
@@ -38,13 +44,15 @@ services:
 
   http:
     image: guilhermeadc/sei3_httpd-2.4
-    container_name: http
+    container_name: httpd
     ports:
       - "80:80"
     volumes:
-      - ../sei:/opt
+      - /mnt/sei/src:/opt
     links:
       - mysql:mysql
+      - oracle:oracle
+      - sqlserver:sqlserver
       - memcached:memcached
       - solr:solr
       - smtp:smtp
