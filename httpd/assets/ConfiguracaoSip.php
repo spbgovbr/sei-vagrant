@@ -16,7 +16,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	      'Sip' => array(
  	          'URL' => 'http://localhost/sip',
  	          'Producao' => false),
-
+ 	       
  	      'PaginaSip' => array('NomeSistema' => 'SIP'),
 
  	      'SessaoSip' => array(
@@ -25,59 +25,53 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	          'PaginaLogin' => 'http://localhost/sip/login.php',
  	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
+ 	       
+ 	      'BancoSip'  => array(
+ 	          'Servidor' => 'mysql',
+ 	          'Porta' => '3306',
+ 	          'Banco' => 'sip',
+ 	          'Usuario' => 'sip_user',
+ 	          'Senha' => 'sip_user',
+ 	          'Tipo' => 'MySql'), //MySql, SqlServer ou Oracle
 
- 	       // CONFIGURAÇÃO PARA BASE DE DADOS MYSQL
-	      // 'BancoSip'  => array(
-       //            'Servidor' => 'mysql',
-       //            'Porta' => 3306,
-       //            'Banco' => 'sip',
-       //            'Usuario' => 'sip_user',
-       //            'Senha' => 'sip_user',
-       //            'Tipo' => 'MySql'), //MySql ou SqlServer),
+// 	      'BancoSip'  => array(
+// 	          'Servidor' => 'oracle',
+// 	          'Porta' => '1521',
+// 	          'Banco' => 'sip',
+// 	          'Usuario' => 'sip',
+// 	          'Senha' => 'sip_user',
+// 	          'Tipo' => 'Oracle'), //MySql, SqlServer ou Oracle
 
- 
-                  // CONFIGURAÇÃO PARA BANCO DE DADOS ORACLE
-            // 'BancoSip'  => array(
-            //       'Servidor' => 'oracle',
-            //       'Porta' => 1521,
-            //       'Banco' => 'sip',
-            //       'Usuario' => 'sip',
-            //       'Senha' => 'sip_user',
-            //       'Tipo' => 'Oracle'), //MySql ou SqlServer
+// 	      'BancoSip'  => array(
+// 	          'Servidor' => 'sqlserver',
+// 	          'Porta' => '1433',
+// 	          'Banco' => 'sip',
+// 	          'Usuario' => 'sip_user',
+// 	          'Senha' => 'sip_user',
+// 	          'Tipo' => 'SqlServer'), //MySql, SqlServer ou Oracle
 
-                  // CONFIGURAÇÃO PARA BANCO DE DADOS SQL SERVER
-            'BancoSip'  => array(
-                  'Servidor' => 'sqlserver',
-                  'Porta' => 1433,
-                  'Banco' => 'sip',
-                  'Usuario' => 'sip_user',
-                  'Senha' => 'sip_user',
-                  'Tipo' => 'SqlServer'), //MySql ou SqlServer
-
-
-	      'CacheSip' => array(
-                  'Servidor' => 'memcached',
-                  'Porta' => 11211),
+				'CacheSip' => array('Servidor' => 'memcached',
+						                'Porta' => '11211'),
 
  	      'HostWebService' => array(
- 	          'Replicacao' => array('*'),
- 	          'Pesquisa' => array('*'),
- 	          'Autenticacao' => array('*')),
+ 	          'Replicacao' => array('*'), //endereço ou IP da máquina que implementa o serviço de replicação de usuários
+ 	          'Pesquisa' => array('*'), //endereços/IPs das máquinas do SEI
+ 	          'Autenticacao' => array('*')), //endereços/IPs das máquinas do SEI
 
- 	      'InfraMail' => array(
-                  'Tipo' => '2',
-                  'Servidor' => 'smtp',
-                  'Porta' => 1025,
-                  'Codificacao' => '8bit',
-                  'MaxDestinatarios' => 999,
-                  'MaxTamAnexosMb' => 999,
-                  'Seguranca' => '',
-                  'Autenticar' => false,
-                  'Usuario' => '',
-                  'Senha' => '',
-                  'Protegido' => '')
-
+				'InfraMail' => array(
+						'Tipo' => '2', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
+						'Servidor' => 'smtp',
+						'Porta' => '1025',
+						'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
+						'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
+						'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
+						'Seguranca' => 'TLS', //TLS, SSL ou vazio
+						'Autenticar' => false, //se true então informar Usuario e Senha
+						'Usuario' => '',
+						'Senha' => '',
+						'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
+				)
  	  );
  	}
 }
-?>
+

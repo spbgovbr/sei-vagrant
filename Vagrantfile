@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Configurações padrão da máquina virtual host
   # TODO: Reduzir a quantidade de memória utilizada para testes
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--memory", "2048", "--usb", "off", "--audio", "none"]
   end
 
   # Provisionamento da máquina virtual responsável por manter os containers do Docker
@@ -39,6 +39,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.pull_images "guilhermeadc/sei3_memcached"
   end
 
-  config.vm.provision "shell", inline: 'curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &&  chmod +x /usr/local/bin/docker-compose'
-  config.vm.provision "shell", run: "always", inline: "cd /mnt/sei/ops && docker-compose up -d"
+  config.vm.provision "shell", inline: 'curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose &&  chmod +x /usr/local/bin/docker-compose && cp /mnt/sei/ops/docker-compose.yml / '
+  config.vm.provision "shell", run: "always", inline: "docker-compose up -d"
 end

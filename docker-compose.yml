@@ -24,17 +24,17 @@ services:
     ports:
       - "3306:3306"
 
-  oracle:
-    image: guilhermeadc/sei3_oracle-11g
-    container_name: oracle
-    ports:
-      - "1521:1521"
+#  oracle:
+#    image: guilhermeadc/sei3_oracle-11g
+#    container_name: oracle
+#    ports:
+#      - "1521:1521"
 
-  sqlserver:
-    image: guilhermeadc/sei3_sqlserver-2016
-    container_name: sqlserver
-    ports:
-      - "1433:1433"
+#  sqlserver:
+#    image: guilhermeadc/sei3_sqlserver-2016
+#    container_name: sqlserver
+#    ports:
+#      - "1433:1433"
 
   solr:
     image: guilhermeadc/sei3_solr-6.1
@@ -51,8 +51,8 @@ services:
       - /mnt/sei/src:/opt
     links:
       - mysql:mysql
-      - oracle:oracle
-      - sqlserver:sqlserver
+#      - oracle:oracle
+#      - sqlserver:sqlserver
       - memcached:memcached
       - solr:solr
       - smtp:smtp
