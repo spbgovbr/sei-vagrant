@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
   config.vm.network :forwarded_port, guest: 80,   host: 80   # SIP e SEI (Apache)
   config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
+  config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
   config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter (Tomcat)
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
