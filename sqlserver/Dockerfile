@@ -17,9 +17,9 @@ ENV SA_PASSWORD='yourStrong(!)Password'
 COPY sei-db-ref-executivo/sqlserver/v3.0.0/sei_3_0_0_BD_Ref_Exec.bak /tmp/sei_sqlserver.bak
 COPY sei-db-ref-executivo/sqlserver/v3.0.0/sip_3_0_0_BD_Ref_Exec.bak /tmp/sip_sqlserver.bak
 COPY assets/restore.sql /tmp/restore.sql
-COPY install.sh /install.sh
+#COPY install.sh /install.sh
 
-RUN bash /install.sh
+#RUN bash /install.sh
 ############################## FIM DA INSTALACAO ###############################
 
 # Imagem de base já configura a exposição das portas 1521 e inicialização do
