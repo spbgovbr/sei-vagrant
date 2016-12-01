@@ -10,8 +10,8 @@ MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
-COPY sei-db-ref-executivo/mysql/v3.0.0/sei_3_0_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
-COPY sei-db-ref-executivo/mysql/v3.0.0/sip_3_0_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
+COPY sei-db-ref-executivo/mysql/sei_3_0_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
+COPY sei-db-ref-executivo/mysql/sip_3_0_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
 COPY install.sh /install.sh
 COPY entrypoint.sh /entrypoint.sh
 
