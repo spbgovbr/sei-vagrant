@@ -4,6 +4,7 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
+#TODO: Migrar para container oficial do PHP 5.6 (5.6-alpine)
 FROM centos:centos6
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 

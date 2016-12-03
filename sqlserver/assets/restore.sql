@@ -1,11 +1,21 @@
 
-RESTORE DATABASE [sip] FROM  DISK = N'/tmp/sip_sqlserver.bak' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5, MOVE 'sip' TO '/var/opt/mssql/data/sip.mdf', MOVE 'sip_log' TO '/var/opt/mssql/data/sip_log.ldf'
+-- TODO: Padronizar datafiles da base de dados em SQL Server
+RESTORE DATABASE [sei] FROM  DISK = N'/tmp/sei_sqlserver.bak' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5, 
+MOVE 'gedoc' TO '/var/opt/mssql/data/sei_data.mdf', 
+MOVE 'SEI_data3' TO '/var/opt/mssql/data/sei_data1.ndf',
+MOVE 'SEI_data4' TO '/var/opt/mssql/data/sei_data2.ndf',
+MOVE 'SEI_log2' TO '/var/opt/mssql/data/sei_data3.ndf',
+MOVE 'Sei_Log3' TO '/var/opt/mssql/data/sei_data4.ndf',
+MOVE 'gedoc_log' TO '/var/opt/mssql/data/sei_1og.ldf'
 GO
 
-RESTORE DATABASE [sei] FROM  DISK = N'/tmp/sei_sqlserver.bak' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5, MOVE 'sei' TO '/var/opt/mssql/data/sei.mdf', MOVE 'sei_log' TO '/var/opt/mssql/data/sei_log.ldf'
+-- TODO: Padronizar datafiles da base de dados em SQL Server
+RESTORE DATABASE [sip] FROM  DISK = N'/tmp/sip_sqlserver.bak' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5, 
+MOVE 'sip_Data' TO '/var/opt/mssql/data/sip_data.mdf', 
+MOVE 'sip_Log' TO '/var/opt/mssql/data/sip_log.ldf'
 GO
 
-USE SEI;
+USE sei;
 GO
 
 CREATE LOGIN sei_user
@@ -24,7 +34,7 @@ GO
 delete from auditoria_protocolo;
 GO
 
-USE SIP;
+USE sip;
 GO
 
 CREATE LOGIN sip_user

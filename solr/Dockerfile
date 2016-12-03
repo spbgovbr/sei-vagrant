@@ -4,6 +4,7 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
+#TODO: Migrar para container oficial do Java 8 (8-jdk-alpine)
 FROM centos:centos7
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
