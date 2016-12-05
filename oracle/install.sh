@@ -8,9 +8,7 @@ export ORACLE_SID=XE
 export NLS_LANG=PORTUGUESE_BRAZIL.WE8MSWIN1252
 
 # Inicialização do servidor
-bash /usr/sbin/startup.sh
-
-sleep 15
+/usr/sbin/startup.sh
 
 # Configuração do character set e outros parâmetros iniciais
 sqlplus sys/oracle as sysdba @"/tmp/pre-install.sql"

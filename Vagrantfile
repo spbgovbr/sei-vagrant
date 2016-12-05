@@ -24,9 +24,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "../sei", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
 
   # Configurações padrão da máquina virtual host
-  # TODO: Reduzir a quantidade de memória utilizada para testes
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "2048", "--usb", "off", "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
   end
 
   # Provisionamento da máquina virtual responsável por manter os containers do Docker

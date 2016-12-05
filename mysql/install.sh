@@ -30,7 +30,6 @@ mysql -e "GRANT ALL PRIVILEGES ON sei.* TO 'sei_user'@'%'" sei
 # Restauração dos bancos de dados
 mysql sei < /tmp/sei_mysql.sql
 mysql sip < /tmp/sip_mysql.sql
-rm -f /tmp/sei_mysql.sql /tmp/sip_mysql.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip
