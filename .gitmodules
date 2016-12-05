@@ -2,8 +2,9 @@
 	path = mysql/sei-db-ref-executivo
 	url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
 [submodule "oracle/sei-db-ref-executivo"]
-	path = oracle/sei-db-ref-executivo
-	url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
+        path = oracle/sei-db-ref-executivo
+        url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
 [submodule "sqlserver/sei-db-ref-executivo"]
-	path = sqlserver/sei-db-ref-executivo
-	url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
+        path = sqlserver/sei-db-ref-executivo
+        url = http://softwarepublico.gov.br/gitlab/sei/sei-db-ref-executivo.git
+

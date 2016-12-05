@@ -1,5 +1,6 @@
 .vagrant/
 mysql/.tmp
 Vagrantfile.conf
+sei-vagrant.box
 *~
 *.swp
