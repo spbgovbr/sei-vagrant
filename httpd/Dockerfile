@@ -13,10 +13,10 @@ ENV TERM xterm
 
 # Arquivos de instalação de componentes do SEI
 COPY assets/msttcore-fonts-2.0-3.noarch.rpm /tmp
-COPY oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/
-COPY oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/
-COPY oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm /tmp/
-COPY oracle/install_oracle.sh /tmp/
+COPY assets/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY assets/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY assets/oracle/oracle-instantclient11.2-sqlplus-11.2.0.4.0-1.x86_64.rpm /tmp/
+COPY assets/oracle/install_oracle.sh /tmp/
 
 # Instalação do SEI e demais componentes acessórios
 COPY install.sh /install.sh

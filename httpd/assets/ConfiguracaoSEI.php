@@ -27,7 +27,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	      'SessaoSEI' => array(
  	          'SiglaOrgaoSistema' => 'ABC',
  	          'SiglaSistema' => 'SEI',
- 	          'PaginaLogin' => 'http://localhost/sip/login.php',
+ 	          'PaginaLogin' => getenv('SEI_HOST_URL').'/sip/login.php',
  	          'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
  	          'https' => false),
  	       

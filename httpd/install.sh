@@ -4,7 +4,7 @@ set -e
 
 # Instalação dos componentes básicos do servidor web apache
 yum -y  update
-yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs
+yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
 
 # Instalação do PHP e demais extenções necessárias para o projeto
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
@@ -38,7 +38,7 @@ bash /tmp/install_oracle.sh
 yum -y install freetds freetds-devel php56u-mssql
 
 # Instalação de componentes para teste do Barramento de Seriços do PEN
-yum -y install supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
+yum -y install --exclude=mysql-libs --exclude=mysqlclient16 supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
