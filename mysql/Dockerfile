@@ -12,6 +12,7 @@ ENV TERM xterm
 
 COPY sei-db-ref-executivo/mysql/sei_3_0_0_BD_Ref_Exec.sql /tmp/sei_mysql.sql
 COPY sei-db-ref-executivo/mysql/sip_3_0_0_BD_Ref_Exec.sql /tmp/sip_mysql.sql
+COPY assets/my.cnf /etc/my.cnf
 COPY install.sh /install.sh
 COPY entrypoint.sh /entrypoint.sh
 

@@ -46,10 +46,6 @@ mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 # Atribuição de permissões de acesso externo para o usuário root, senha root
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
 
-# Correção de problema com o registro de log de documentos contendo imagens
-echo "max_allowed_packet=268435456" >> /etc/my.cnf
-echo "sql-mode=STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/my.cnf
-
 # Remover arquivos temporários
 rm -rf /tmp/*
 yum clean all
