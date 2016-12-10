@@ -11,7 +11,6 @@ MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
-COPY assets/solr-6.1.0.tgz /tmp/
 COPY assets/index/* /tmp/
 COPY assets/sei-solr-6.1.0.sh /tmp/sei-solr-6.1.0.sh
 COPY install.sh /install.sh

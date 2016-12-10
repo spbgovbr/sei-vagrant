@@ -4,7 +4,11 @@ set -e
 
 # Instalação do pacote Java JDK e utilitários utilizados no provisionamento
 #apk update && apk add lsof curl bash openjdk8-jre
-yum -y update && yum -y install lsof curl java-1.8.0-openjdk
+yum -y update && yum -y install lsof curl wget java-1.8.0-openjdk
+
+# Download do Solr, versão 6.1.0
+SOLR_URL=https://archive.apache.org/dist/lucene/solr/6.1.0/solr-6.1.0.tgz
+wget -nv $SOLR_URL -O /tmp/solr-6.1.0.tgz
 
 # Instalação do Apache Solr 6.1
 sh /tmp/sei-solr-6.1.0.sh
