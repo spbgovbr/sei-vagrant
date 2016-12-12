@@ -1,6 +1,6 @@
-# Ambiente de Desenvolvimento - Vagrant
+# Ambiente de Desenvolvimento - Vagrant e Docker
 
-O objetivo dessa documentação é descrever os procedimentos para preparar um ambiente de desenvolvimento ou testes do SEI de forma rápida e padronizada através do [Vagrant](https://www.vagrantup.com/ "Clique para acessar"). Essa ferramenta permite que seja provisionado automaticamente todo um ambiente funcional na máquina de trabalho do desenvolvedor, sem que seja necessário a instalação de servidores de aplicação e banco de dados pelo mesmo. Outra vantagem é que esse ambiente é completamente provisionado utilizando máquinas virtuais, necessitando que o desenvolvedor apenas configure sua IDE ou editor de texto preferido.
+O objetivo dessa documentação é descrever os procedimentos para preparar um ambiente de desenvolvimento ou testes do SEI de forma rápida e padronizada através do [Vagrant](https://www.vagrantup.com/ "Clique para acessar") e [Docker](https://www.docker.com). Essas ferramentas permitem que seja provisionado automaticamente todo um ambiente funcional na máquina de trabalho do desenvolvedor, sem que seja necessário a instalação de servidores de aplicação e banco de dados pelo mesmo. Outra vantagem é que esse ambiente é completamente provisionado utilizando máquinas virtuais, necessitando que o desenvolvedor apenas configure sua IDE ou editor de texto preferido.
 
 Antes, gostariamos de reforçar a necessidade que todo o desenvolvimento esteja alinhado com as diretivas e padrões de interface, codificação php e modelagem de banco de dados utilizados pelo SEI. A documentação dos padrões estão disponíveis na comunidade do SEI:
 
@@ -12,8 +12,9 @@ Outra fator importante de ser feito, antes do início dos trabalhos de desenvolv
 
 Voltando para à configuração do ambiente de desenvolvimento, as tecnologias utilizadas nesse trabalho foram as listadas abaixo. Sugerimos uma breve leitura de suas documentações para melhor entendimento.
 
-* VirtualBox - https://www.virtualbox.org/
 * Vagrant - https://www.vagrantup.com/
+* Docker - https://www.docker.com/
+* VirtualBox - https://www.virtualbox.org/
 * Git - https://git-scm.com/
 
 Outros recursos para melhor entendimento das tecnologias citadas acima:
@@ -22,6 +23,12 @@ Outros recursos para melhor entendimento das tecnologias citadas acima:
 * https://www.youtube.com/watch?v=zg4EMgcb6H8
 * http://pt.slideshare.net/RenanMartinsPimentel/vagrant-26647815
 * http://pt.slideshare.net/rogeriopradoj/desenvolvimento-php-com-vagrant-15511228
+
+O provisionamento dos componentes do sistema é implementado através da plataforma de containers do [Docker](https://www.docker.com), portanto, as imagens dos containers
+podem ser reutilizados isoladamente em outras configurações de infraestrutura para testes, sendo que todos os containers utilizados neste projeto estão publicados no [DockerHub](https://hub.docker.com/r/guilhermeadc/). Um exemplo de utilização dos container do Docker para preparação de ambiente de desenvolvimento do SEI pode ser visto no arquivo [docker-compose.yml](https://github.com/guilhermeadc/sei-vagrant/blob/master/docker-compose.yml) utilizado internamento pelo projeto.
+
+O Docker utiliza recursos do Kernel do Linux para gerenciar o isolamento provido pelos container, o que obriga a utilização deste sistema operacional para uso da "virtualização". Para resolver esta limitação é utilizado o Vagrant, responsável por criar uma virtualização para servir de host para o Docker e permitir sua utilização em outr
+os Sistemas Operacionais, como Windows e MacOS. Sua função é semelhante ao provido pelos projetos [Boot2Docker](http://boot2docker.io/) e [Docker Machine](https://docs.docker.com/machine/).
 
 Em resumo, o Vagrant é uma ferramenta que permite a construção de máquinas virtuais para desenvolvimento sem que seja necessário a instalação de todos os componentes da infraestrutura (banco de dados, bibliotecas, servidores web, etc) na máquina do desenvolvedor. Entre as vantagens em sua utilização estão:
 
@@ -34,11 +41,8 @@ O Vagrant trabalha com o conceito de Box, basicamente uma "imagem/iso" para se c
 Para configurar o ambiente, será necessário a instalação dos seguintes pré-requisitos:
 
 * **VirtualBox** Download: https://www.virtualbox.org/wiki/Downloads
-
 * **VirtualBox Extensions** Download: https://www.virtualbox.org/wiki/Downloads
-
 * **Vagrant** Download: https://www.vagrantup.com/downloads.html
-
 * **Git** Download: https://git-scm.com/downloads
 
 Todos os componentes acima precisam ser instalados na máquina de desenvolvimento, prestando atenção nas seguintes considerações:
