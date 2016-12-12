@@ -65,7 +65,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 						'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
 						'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
 						'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
-						'Seguranca' => 'TLS', //TLS, SSL ou vazio
+						'Seguranca' => '', //TLS, SSL ou vazio
 						'Autenticar' => false, //se true então informar Usuario e Senha
 						'Usuario' => '',
 						'Senha' => '',
