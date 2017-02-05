@@ -103,14 +103,14 @@ Esse comando irá iniciar a construção do ambiente de desenvolvimento começan
 
 Após a conclusão do primeiro provisionamento, o ambiente poderá ser destruído e recriado rapidamente já que vagrant armazenará a BOX/Imagem de referência em seu cache.
 
-Ao final da inicialização do ambiente de desenvolvimento, será apresentada a seguinte mensagem abaixo indicando que todos os serviços do SEI já estão em operação na máquina de desenvolvimento. A mensagem é :
+Ao final da inicialização do ambiente de desenvolvimento, será apresentada a mensagem abaixo, indicando que todos os serviços do SEI já estão em operação na máquina de desenvolvimento:
 
-    ===> default: db
-    ===> default: solr
-    ===> default: smtp
-    ===> default: jod
-    ===> default: memcached    
-    ===> default: www
+    ===> default: Starting smtp
+    ===> default: Starting jod
+    ===> default: Starting mysql
+    ===> default: Starting solr
+    ===> default: Starting memcached    
+    ===> default: Starting httpd
 
 ### 6) Testar a Aplicação
 
