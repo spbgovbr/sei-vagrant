@@ -45,6 +45,7 @@ services:
   http:
     image: guilhermeadc/sei3_httpd-2.4
     container_name: httpd
+    dns: "8.8.8.8"
     ports:
       - "80:80"
     volumes:
