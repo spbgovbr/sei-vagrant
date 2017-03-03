@@ -94,8 +94,9 @@ Outra alternativa para configuração pode ambiente pode ser realizada pelos scr
 ### 5) Iniciar o Ambiente de Desenvolvimento Virtualizado
 
 No mesmo diretório, execute o comando:
+PS: Linux e Mac precisam executar comando abaixo como usuário root devido a utilização da porta 80
 
-    vagrant up
+    # vagrant up
 
 Esse comando irá iniciar a construção do ambiente de desenvolvimento começando pelo download da Box processoeletronico/sei-3.0.0 contendo todo o ambiente preparado para o desenvolvimento.
 
