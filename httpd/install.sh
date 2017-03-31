@@ -18,11 +18,8 @@ yum -y install php56u php56u-common php56u-cli php56u-pear php56u-bcmath php56u-
     php56u-odbc php56u-pdo php56u-pecl-apc php56u-pspell php56u-zlib php56u-snmp php56u-soap php56u-xml php56u-xmlrpc php56u-zts php56u-devel \
     php56u-pecl-apc-devel php56u-pecl-memcache php56u-calendar php56u-shmop php56u-intl php56u-mcrypt php56u-pecl-xdebug
 
-# Configuração do charset do Apache
-echo "AddDefaultCharset iso-8859-1" | tee -a /etc/httpd/conf/httpd.conf
-
-# Correção do bug do VirtualBox relacionado ao Sendfile. http://docs.vagrantup.com/v2/synced-folders/virtualbox.html
-echo "EnableSendfile Off" | tee -a /etc/httpd/conf/httpd.conf
+# Configuração do pacote de línguas pt_BR
+localedef pt_BR -i pt_BR -f ISO-8859-1
 
 # Instalação do componentes UploadProgress
 pecl install uploadprogress && \
