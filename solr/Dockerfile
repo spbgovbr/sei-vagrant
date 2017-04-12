@@ -11,6 +11,7 @@ MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
+COPY assets/msttcore-fonts-2.0-3.noarch.rpm /tmp
 COPY assets/index/* /tmp/
 COPY assets/sei-solr-6.1.0.sh /tmp/sei-solr-6.1.0.sh
 COPY install.sh /install.sh
