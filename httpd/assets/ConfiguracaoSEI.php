@@ -15,7 +15,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	  return array(
 
  	      'SEI' => array(
- 	          'URL' => 'http://localhost/sei',
+ 	          'URL' => getenv('SEI_HOST_URL').'/sei',
  	          'Producao' => false,
  	          'RepositorioArquivos' => '/var/sei/arquivos'),
 
@@ -70,23 +70,23 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
 				'HostWebService' => array(
 						'Edoc' => array('[Servidor .NET]'),
-						'Sip' => array('*'), //ReferÍncias (IP e nome na rede) de todas as m·quinas que executam o SIP.
-						'Publicacao' => array('*'), //ReferÍncias (IP e nome na rede) das m·quinas de veÌculos de publicaÁ„o externos cadastrados no SEI.
-						'Ouvidoria' => array('*'), //ReferÍncias (IP e nome na rede) da m·quina que hospeda o formul·rio de Ouvidoria personalizado. Se utilizar o formul·rio padr„o do SEI, ent„o configurar com as m·quinas dos nÛs de aplicaÁ„o do SEI.
+						'Sip' => array('*'), //Refer√™ncias (IP e nome na rede) de todas as m√°quinas que executam o SIP.
+						'Publicacao' => array('*'), //Refer√™ncias (IP e nome na rede) das m√°quinas de ve√≠culos de publica√ß√£o externos cadastrados no SEI.
+						'Ouvidoria' => array('*'), //Refer√™ncias (IP e nome na rede) da m√°quina que hospeda o formul√°rio de Ouvidoria personalizado. Se utilizar o formul√°rio padr√£o do SEI, ent√£o configurar com as m√°quinas dos n√≥s de aplica√ß√£o do SEI.
 				),
  	       
  	      'InfraMail' => array(
-						'Tipo' => '2', //1 = sendmail (neste caso n„o È necess·rio configurar os atributos abaixo), 2 = SMTP
+						'Tipo' => '2', //1 = sendmail (neste caso n√£o √© necess√°rio configurar os atributos abaixo), 2 = SMTP
 						'Servidor' => 'smtp',
 						'Porta' => '1025',
 						'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
 						'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
 						'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
 						'Seguranca' => '', //TLS, SSL ou vazio
-						'Autenticar' => false, //se true ent„o informar Usuario e Senha
+						'Autenticar' => false, //se true ent√£o informar Usuario e Senha
 						'Usuario' => '',
 						'Senha' => '',
-						'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituÌdo por este valor (evita envio incorreto de email)
+						'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substitu√≠do por este valor (evita envio incorreto de email)
 				)
  	  );
  	}
