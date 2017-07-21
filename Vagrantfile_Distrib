@@ -7,7 +7,7 @@ unless Vagrant.has_plugin?("vagrant-vbguest")
   warn "\n\n**********************************************************\n\n"+
        "                          ATENÇAO !!!                        \n\n"+
        "Não foi localizado o plugin vagrant-vbguest na máquina host. \n\n"+
-       "Recomendamos seu uso para evitar imcompatibilidades de versões \n"+
+       "Recomendamos seu uso para evitar incompatibilidades de versões \n"+
        "entre o Virtualbox e VBGuest Addition, impactando o          \n"+
        "compartilhamento de pastas. \n\n"+
        "Para solucionar o problema, execute o seguinte comando no \n"+
