@@ -14,7 +14,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	public function getArrConfiguracoes(){
  	  return array(
  	      'Sip' => array(
- 	          'URL' => 'http://localhost/sip',
+ 	          'URL' => getenv('SEI_HOST_URL').'/sip',
  	          'Producao' => false),
  	       
  	      'PaginaSip' => array('NomeSistema' => 'SIP'),
@@ -54,22 +54,22 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 						                'Porta' => '11211'),
 
  	      'HostWebService' => array(
- 	          'Replicacao' => array('*'), //endereÁo ou IP da m·quina que implementa o serviÁo de replicaÁ„o de usu·rios
- 	          'Pesquisa' => array('*'), //endereÁos/IPs das m·quinas do SEI
- 	          'Autenticacao' => array('*')), //endereÁos/IPs das m·quinas do SEI
+ 	          'Replicacao' => array('*'), //endere√ßo ou IP da m√°quina que implementa o servi√ßo de replica√ß√£o de usu√°rios
+ 	          'Pesquisa' => array('*'), //endere√ßos/IPs das m√°quinas do SEI
+ 	          'Autenticacao' => array('*')), //endere√ßos/IPs das m√°quinas do SEI
 
 				'InfraMail' => array(
-						'Tipo' => '2', //1 = sendmail (neste caso n„o È necess·rio configurar os atributos abaixo), 2 = SMTP
+						'Tipo' => '2', //1 = sendmail (neste caso n√£o √© necess√°rio configurar os atributos abaixo), 2 = SMTP
 						'Servidor' => 'smtp',
 						'Porta' => '1025',
 						'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
 						'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
 						'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
 						'Seguranca' => '', //TLS, SSL ou vazio
-						'Autenticar' => false, //se true ent„o informar Usuario e Senha
+						'Autenticar' => false, //se true ent√£o informar Usuario e Senha
 						'Usuario' => '',
 						'Senha' => '',
-						'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituÌdo por este valor (evita envio incorreto de email)
+						'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substitu√≠do por este valor (evita envio incorreto de email)
 				)
  	  );
  	}
