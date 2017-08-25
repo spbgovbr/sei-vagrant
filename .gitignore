@@ -4,3 +4,4 @@ Vagrantfile.conf
 sei-vagrant.box
 *~
 *.swp
+*.box
