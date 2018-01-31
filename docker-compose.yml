@@ -51,7 +51,7 @@ services:
     volumes:
       - /mnt/sei/src:/opt
     environment:
-      - SEI_HOST_URL="http://localhost"
+      - SEI_HOST_URL=http://localhost      
     links:
       - mysql:mysql
 #      - oracle:oracle
