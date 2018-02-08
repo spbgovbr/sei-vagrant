@@ -31,7 +31,7 @@ services:
 #      - "1521:1521"
 
 #  sqlserver:
-#    image: guilhermeadc/sei3_sqlserver-2016
+#    image: guilhermeadc/sei3_sqlserver-2017
 #    container_name: sqlserver
 #    ports:
 #      - "1433:1433"
