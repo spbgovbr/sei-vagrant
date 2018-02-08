@@ -6,7 +6,7 @@
 # ambiente de produção
 ################################################################################
 
-FROM microsoft/mssql-server-linux
+FROM microsoft/mssql-server-linux:2017-latest
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
 ############################# INÍCIO DA INSTALACAO #############################
