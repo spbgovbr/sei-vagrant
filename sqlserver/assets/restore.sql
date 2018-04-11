@@ -59,3 +59,8 @@ GO
 
 update orgao set sin_autenticar='N' where id_orgao=0;
 GO
+
+-- Erro na base de referência relacionada ao registro de sequências de auditoria (issue #15)
+delete from seq_infra_auditoria
+GO
+
