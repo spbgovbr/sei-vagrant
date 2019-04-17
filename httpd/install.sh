@@ -34,9 +34,6 @@ bash /tmp/install_oracle.sh
 # Instalação dos componentes de conexão do SQL Server
 yum -y install freetds freetds-devel php56u-mssql
 
-# Instalação de componentes para teste do Barramento de Seriços do PEN
-yum -y install --exclude=mysql-libs --exclude=mysqlclient16 supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
-
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
 chmod -R 777 /var/sei/arquivos
