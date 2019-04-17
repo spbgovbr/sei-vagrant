@@ -21,6 +21,8 @@ services:
   mysql:
     image: guilhermeadc/sei3_mysql-5.6
     container_name: mysql
+    volumes:
+      - /var/lib/mysql
     ports:
       - "3306:3306"
 
