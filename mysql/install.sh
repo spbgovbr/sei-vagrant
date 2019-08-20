@@ -5,17 +5,19 @@ yum -y update
 
 # Instalar o MySQL 5.6
 yum install -y wget
-wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm -O /tmp/mysql-community-release-el6-5.noarch.rpm
-rpm -ivh /tmp/mysql-community-release-el6-5.noarch.rpm
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm -O /tmp/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh /tmp/mysql-community-release-el7-5.noarch.rpm
 yum -y install mysql-server
 
 # Inicialização do diretório de armazenamento do MySQL.
 # PS: Utilizando configuração insegura apenas para propósito de desenvolvimento
 rm -rf /var/lib/mysql/*
-chown -R mysql:mysql /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysql 
 mysql_install_db --user=mysql --datadir="/var/lib/mysql" --rpm --keep-my-cnf
 
 /etc/init.d/mysqld start
+
+/usr/bin/mysqladmin -u root password 'root'
 
 # Criação dos bancos de dados do sistema
 mysqladmin create sip

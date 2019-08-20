@@ -4,7 +4,7 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-FROM centos:centos7
+FROM centos:centos6
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
 ############################# INÍCIO DA INSTALAÇÃO #############################

@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 set -e
 
-VERSAO_CONTAINERS='1.5'
+VERSAO_CONTAINERS='2.0'
 
 vagrant destroy
 
-#docker stop $(docker ps -q)
-#docker rm $(docker ps -a -q)
-#docker rmi --force $(docker images -q)
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+docker rmi --force $(docker images -q)
 
 cd solr
 docker build -t sei3_solr-6.1 .

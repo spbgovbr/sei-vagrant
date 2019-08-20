@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
-
 set -e
 
 # Instalação dos componentes básicos do servidor web apache
-yum -y  update
-yum -y install httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
-
-# Instalação do PHP e demais extenções necessárias para o projeto
-wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-wget https://centos6.iuscommunity.org/ius-release.rpm
-rpm -ivh epel-release-latest-6.noarch.rpm
-rpm -ivh ius-release.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
 yum -y update
+yum -y install epel-release httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
 
 # Instalação do PHP e demais extenções necessárias para o projeto
-yum -y install php56u php56u-common php56u-cli php56u-pear php56u-bcmath php56u-gd php56u-gmp php56u-imap php56u-intl php56u-ldap php56u-mbstring php56u-mysqli \
-    php56u-odbc php56u-pdo php56u-pecl-apc php56u-pspell php56u-zlib php56u-snmp php56u-soap php56u-xml php56u-xmlrpc php56u-zts php56u-devel \
-    php56u-pecl-apc-devel php56u-pecl-memcache php56u-calendar php56u-shmop php56u-intl php56u-mcrypt php56u-pecl-xdebug
+yum -y install php56w php56w-common php56w-cli php56w-pear php56w-bcmath php56w-gd php56w-gmp php56w-imap php56w-intl php56w-ldap php56w-mbstring php56w-mysqli \
+    php56w-odbc php56w-pdo php56w-pecl-apc php56w-pspell php56w-zlib php56w-snmp php56w-soap php56w-xml php56w-xmlrpc php56w-zts php56w-devel \
+    php56w-pecl-apc-devel php56w-pecl-memcache php56w-calendar php56w-shmop php56w-intl php56w-mcrypt php56w-pecl-xdebug
 
 # Configuração do pacote de línguas pt_BR
 localedef pt_BR -i pt_BR -f ISO-8859-1
@@ -32,10 +25,10 @@ rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 bash /tmp/install_oracle.sh
 
 # Instalação dos componentes de conexão do SQL Server
-yum -y install freetds freetds-devel php56u-mssql
+yum -y install freetds freetds-devel php56w-mssql
 
 # Instalação de componentes para teste do Barramento de Seriços do PEN
-yum -y install --exclude=mysql-libs --exclude=mysqlclient16 supervisor gearmand libgearman libgearman-devel php56u-pecl-gearman
+yum -y install --exclude=mysql-libs --exclude=mysqlclient16 supervisor gearmand libgearman libgearman-devel php56w-pecl-gearman
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
