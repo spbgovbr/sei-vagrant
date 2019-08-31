@@ -21,6 +21,23 @@ end
 
 Vagrant.configure(2) do |config|
 
+
+  # Instalação de plugin para configuração automática do disco
+  required_plugins = %w( vagrant-vbguest vagrant-disksize )
+  _retry = false
+  required_plugins.each do |plugin|
+    unless Vagrant.has_plugin? plugin
+      system "vagrant plugin install #{plugin}"
+      _retry=true
+    end
+  end
+
+  if (_retry)
+    exec "vagrant " + ARGV.join(' ')
+  end
+
+  config.disksize.size = "20GB"
+
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
   config.vm.box = "processoeletronico/sei-3.0.0"
 

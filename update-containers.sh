@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 set -e
 
-VERSAO_CONTAINERS='1.6'
+VERSAO_CONTAINERS='2.0'
 
 vagrant destroy
 
-#docker stop $(docker ps -q)
-#docker rm $(docker ps -a -q)
-#docker rmi --force $(docker images -q)
+docker stop $(docker ps -q) || true
+docker rm $(docker ps -a -q) || true
+docker rmi --force $(docker images -q) | true
 
 cd solr
 docker build -t sei3_solr-6.1 .
@@ -22,9 +22,9 @@ docker tag  sei3_jod-2.2.2 guilhermeadc/sei3_jod-2.2.2:$VERSAO_CONTAINERS
 cd ..
 
 cd mysql
-docker build -t sei3_mysql-5.6 .
-docker tag sei3_mysql-5.6 guilhermeadc/sei3_mysql-5.6:latest
-docker tag sei3_mysql-5.6 guilhermeadc/sei3_mysql-5.6:$VERSAO_CONTAINERS
+docker build -t sei3_mysql-5.7 .
+docker tag sei3_mysql-5.7 guilhermeadc/sei3_mysql-5.7:latest
+docker tag sei3_mysql-5.7 guilhermeadc/sei3_mysql-5.7:$VERSAO_CONTAINERS
 cd ..
 
 cd oracle
@@ -59,7 +59,7 @@ cd ..
 
 docker push guilhermeadc/sei3_solr-6.1:$VERSAO_CONTAINERS
 docker push guilhermeadc/sei3_jod-2.2.2:$VERSAO_CONTAINERS
-docker push guilhermeadc/sei3_mysql-5.6:$VERSAO_CONTAINERS
+docker push guilhermeadc/sei3_mysql-5.7:$VERSAO_CONTAINERS
 docker push guilhermeadc/sei3_oracle-11g:$VERSAO_CONTAINERS
 docker push guilhermeadc/sei3_httpd-2.4:$VERSAO_CONTAINERS
 docker push guilhermeadc/sei3_mailcatcher:$VERSAO_CONTAINERS
@@ -68,7 +68,7 @@ docker push guilhermeadc/sei3_sqlserver-2017:$VERSAO_CONTAINERS
 
 docker push guilhermeadc/sei3_solr-6.1:latest
 docker push guilhermeadc/sei3_jod-2.2.2:latest
-docker push guilhermeadc/sei3_mysql-5.6:latest
+docker push guilhermeadc/sei3_mysql-5.7:latest
 docker push guilhermeadc/sei3_oracle-11g:latest
 docker push guilhermeadc/sei3_httpd-2.4:latest
 docker push guilhermeadc/sei3_mailcatcher:latest
