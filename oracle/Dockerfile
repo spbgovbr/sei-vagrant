@@ -4,7 +4,7 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-FROM wnameless/oracle-xe-11g:16.04
+FROM christophesurmont/oracle-xe-11g
 MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
 
 ############################# INÍCIO DA INSTALACAO #############################
