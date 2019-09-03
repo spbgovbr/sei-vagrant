@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
     exec "vagrant " + ARGV.join(' ')
   end
 
-  config.disksize.size = "20GB"
+  config.disksize.size = "100GB"
 
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
   config.vm.box = "processoeletronico/sei-3.0.0"
