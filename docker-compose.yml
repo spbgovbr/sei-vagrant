@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
   jod:
     image: guilhermeadc/sei3_jod-2.2.2
@@ -19,7 +19,7 @@ services:
       - "11211:11211"
 
   mysql:
-    image: guilhermeadc/sei3_mysql-8
+    image: guilhermeadc/sei3_mysql-5.7
     container_name: mysql
     volumes:
       - /var/lib/mysql
