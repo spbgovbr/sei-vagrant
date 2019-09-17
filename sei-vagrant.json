@@ -1,0 +1,20 @@
+{
+    "builders": [
+        {        
+            "source_path": "centos/7", 
+	    "communicator": "ssh",
+            "output_vagrantfile": "/home/guilhermeadc/Development/sei-vagrant/Vagrantfile_Distrib",
+            "provider": "virtualbox",
+            "add_force": true,
+            "output_dir": "packer",
+            "type": "vagrant"
+        }
+    ],
+
+    "provisioners": [
+        {
+          "type":  "shell",
+          "inline": ["/usr/local/bin/docker-compose up -d"]
+        }
+    ]    
+}

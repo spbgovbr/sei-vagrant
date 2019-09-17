@@ -7,7 +7,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Atribuição do hostname da máquina virtual
   config.vm.hostname = "sei-vagrant"
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "centos/7"
+
+  #config.ssh.username = "vagrant"
+  #config.ssh.password = "vagrant"
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
@@ -41,5 +44,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", inline: 'sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && cp /mnt/sei/ops/docker-compose.yml / '
-  config.vm.provision "shell", run: "always", inline: "docker-compose up -d"
+  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose up -d"
 end
