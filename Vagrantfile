@@ -31,8 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
   end
 
-  # config.vm.provision "shell", inline: "apt-get -y update && apt-get -y upgrade && apt-get -y install linux-headers-$(uname -r) build-essential dkms"
-
   # Provisionamento da máquina virtual responsável por manter os containers do Docker
   config.vm.provision "docker" do |docker|
     docker.pull_images "guilhermeadc/sei3_solr-6.1"
