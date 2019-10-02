@@ -85,7 +85,15 @@ Com isso, as alterações feitas diretamente nos arquivos php durante do desenvo
 
 No diretório citado anteriormente, execute o seguinte comando:
 
+Para a versão 3.0.X, execute:
+
     vagrant init processoeletronico/sei-3.0.0
+
+
+Para a versão 3.1.X, execute:
+
+    vagrant init processoeletronico/sei-3.1
+
 
 Esse comando irá criar uma arquivo de configuração iniciar para o vagrant contendo a referência para o BOX do SEI completamente configurado. Ao final da execução, um arquivo chamado Vagrantfile deverá estar presente no diretório atual.
 
