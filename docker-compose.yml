@@ -19,8 +19,10 @@ services:
       - "11211:11211"
 
   mysql:
-    image: guilhermeadc/sei3_mysql-5.6
+    image: guilhermeadc/sei3_mysql-5.7
     container_name: mysql
+    volumes:
+      - /var/lib/mysql
     ports:
       - "3306:3306"
 
@@ -31,7 +33,7 @@ services:
 #      - "1521:1521"
 
 #  sqlserver:
-#    image: guilhermeadc/sei3_sqlserver-2016
+#    image: guilhermeadc/sei3_sqlserver-2017
 #    container_name: sqlserver
 #    ports:
 #      - "1433:1433"

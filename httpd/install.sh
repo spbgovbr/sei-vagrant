@@ -3,8 +3,8 @@ set -e
 
 # Instalação dos componentes básicos do servidor web apache
 rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
-yum -y update
-yum -y install epel-release httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
+yum -y  update
+yum -y install epel-release libmcrypt httpd24u mysql56u memcached openssl wget curl unzip gcc java-1.8.0-openjdk libxml2 crontabs mysql
 
 # Instalação do PHP e demais extenções necessárias para o projeto
 yum -y install php56w php56w-common php56w-cli php56w-pear php56w-bcmath php56w-gd php56w-gmp php56w-imap php56w-intl php56w-ldap php56w-mbstring php56w-mysqli \
@@ -26,9 +26,6 @@ bash /tmp/install_oracle.sh
 
 # Instalação dos componentes de conexão do SQL Server
 yum -y install freetds freetds-devel php56w-mssql
-
-# Instalação de componentes para teste do Barramento de Seriços do PEN
-yum -y install --exclude=mysql-libs --exclude=mysqlclient16 supervisor gearmand libgearman libgearman-devel php56w-pecl-gearman
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos

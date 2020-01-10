@@ -32,10 +32,6 @@ COPY assets/sei.conf /etc/httpd/conf.d/sei.conf
 COPY assets/ConfiguracaoSip.php /ConfiguracaoSip.php
 COPY assets/ConfiguracaoSEI.php /ConfiguracaoSEI.php
 
-# Configuração do Gearman e Supervisor, componentes necessários para a
-# integração do SEI com Processo Eletrônico Nacional
-COPY assets/supervisord.conf /etc/supervisord.conf
-
 ##################### FIM DA INSTALAÇÃO #####################
 
 EXPOSE 80

@@ -6,7 +6,8 @@ export ACCEPT_EULA=Y
 export SA_PASSWORD='yourStrong(!)Password'
 
 # Instalação do FreeTDS para acesso ao SQL Server
-apt-get -y update && apt-get -y install libodbc1 freetds-dev freetds-bin
+apt-get -y --allow-unauthenticated update
+apt-get -y --allow-unauthenticated install libodbc1 freetds-dev freetds-bin
 
 /opt/mssql/bin/sqlservr &
 sleep 20

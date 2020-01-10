@@ -20,17 +20,38 @@ unless Vagrant.has_plugin?("vagrant-vbguest")
 end
 
 Vagrant.configure(2) do |config|
+#  # Instalação de plugin para configuração automática do disco
+  required_plugins = %w( vagrant-vbguest vagrant-disksize )
+  _retry = false
+  required_plugins.each do |plugin|
+    unless Vagrant.has_plugin? plugin
+      system "vagrant plugin install #{plugin}"
+      _retry=true
+    end
+  end
 
+  if (_retry)
+    exec "vagrant " + ARGV.join(' ')
+  end
+  
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
-  config.vm.box = "processoeletronico/sei-3.0.0"
+  config.vm.box = "{{.BoxName}}"
+  config.disksize.size = "100GB"
 
-  # Usuários ssh de acesso à máquina virtual
-  config.ssh.insert_key = true
-  config.ssh.username = "vagrant"
-  config.ssh.password = "vagrant"
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
+  end
 
   # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
   config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
+
+  # Usuários ssh de acesso à máquina virtual
+  # config.ssh.private_key_path = "~/.ssh/id_rsa"
+  # config.ssh.forward_agent = true
+  # config.ssh.keys_only = false
+  # config.ssh.insert_key = true
+  # config.ssh.username = "vagrant"
+  # config.ssh.password = "vagrant"
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
@@ -42,6 +63,7 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
-  # Inicialização dos containers em caso de reinicialização da máquina host
-  config.vm.provision "shell", run: "always", inline: "docker-compose up -d"
+  # Inicialização dos containers em caso de reinicialização da máquina host    
+  config.vm.provision "shell", run: "always", inline: "/bin/systemctl start docker.service"
+  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose up -d"
 end

@@ -37,6 +37,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
  	          'Banco' => 'sei',
  	          'Usuario' => 'sei_user',
  	          'Senha' => 'sei_user',
+ 	          'UsuarioScript' => 'sei_user',
+ 	          'SenhaScript' => 'sei_user', 	          
  	          'Tipo' => 'MySql'), //MySql, SqlServer ou Oracle
 
 // 	      'BancoSEI'  => array(
@@ -45,6 +47,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 // 	          'Banco' => 'sei',
 // 	          'Usuario' => 'sei',
 // 	          'Senha' => 'sei_user',
+// 	          'UsuarioScript' => 'sei',
+// 	          'SenhaScript' => 'sei_user', 	      
 // 	          'Tipo' => 'Oracle'), //MySql, SqlServer ou Oracle
 
 // 	      'BancoSEI'  => array(
@@ -53,6 +57,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 // 	          'Banco' => 'sei',
 // 	          'Usuario' => 'sei_user',
 // 	          'Senha' => 'sei_user',
+// 	          'UsuarioScript' => 'sei_user',
+// 	          'SenhaScript' => 'sei_user', 	      
 // 	          'Tipo' => 'SqlServer'), //MySql, SqlServer ou Oracle
 
 				'CacheSEI' => array('Servidor' => 'memcached',

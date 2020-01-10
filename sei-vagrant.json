@@ -1,0 +1,36 @@
+{
+    "builders": [
+        {        
+            "source_path": "centos/7",
+            "box_name": "centos/7",
+            "communicator": "ssh",
+            "output_vagrantfile": "../Vagrantfile_Distrib",
+            "provider": "virtualbox",
+            "add_force": true,
+            "output_dir": "packer",
+            "type": "vagrant"
+        }
+    ],
+    
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "docker-compose.yml",
+            "destination": "/tmp/docker-compose.yml"
+        },
+        {
+            "type":  "shell",
+            "inline": [ 
+                "sudo cp /tmp/docker-compose.yml / ",
+                "sudo yum install -y yum-utils device-mapper-persistent-data lvm2",
+                "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
+                "sudo yum install -y docker-ce",
+                "sudo systemctl start docker",
+                "sudo chmod -R 777 /var/run/docker.sock",
+                "sudo curl -L \"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+                "sudo chmod +x /usr/local/bin/docker-compose",
+                "/usr/local/bin/docker-compose pull"
+            ]
+        }        
+    ]    
+}

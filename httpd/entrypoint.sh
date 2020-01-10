@@ -29,10 +29,6 @@ chmod -R 777 /var/sei/arquivos
 /etc/init.d/rsyslog start
 /etc/init.d/crond start
 
-# Inicialização do Gearman e Supervisor, componentes para integração com Processo Eletrônico Nacional
-/etc/init.d/gearmand start
-/etc/init.d/supervisord start
-
 # Atualização do endereço de host da aplicação
 echo "Slepping..." && sleep 10
 SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost"}

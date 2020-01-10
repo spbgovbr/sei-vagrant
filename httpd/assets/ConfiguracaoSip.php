@@ -32,6 +32,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
  	          'Banco' => 'sip',
  	          'Usuario' => 'sip_user',
  	          'Senha' => 'sip_user',
+ 	          'UsuarioScript' => 'sip_user',
+ 	          'SenhaScript' => 'sip_user', 	          
  	          'Tipo' => 'MySql'), //MySql, SqlServer ou Oracle
 
 // 	      'BancoSip'  => array(
@@ -40,6 +42,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 // 	          'Banco' => 'sip',
 // 	          'Usuario' => 'sip',
 // 	          'Senha' => 'sip_user',
+// 	          'UsuarioScript' => 'sip',
+// 	          'SenhaScript' => 'sip_user', 	      
 // 	          'Tipo' => 'Oracle'), //MySql, SqlServer ou Oracle
 
 // 	      'BancoSip'  => array(
@@ -48,6 +52,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 // 	          'Banco' => 'sip',
 // 	          'Usuario' => 'sip_user',
 // 	          'Senha' => 'sip_user',
+// 	          'UsuarioScript' => 'sip_user',
+// 	          'SenhaScript' => 'sip_user', 	      
 // 	          'Tipo' => 'SqlServer'), //MySql, SqlServer ou Oracle
 
 				'CacheSip' => array('Servidor' => 'memcached',
