@@ -34,7 +34,7 @@ Em resumo, o Vagrant é uma ferramenta que permite a construção de máquinas v
 
 * Rápido início do projeto de desenvolvimento ou testes por parte do desenvolvedor;
 * Padronização do ambiente de desenvolvimento (versões de bibliotecas, banco de dados, servidores de aplicação, etc.);
-* Foco nas tarefas de desenvolvimento, e não em questões relacionadas à configuração do ambiente.
+* Foco nas tarefas de desenvolvimento, e n, reporte ão em questões relacionadas à configuração do ambiente.
 
 O Vagrant trabalha com o conceito de Box, basicamente uma "imagem/iso" para se criar a instância da máquina virtual, onde é definido o sistema operacional e os demais componentes da solução. Para o projeto SEI, foi disponibilizado livremente uma Box contendo todo a ambiente funcional do SEI e seus componentes (SEI, SIP, JOD, Apache Solr), tirando a necessidade do desenvolvedor realizar toda a configuração do sistema e poder se focar apenas no desenvolvimento.
 
@@ -210,3 +210,42 @@ Download:https://softwarepublico.gov.br/gitlab/sei/sei-vagrant/raw/master/parar_
 
 Como o nome diz, destroi todo o ambiente de desenvolvimento utilizado até o momento, apagando todas as informações persistidas no banco de dados. A simples execução do comando vagrant up reconstrói um novo ambiente limpo para o sistema SEI. Semelhante ao comando vagrant destroy.
 Download: https://softwarepublico.gov.br/gitlab/sei/sei-vagrant/raw/master/destruir_VM_Dev_Localhost_SEI.bat
+
+
+
+# Colabore com o projeto SEI-Vagrant
+
+Para colaborar com o projeto SEI-Vagrant e enviar sugestões de melhorias ou correções de erros, os seguintes passos devem ser realizados para que possamos avaliar e incorporar as melhorias em próximas versões:
+
+
+### 1) Registrar uma demanda (Issue) no projeto
+
+Este registro é fundamental para documentar a demanda para avaliação pelos responsáveis. Somente os pedidos de 
+Merge Request com issue relacionada serão avaliadas.
+
+Para cadastrar uma nova issue no projeto SEI-Vagrant, acesse https://softwarepublico.gov.br/gitlab/sei/sei-vagrant/issues
+
+### 2) Fazer o *fork* do projeto SEI-Vagrant
+
+Crie um novo fork do projeto no GitLab para criar um novo repositório do projeto para ser gerenciado por você, permitindo 
+o envio de futuros Merge Request para o projeto princial
+
+### 3) Preparação do ambiente
+
+Depois de criado um fork do projeto, será necessário preparar seu ambiente para desenvolver melhorias na virtualização e
+gerar novos ambientes do Vagrant (vagrant box) para publicação. Para isto, será necessário instalar um pacote adicional 
+além de todas aquelas já descritas anteriormente neste documento (instalar Virtualbox, Vagrant, git, etc...)
+
+O pacote adicional é o utilitário Packer, utilizado para empacotar as máquinas virtuais do VirtualBox em novas boxes do 
+Vagrant para compartilhamento. Esta ferramenta pode ser encontrada em https://www.packer.io/
+
+### 4) Construir e empacotar uma Vagrant Box
+
+Para simplificar o processo de construção dos componentes internos do SEI, sugerimos utilizar o script bash 
+update-containers.sh, localizado na raiz do projeto, para automatizar todos os passos descritos abaixo:
+
+* destruir o ambiente corrente do vagrant
+* construir imagens de todos os containers docker
+* registrar uma nova linha de base para os containers
+* adicionar todos os containers dockers em uma nova VM do Vagrant
+* empacotar box do ambiente para distribuição no Vagrant Cloud 
