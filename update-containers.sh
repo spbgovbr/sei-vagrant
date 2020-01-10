@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 set -e
 
-VERSAO_CONTAINERS='2.2'
+VERSAO_CONTAINERS='7.1'
 
-#vagrant destroy
+vagrant destroy
 
 #docker stop $(docker ps -q) || true
 #docker rm $(docker ps -a -q) || true
@@ -77,7 +77,6 @@ docker push guilhermeadc/sei3_mailcatcher:latest
 docker push guilhermeadc/sei3_memcached:latest
 docker push guilhermeadc/sei3_sqlserver-2017:latest
 
-packer build --force sei-vagrant.json
+sudo packer build --force sei-vagrant.json
 
 exit 0
-

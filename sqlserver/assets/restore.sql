@@ -18,6 +18,9 @@ GO
 USE sei;
 GO
 
+DROP USER IF EXISTS [sei_user]
+GO
+
 CREATE LOGIN sei_user
     WITH PASSWORD = 'sei_user', CHECK_POLICY=OFF;
 GO
@@ -37,13 +40,15 @@ GO
 USE sip;
 GO
 
+DROP USER IF EXISTS [sip_user]
+GO
+
 CREATE LOGIN sip_user
     WITH PASSWORD = 'sip_user', CHECK_POLICY=OFF;
 GO
 
 CREATE USER sip_user FOR LOGIN sip_user;
 GO
-
 
 EXEC sp_addrolemember 'db_owner', 'sip_user'
 GO
@@ -60,7 +65,5 @@ GO
 update orgao set sin_autenticar='N' where id_orgao=0;
 GO
 
--- Erro na base de referência relacionada ao registro de sequências de auditoria (issue #15)
 delete from seq_infra_auditoria
 GO
-

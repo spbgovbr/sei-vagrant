@@ -35,9 +35,12 @@ Vagrant.configure(2) do |config|
   end
   
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
-  # config.vm.box = "processoeletronico/sei-3.1"
   config.vm.box = "{{.BoxName}}"
   config.disksize.size = "100GB"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
+  end
 
   # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
   config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
