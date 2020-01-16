@@ -54,7 +54,7 @@ services:
       - /mnt/sei/src:/opt
     environment:
       - SEI_HOST_URL=http://localhost
-      - XDEBUG_CONFIG="idekey=default"
+      - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
     links:
       - mysql:mysql
 #      - oracle:oracle

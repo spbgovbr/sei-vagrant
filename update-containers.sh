@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-VERSAO_CONTAINERS='7.1'
+VERSAO_CONTAINERS='7.2'
 
 vagrant destroy
 
