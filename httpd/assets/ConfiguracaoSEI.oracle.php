@@ -44,22 +44,22 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			),
 			
 			'BancoSEI'  => array(
-				'Servidor' => 'mysql',
+				'Servidor' => 'oracle',
 				'Porta' => '3306',
 				'Banco' => 'sei',
-				'Usuario' => 'sei_user',
+				'Usuario' => 'sei',
 				'Senha' => 'sei_user',
-				'UsuarioScript' => 'sei_user',
+				'UsuarioScript' => 'sei',
 				'SenhaScript' => 'sei_user', 	          
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
+				'Tipo' => 'Oracle', //MySql, SqlServer ou Oracle
 				'PesquisaCaseInsensitive' => false,
 			),
 			
 			'BancoAuditoriaSEI'  => array(
-				'Servidor' => 'mysql',
+				'Servidor' => 'oracle',
 				'Porta' => '3306',
 				'Banco' => 'sei',
-				'Usuario' => 'sei_user',
+				'Usuario' => 'sei',
 				'Senha' => 'sei_user',
 				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
 			),				

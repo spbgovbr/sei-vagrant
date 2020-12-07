@@ -5,8 +5,8 @@
 ################################################################################
 
 #TODO: Migrar para container oficial do PHP 5.6 (5.6-alpine)
-FROM centos:centos6
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
+FROM centos:centos7
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
@@ -30,7 +30,13 @@ COPY assets/sei.ini /etc/php.d/sei.ini
 COPY assets/xdebug.ini /etc/php.d/xdebug.ini
 COPY assets/sei.conf /etc/httpd/conf.d/sei.conf
 COPY assets/ConfiguracaoSip.php /ConfiguracaoSip.php
+COPY assets/ConfiguracaoSip.mysql.php /ConfiguracaoSip.mysql.php
+COPY assets/ConfiguracaoSip.oracle.php /ConfiguracaoSip.oracle.php
+COPY assets/ConfiguracaoSip.sqlserver.php /ConfiguracaoSip.sqlserver.php
 COPY assets/ConfiguracaoSEI.php /ConfiguracaoSEI.php
+COPY assets/ConfiguracaoSEI.mysql.php /ConfiguracaoSEI.mysql.php
+COPY assets/ConfiguracaoSEI.oracle.php /ConfiguracaoSEI.oracle.php
+COPY assets/ConfiguracaoSEI.sqlserver.php /ConfiguracaoSEI.sqlserver.php
 
 ##################### FIM DA INSTALAÇÃO #####################
 

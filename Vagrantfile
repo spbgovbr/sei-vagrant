@@ -4,13 +4,31 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  ## Instalação de plugin para configuração automática do disco
+  required_plugins = %w( vagrant-vbguest vagrant-disksize )
+  _retry = false
+  required_plugins.each do |plugin|
+    unless Vagrant.has_plugin? plugin
+      system "vagrant plugin install #{plugin}"
+      _retry=true
+    end
+  end
+
+  if (_retry)
+    exec "vagrant " + ARGV.join(' ')
+  end
 
   # Atribuição do hostname da máquina virtual
   config.vm.hostname = "sei-vagrant"
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/8"
 
   #config.ssh.username = "vagrant"
   #config.ssh.password = "vagrant"
+
+  config.vbguest.auto_update = true
+  config.vbguest.no_remote = false
+  config.vbguest.iso_mount_point = "/media"
+  config.vbguest.installer_options = { allow_kernel_upgrade: true }
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   # Necessário permissões de root para utilizar a porta 80 (> 1024)
@@ -41,6 +59,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.pull_images "guilhermeadc/sei3_memcached"
   end
 
-  config.vm.provision "shell", inline: 'sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && cp /mnt/sei/ops/docker-compose.yml / '
-  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose up -d"
+  $script = <<-'SCRIPT'
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+SCRIPT
+
+  config.vm.provision "shell", inline: $script
+  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose -f /docker-compose.yml up -d"
 end

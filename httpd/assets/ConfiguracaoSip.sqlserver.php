@@ -37,24 +37,24 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 			),
 			
 			'BancoSip'  => array(
-				'Servidor' => 'mysql',
+				'Servidor' => 'sqlserver',
 				'Porta' => '3306',
 				'Banco' => 'sip',
 				'Usuario' => 'sip_user',
 				'Senha' => 'sip_user',
 				'UsuarioScript' => 'sip_user',
 				'SenhaScript' => 'sip_user', 	          
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
+				'Tipo' => 'SqlServer', //MySql, SqlServer ou Oracle
 				'PesquisaCaseInsensitive' => false,					
 			), 
 			
 			'BancoAuditoriaSip'  => array(
-				'Servidor' => 'mysql',
+				'Servidor' => 'sqlserver',
 				'Porta' => '3306',
 				'Banco' => 'sip',
 				'Usuario' => 'sip_user',
 				'Senha' => 'sip_user',
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
+				'Tipo' => 'SqlServer', //MySql, SqlServer ou Oracle
 			),
 			
 			'CacheSip' => array(

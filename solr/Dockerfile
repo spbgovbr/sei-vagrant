@@ -6,7 +6,7 @@
 
 #TODO: Migrar para container oficial do Java 8 (8-jdk-alpine)
 FROM centos:centos7
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm

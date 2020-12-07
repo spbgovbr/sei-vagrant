@@ -4,8 +4,8 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-FROM christophesurmont/oracle-xe-11g
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
+FROM oracleinanutshell/oracle-xe-11g
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm

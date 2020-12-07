@@ -32,11 +32,22 @@ chmod -R 777 /var/sei/arquivos
 # Atualização do endereço de host da aplicação
 echo "Slepping..." && sleep 10
 SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost"}
+SEI_DATABASE_NAME=${SIP_DATABASE_NAME:-"sei"}
 SEI_DATABASE_USER=${SEI_DATABASE_USER:-"root"}
 SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD:-"root"}
-MYSQL_CMD="mysql --host mysql --user $SEI_DATABASE_USER --password=$SEI_DATABASE_PASSWORD"
-$MYSQL_CMD -e "update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP';" sip
-$MYSQL_CMD -e "update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI';" sip
+SIP_DATABASE_NAME=${SIP_DATABASE_NAME:-"sip"}
+SIP_DATABASE_USER=${SIP_DATABASE_USER:-"root"}
+SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD:-"root"}
+
+MYSQL_CMD="mysql --host mysql --user $SIP_DATABASE_USER --password=$SIP_DATABASE_PASSWORD sip"
+SQLSERVER_CMD="tsql -S sqlserver -U $SIP_DATABASE_USER -P $SIP_DATABASE_PASSWORD -D sip"
+
+echo "update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP';" > /tmp/update_file.sql
+echo "update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI';" >> /tmp/update_file.sql
+echo "go" >> /tmp/update_file.sql
+
+$MYSQL_CMD < /tmp/update_file.sql || true
+$SQLSERVER_CMD < /tmp/update_file.sql || true
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND

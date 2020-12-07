@@ -1,6 +1,30 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$provision_mysql = <<-'SCRIPT'
+      /usr/local/bin/docker-compose stop
+      ln -s --force /mnt/sei/ops/docker-compose.mysql.yml /docker-compose.yml
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSEI.mysql.php  /mnt/sei/src/sei/config/ConfiguracaoSEI.php
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSip.mysql.php  /mnt/sei/src/sip/config/ConfiguracaoSip.php
+      /usr/local/bin/docker-compose up -d
+SCRIPT
+
+$provision_sqlserver = <<-'SCRIPT'
+      /usr/local/bin/docker-compose stop
+      ln -s --force /mnt/sei/ops/docker-compose.sqlserver.yml /docker-compose.yml
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSEI.sqlserver.php  /mnt/sei/src/sei/config/ConfiguracaoSEI.php
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSip.sqlserver.php  /mnt/sei/src/sip/config/ConfiguracaoSip.php
+      /usr/local/bin/docker-compose up -d
+SCRIPT
+
+$provision_sqlserver = <<-'SCRIPT'
+      /usr/local/bin/docker-compose stop
+      ln -s --force /mnt/sei/ops/docker-compose.oracle.yml /docker-compose.yml
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSEI.oracle.php  /mnt/sei/src/sei/config/ConfiguracaoSEI.php
+      ln -s --force /mnt/sei/ops/httpd/assets/ConfiguracaoSip.oracle.php  /mnt/sei/src/sip/config/ConfiguracaoSip.php
+      /usr/local/bin/docker-compose up -d
+SCRIPT
+
 # Alerta para instalação e configuração do plugin vbguest para atualização do
 # VirtualBox Guest Additions
 unless Vagrant.has_plugin?("vagrant-vbguest")
@@ -20,7 +44,7 @@ unless Vagrant.has_plugin?("vagrant-vbguest")
 end
 
 Vagrant.configure(2) do |config|
-#  # Instalação de plugin para configuração automática do disco
+  ## Instalação de plugin para configuração automática do disco
   required_plugins = %w( vagrant-vbguest vagrant-disksize )
   _retry = false
   required_plugins.each do |plugin|
@@ -63,7 +87,23 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
-  # Inicialização dos containers em caso de reinicialização da máquina host    
-  config.vm.provision "shell", run: "always", inline: "/bin/systemctl start docker.service"
-  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose up -d"
+  config.vm.provision "docker-start", type: "shell", run: "always" do |s|
+    s.inline = "/bin/systemctl start docker.service"
+  end
+
+  config.vm.provision "docker-compose-start", type: "shell", run: "always" do |s|
+    s.inline = "/usr/local/bin/docker-compose -f /docker-compose.yml up -d"
+  end
+
+  config.vm.provision "mysql", type: "shell", run: "never" do |s|
+    s.inline = $provision_mysql
+  end
+
+  config.vm.provision "sqlserver", type: "shell", run: "never" do |s|
+    s.inline = $provision_sqlserver
+  end
+
+  config.vm.provision "oracle", type: "shell", run: "never" do |s|
+    s.inline = $provision_oracle
+  end
 end

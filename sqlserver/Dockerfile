@@ -7,7 +7,7 @@
 ################################################################################
 
 FROM microsoft/mssql-server-linux
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@planejamento.gov.br>
+MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm

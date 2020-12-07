@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 set -e
 
-VERSAO_CONTAINERS='7.2'
+VERSAO_CONTAINERS='8.0'
 
-vagrant destroy
+#vagrant destroy
 
 #docker stop $(docker ps -q) || true
 #docker rm $(docker ps -a -q) || true
 #docker rmi --force $(docker images -q) | true
 
-git submodule update --remote --merge
+#git submodule update --remote --merge
 
 cd solr
 docker build -t sei3_solr-6.1 .
