@@ -2,20 +2,20 @@ Links do SEI Localhost:
 
 Tela de Acesso ao SEI:
 
-	http://localhost/sei
+	http://localhost:8080/sei
 
-Tela de Acesso de Usuário Externo:
+Tela de Acesso de Usuï¿½rio Externo:
 
-	http://localhost/sei/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
+	http://localhost:8080/sei/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
 
 Autenticidade de Documentos:
 
-	http://localhost/sei/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
+	http://localhost:8080/sei/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
 	
-Publicações Eletrônicas:
+Publicaï¿½ï¿½es Eletrï¿½nicas:
 	
-	http://localhost/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
+	http://localhost:8080/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
 
-WSDL de integração do SEI:
+WSDL de integraï¿½ï¿½o do SEI:
 
-	http://localhost/sei/ws/SeiWS.php
+	http://localhost:8080/sei/ws/SeiWS.php

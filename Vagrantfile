@@ -1,9 +1,25 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = "2"
+# Alerta para instalação e configuração do plugin vbguest para atualização do
+# VirtualBox Guest Additions
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  warn "\n\n**********************************************************\n\n"+
+       "                          ATENÇAO !!!                        \n\n"+
+       "Não foi localizado o plugin vagrant-vbguest na máquina host. \n\n"+
+       "Recomendamos seu uso para evitar incompatibilidades de versões \n"+
+       "entre o Virtualbox e VBGuest Addition, impactando o          \n"+
+       "compartilhamento de pastas. \n\n"+
+       "Para solucionar o problema, execute o seguinte comando no \n"+
+       "diretório raiz do projeto. \n\n"+
+       "> vagrant plugin install vagrant-vbguest                     \n"+
+       "\n********************************************************** \n\n"+
+       " Pressione ENTER para continuar ou (Ctrl + C) para finalizar ... \n\n"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  $stdin.gets; puts "\n"
+end
+
+Vagrant.configure(2) do |config|
   ## Instalação de plugin para configuração automática do disco
   required_plugins = %w( vagrant-vbguest vagrant-disksize )
   _retry = false
@@ -17,53 +33,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if (_retry)
     exec "vagrant " + ARGV.join(' ')
   end
+  
+  # Box do vagrant contendo o ambiente de desenvolvimento do SEI
+  config.vm.box = "{{.BoxName}}"
+  config.disksize.size = "100GB"
 
-  # Atribuição do hostname da máquina virtual
-  config.vm.hostname = "sei-vagrant"
-  config.vm.box = "centos/8"
-
-  #config.ssh.username = "vagrant"
-  #config.ssh.password = "vagrant"
-
-  config.vbguest.auto_update = true
-  config.vbguest.no_remote = false
-  config.vbguest.iso_mount_point = "/media"
-  config.vbguest.installer_options = { allow_kernel_upgrade: true }
-
-  # Configuração do redirecionamento entre Máquina Virtual e Host
-  # Necessário permissões de root para utilizar a porta 80 (> 1024)
-  config.vm.network :forwarded_port, guest: 80,   host: 80   # SIP e SEI (Apache)
-  config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
-  config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
-  config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
-  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter (Tomcat)
-  config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
-  config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
-
-  # Diretórios compartilhados com a durante a execução
-  config.vm.synced_folder ".", "/mnt/sei/ops"
-  config.vm.synced_folder "../sei", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
-
-  # Configurações padrão da máquina virtual host
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
   end
 
-  # Provisionamento da máquina virtual responsável por manter os containers do Docker
-  config.vm.provision "docker" do |docker|
-    docker.pull_images "guilhermeadc/sei3_solr-6.1"
-    docker.pull_images "guilhermeadc/sei3_mysql-5.7"
-    docker.pull_images "guilhermeadc/sei3_jod-2.2.2"
-    docker.pull_images "guilhermeadc/sei3_httpd-2.4"
-    docker.pull_images "guilhermeadc/sei3_mailcatcher"
-    docker.pull_images "guilhermeadc/sei3_memcached"
+  # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
+  config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
+
+  # Configuração do redirecionamento entre Máquina Virtual e Host
+  config.vm.network :forwarded_port, guest: 8080, host: 8080   # SIP e SEI (Apache)
+  config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
+  config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
+  config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
+  config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
+  config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
+
+  config.vm.provision "docker-start", type: "shell", run: "always" do |s|
+    s.inline = "/bin/systemctl start docker.service"
   end
 
-  $script = <<-'SCRIPT'
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-SCRIPT
-
-  config.vm.provision "shell", inline: $script
-  config.vm.provision "shell", run: "always", inline: "/usr/local/bin/docker-compose -f /docker-compose.yml up -d"
+  config.vm.provision "docker-compose-start", type: "shell", run: "always" do |s|
+    s.inline = "/usr/local/bin/docker-compose -f /docker-compose.yml up -d"
+  end
 end
+

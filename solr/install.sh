@@ -20,7 +20,7 @@ wget -nv $SOLR_URL -O /tmp/solr-6.1.0.tgz
 sh /tmp/sei-solr-6.1.0.sh
 
 # Construção dos índices de protocolos do SEI
-/opt/solr/bin/solr start && sleep 10
+/opt/solr/bin/solr start && sleep 15
 
 curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-protocolos&instanceDir=/dados/sei-protocolos&config=sei-protocolos-config.xml&schema=sei-protocolos-schema.xml&dataDir=/dados/sei-protocolos/conteudo'
 curl 'http://localhost:8983/solr/admin/cores?action=CREATE&name=sei-bases-conhecimento&instanceDir=/dados/sei-bases-conhecimento&config=sei-bases-conhecimento-config.xml&schema=sei-bases-conhecimento-schema.xml&dataDir=/dados/sei-bases-conhecimento/conteudo'

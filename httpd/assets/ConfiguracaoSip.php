@@ -14,7 +14,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 	public function getArrConfiguracoes(){
 		return array(
 			'Sip' => array(
-				'URL' => getenv('SEI_HOST_URL').'/sip',
+				'URL' => getenv('HOST_URL').'/sip',
 				'Producao' => false,
 				'NumLoginSemCaptcha' => 3,
 				'TempoLimiteValidacaoLogin' => 60,
@@ -32,21 +32,21 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'SiglaOrgaoSistema' => 'ABC',
 				'SiglaSistema' => 'SIP',
 				'PaginaLogin' => getenv('SEI_HOST_URL').'/sip/login.php',
-				'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
+				'SipWsdl' => 'http://localhost:8080/sip/controlador_ws.php?servico=wsdl',
 				'https' => false
 			),
 			
 			'BancoSip'  => array(
-				'Servidor' => 'mysql',
-				'Porta' => '3306',
-				'Banco' => 'sip',
-				'Usuario' => 'sip_user',
-				'Senha' => 'sip_user',
-				'UsuarioScript' => 'sip_user',
-				'SenhaScript' => 'sip_user', 	          
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
-				'PesquisaCaseInsensitive' => false,					
-			), 
+				'Servidor' => getenv('DATABASE_HOST'),
+				'Porta' => getenv('DATABASE_PORT'),
+				'Banco' => getenv('SIP_DATABASE_NAME'),
+				'Usuario' => getenv('SIP_DATABASE_USER'),
+				'Senha' => getenv('SIP_DATABASE_PASSWORD'),
+				'UsuarioScript' => getenv('SIP_DATABASE_USER_SCRIPT'),
+				'SenhaScript' => getenv('SIP_DATABASE_PASSWORD_SCRIPT'),
+				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+				'PesquisaCaseInsensitive' => false,				
+			), 	
 			
 			'BancoAuditoriaSip'  => array(
 				'Servidor' => 'mysql',

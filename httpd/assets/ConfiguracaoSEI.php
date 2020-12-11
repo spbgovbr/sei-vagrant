@@ -14,7 +14,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 	public function getArrConfiguracoes(){
 		return array(
 			'SEI' => array(
-				'URL' => getenv('SEI_HOST_URL').'/sei',
+				'URL' => getenv('HOST_URL').'/sei',
 				'Producao' => false,
 				'RepositorioArquivos' => '/var/sei/arquivos',
 				
@@ -32,7 +32,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 				'SiglaOrgaoSistema' => 'ABC',
 				'SiglaSistema' => 'SEI',
 				'PaginaLogin' => getenv('SEI_HOST_URL').'/sip/login.php',
-				'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
+				'SipWsdl' => 'http://localhost:8080/sip/controlador_ws.php?servico=wsdl',
 				'https' => false
 			),
 			
@@ -44,14 +44,14 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			),
 			
 			'BancoSEI'  => array(
-				'Servidor' => 'mysql',
-				'Porta' => '3306',
-				'Banco' => 'sei',
-				'Usuario' => 'sei_user',
-				'Senha' => 'sei_user',
-				'UsuarioScript' => 'sei_user',
-				'SenhaScript' => 'sei_user', 	          
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
+				'Servidor' => getenv('DATABASE_HOST'),
+				'Porta' => getenv('DATABASE_PORT'),
+				'Banco' => getenv('SEI_DATABASE_NAME'),
+				'Usuario' => getenv('SEI_DATABASE_USER'),
+				'Senha' => getenv('SEI_DATABASE_PASSWORD'),
+				'UsuarioScript' => getenv('SEI_DATABASE_USER_SCRIPT'),
+				'SenhaScript' => getenv('SEI_DATABASE_PASSWORD_SCRIPT'),
+				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
 				'PesquisaCaseInsensitive' => false,
 			),
 			

@@ -26,19 +26,14 @@ RUN bash /install.sh
 
 # Configuração dos parâmetros do SEI e SIP
 COPY assets/LEIAME.txt /var/www/html/
-COPY assets/sei.ini /etc/php.d/sei.ini
+COPY assets/php.ini /etc/php.d/sei.ini
+COPY assets/httpd.conf /etc/httpd/conf.d/sei.conf
+COPY assets/cron.conf /etc/cron.d/sei
 COPY assets/xdebug.ini /etc/php.d/xdebug.ini
-COPY assets/sei.conf /etc/httpd/conf.d/sei.conf
 COPY assets/ConfiguracaoSip.php /ConfiguracaoSip.php
-COPY assets/ConfiguracaoSip.mysql.php /ConfiguracaoSip.mysql.php
-COPY assets/ConfiguracaoSip.oracle.php /ConfiguracaoSip.oracle.php
-COPY assets/ConfiguracaoSip.sqlserver.php /ConfiguracaoSip.sqlserver.php
 COPY assets/ConfiguracaoSEI.php /ConfiguracaoSEI.php
-COPY assets/ConfiguracaoSEI.mysql.php /ConfiguracaoSEI.mysql.php
-COPY assets/ConfiguracaoSEI.oracle.php /ConfiguracaoSEI.oracle.php
-COPY assets/ConfiguracaoSEI.sqlserver.php /ConfiguracaoSEI.sqlserver.php
 
 ##################### FIM DA INSTALAÇÃO #####################
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["/entrypoint.sh"]

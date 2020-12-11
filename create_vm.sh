@@ -2,7 +2,7 @@
 
 set -e
 
-rm packer_virtualbox_virtualbox.box || true
-packer build -only=virtualbox packer.json
-vagrant box remove vagrant_machine || true
-vagrant box add vagrant_machine packer/packer_virtualbox_virtualbox.box
+rm -rf packer || true
+vagrant box remove sei-vagrant || true
+packer build -force sei-vagrant.json
+vagrant box add sei-vagrant ./packer/package.box

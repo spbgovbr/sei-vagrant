@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+mkdir -p /opt/sip/config/
+mkdir -p /opt/sei/config/
+
 # Atribuição dos parâmetros de configuração do SEI
 if [ -f /opt/sei/config/ConfiguracaoSEI.php ] && [ ! -f /opt/sei/config/ConfiguracaoSEI.php~ ]; then
     mv /opt/sei/config/ConfiguracaoSEI.php /opt/sei/config/ConfiguracaoSEI.php~
@@ -26,28 +29,30 @@ chmod -R 777 /opt/sip/temp
 chmod -R 777 /var/sei/arquivos
 
 # Inicialização das rotinas de agendamento
-/etc/init.d/rsyslog start
-/etc/init.d/crond start
+printenv | sed 's/^\(.*\)$$/export \1/g' > /crond_env.sh	
+chown root:root /etc/cron.d/sei
+chmod 0644 /etc/cron.d/sei
+crond 
 
 # Atualização do endereço de host da aplicação
-echo "Slepping..." && sleep 10
-SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost"}
-SEI_DATABASE_NAME=${SIP_DATABASE_NAME:-"sei"}
+@echo "Aguardando ativação do banco de dados..." && sleep 30
+SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost:8080"}
+SEI_DATABASE_NAME=${SEI_DATABASE_NAME:-"sei"}
 SEI_DATABASE_USER=${SEI_DATABASE_USER:-"root"}
 SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD:-"root"}
 SIP_DATABASE_NAME=${SIP_DATABASE_NAME:-"sip"}
 SIP_DATABASE_USER=${SIP_DATABASE_USER:-"root"}
 SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD:-"root"}
 
-MYSQL_CMD="mysql --host mysql --user $SIP_DATABASE_USER --password=$SIP_DATABASE_PASSWORD sip"
-SQLSERVER_CMD="tsql -S sqlserver -U $SIP_DATABASE_USER -P $SIP_DATABASE_PASSWORD -D sip"
 
-echo "update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP';" > /tmp/update_file.sql
-echo "update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI';" >> /tmp/update_file.sql
-echo "go" >> /tmp/update_file.sql
-
-$MYSQL_CMD < /tmp/update_file.sql || true
-$SQLSERVER_CMD < /tmp/update_file.sql || true
+# Atualizar os endereços de host definidos para na inicialização
+php -r "
+    require_once '/opt/sip/web/Sip.php';
+    \$conexao = BancoSip::getInstance();
+    \$conexao->abrirConexao();
+    \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP'\");
+    \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI'\");
+"
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND

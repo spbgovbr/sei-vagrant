@@ -2,6 +2,7 @@
 mysql/.tmp
 Vagrantfile.conf
 packer/
+dist/
 *~
 *.swp
 *.box

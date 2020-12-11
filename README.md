@@ -79,7 +79,7 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
 
-Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost/sei
+Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost:8080/sei
 
 ### 4) Realizar a configuração inicial do Box do Vagrant/VirtualBox
 
@@ -119,17 +119,17 @@ Ao final da inicialização do ambiente de desenvolvimento, será apresentada a 
     ===> default: Starting mysql
     ===> default: Starting solr
     ===> default: Starting memcached    
-    ===> default: Starting httpd
+    ===> default: Starting http
 
 ### 6) Testar a Aplicação
 
 **SEI**
-Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost:8080/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 Importante mencionar que o sistema que está rodando nesse endereço se baseia exatamente no código-fonte do SEI presente na diretório onde foi executado o comando vagrant up. A alteração feita no código-fonte do sistema poderá ser visto instantaneamente no sei através de um simples Refresh no browser do desenvolvedor.
 
 **SIP**
-Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost:8080/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 **Banco de dados MySQL**
 O componente chamado db , apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados do MySQL que estará acessível na máquina local através da portal 3306. O banco de dados poderá ser acesso pelo MySQL Workbench ou qualquer outra ferramenta de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:
@@ -141,7 +141,6 @@ O componente chamado db , apresentado logo após o provisionamento do ambiente, 
     Ex: mysql -h 127.0.0.1 -u root -p sei
 
 * **Apache Solr** O Apache Solr também estará disponível para testes e poderá ser acessado pelo endereço: http://localhost:8983/solr
-* **JOD Converter** O JOD Converter também estará disponível para testes e poderá ser acesso pelo endereço: http://localhost:8080
 * **Memcached** Servidor de cache utilizado pela aplicação SEI e SIP http://localhost:11211
 * **Serviço SMTP para visualizar e-mails enviados** O ambiente de desenvolvimento possui um serviço SMTP próprio para disparar os e-mails do sistema. Para visualizar os e-mails enviados acesse: http://localhost:1080
 

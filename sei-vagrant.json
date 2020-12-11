@@ -1,14 +1,14 @@
 {
     "builders": [
-        {        
+        {   
+            "type": "vagrant",     
             "source_path": "centos/7",
             "box_name": "centos/7",
             "communicator": "ssh",
-            "output_vagrantfile": "../Vagrantfile_Distrib",
+            "output_vagrantfile": "./Vagrantfile_Distrib",
             "provider": "virtualbox",
             "add_force": true,
-            "output_dir": "packer",
-            "type": "vagrant"
+            "output_dir": "dist"            
         }
     ],
     
@@ -19,28 +19,43 @@
             "destination": "/tmp/docker-compose.yml"
         },
         {
+            "type": "file",
+            "source": "env-mysql",
+            "destination": "/tmp/env-mysql"
+        },
+        {
+            "type": "file",
+            "source": "env-oracle",
+            "destination": "/tmp/env-oracle"
+        },
+        {
+            "type": "file",
+            "source": "env-sqlserver",
+            "destination": "/tmp/env-sqlserver"
+        },                
+        {
             "type":  "shell",
             "inline": [ 
-                "sudo cp /tmp/docker-compose.yml / ",
+                "sudo cp /tmp/docker-compose.yml /",
+                "sudo cp /tmp/env-mysql /",
+                "sudo cp /tmp/env-oracle /",
+                "sudo cp /tmp/env-sqlserver /",                                               
+                "sudo ln -s --force /env-mysql /.env"
+            ]
+        },
+        {
+            "type":  "shell",
+            "inline": [             
                 "sudo yum install -y yum-utils device-mapper-persistent-data lvm2",
                 "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
                 "sudo yum install -y docker-ce",
                 "sudo systemctl start docker",
-                "sudo chmod -R 777 /var/run/docker.sock"
+                "sudo chmod -R 777 /var/run/docker.sock",
+                "sudo curl -L \"https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+                "sudo chmod +x /usr/local/bin/docker-compose",
+                "sudo usermod -aG docker vagrant",
+                "/usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env pull"
             ]
-        },
-        {
-            "type":  "shell",
-            "inline": [ 
-                "sudo curl -L \"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
-                "sudo chmod +x /usr/local/bin/docker-compose"
-            ]
-        },
-        {
-            "type":  "shell",
-            "inline": [ 
-                "/usr/local/bin/docker-compose pull http"
-            ]
-        }        
+        }
     ]    
 }
