@@ -1,14 +1,14 @@
 version: '2'
 services:
-  jod:
+  jod:  
     image: guilhermeadc/sei3_jod-2.2.2:${ENVIRONMENT_VERSION}
     container_name: jod
 
   smtp:
-      image: guilhermeadc/sei3_mailcatcher:${ENVIRONMENT_VERSION}
-      container_name: smtp
-      ports:
-        - "1080:1080"
+    image: guilhermeadc/sei3_mailcatcher:${ENVIRONMENT_VERSION}
+    container_name: smtp
+    ports:
+      - "1080:1080"
 
   memcached:
     image: guilhermeadc/sei3_memcached:${ENVIRONMENT_VERSION}
@@ -21,8 +21,9 @@ services:
     container_name: ${DATABASE_HOST}
     ports:
       - "${DATABASE_PORT}:${DATABASE_PORT}"
-   volumes:
-      - ${DATABASE_DATA_DIR}
+    volumes:
+      - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
+      - /var/sei/${DATABASE_HOST}/backup:/backup
 
   solr:
     image: guilhermeadc/sei3_solr-6.1:${ENVIRONMENT_VERSION}
@@ -33,8 +34,11 @@ services:
   http:
     image: guilhermeadc/sei3_httpd-2.4:${ENVIRONMENT_VERSION}
     container_name: http
+    restart: on-failure
     ports:
       - "8080:8080"
+    depends_on: 
+      - database
     volumes:
       - /mnt/sei/src:/opt
     environment:
@@ -57,7 +61,13 @@ services:
       - SIP_DATABASE_PASSWORD_SCRIPT=${SIP_DATABASE_PASSWORD_SCRIPT}
     links:
       - database:${DATABASE_HOST}
-      - memcached:memcached
+      - memcached:memcachedDATABASE_HEALTHCHECK=
       - solr:solr
       - smtp:smtp
       - jod:jod
+
+
+volumes:
+  mysql:
+  oracle:
+  sqlserver:

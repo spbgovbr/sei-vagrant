@@ -35,7 +35,6 @@ chmod 0644 /etc/cron.d/sei
 crond 
 
 # Atualização do endereço de host da aplicação
-@echo "Aguardando ativação do banco de dados..." && sleep 30
 SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost:8080"}
 SEI_DATABASE_NAME=${SEI_DATABASE_NAME:-"sei"}
 SEI_DATABASE_USER=${SEI_DATABASE_USER:-"root"}
@@ -52,7 +51,7 @@ php -r "
     \$conexao->abrirConexao();
     \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP'\");
     \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI'\");
-"
+" || exit 1
 
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND

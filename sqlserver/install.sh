@@ -10,7 +10,7 @@ apt-get -y --allow-unauthenticated update
 apt-get -y --allow-unauthenticated install libodbc1 freetds-dev freetds-bin
 
 /opt/mssql/bin/sqlservr &
-sleep 20
+sleep 30
 
 tsql -S localhost -U sa -P 'yourStrong(!)Password' < /tmp/restore.sql
 

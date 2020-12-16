@@ -7,7 +7,7 @@
 ################################################################################
 
 FROM microsoft/mssql-server-linux
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
+LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm

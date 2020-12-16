@@ -1,4 +1,4 @@
-.PHONY: build-containers build-vm install-vm cleancleanclean
+.PHONY: build-containers build-vm install-vm clean
 
 VERSAO_CONTAINERS='8.0'
 

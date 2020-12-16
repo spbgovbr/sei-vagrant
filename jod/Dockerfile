@@ -6,7 +6,7 @@
 
 #TODO: Migrar para container oficial do java-7 (7-jdk-alpine)
 FROM centos:centos7
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
+LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm

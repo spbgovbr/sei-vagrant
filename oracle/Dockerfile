@@ -5,7 +5,7 @@
 ################################################################################
 
 FROM oracleinanutshell/oracle-xe-11g
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
+LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
@@ -19,6 +19,7 @@ COPY assets/pre-install.sql /tmp/pre-install.sql
 COPY assets/sei-config.sql /tmp/sei-config.sql
 COPY assets/sip-config.sql /tmp/sip-config.sql
 COPY install.sh /install.sh
+
 
 RUN bash /install.sh
 ############################## FIM DA INSTALACAO ###############################

@@ -5,7 +5,7 @@
 ################################################################################
 
 FROM mysql:5.7 as builder
-MAINTAINER Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>
+LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV MYSQL_ROOT_PASSWORD=root

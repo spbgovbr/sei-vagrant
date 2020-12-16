@@ -99,18 +99,18 @@ Vagrant.configure(2) do |config|
   INICIALIZAÇÃO DO AMBIENTE DE DESENVOLVIMENTO FINALIZADA COM SUCESSO ! 
 =========================================================================
 
-= Endereços de acesso à aplicação ========================================
-SEI:............................... http://localhost:8080/sei
-SIP:............................... http://localhost:8080/sip
+= Endereços de Acesso à Aplicação ========================================
+SEI ............................... http://localhost:8080/sei
+SIP ............................... http://localhost:8080/sip
 
-= Outros serviços ========================================================
-Solr:.............................. http://localhost:8983/solr
-MailCatcher:....................... http://localhost:1080
-Mysql:............................. localhost:3306
-Oracle:............................ localhost:1521
-SQLServer:......................... localhost:1433
+= Outros Serviços ========================================================
+Solr .............................. http://localhost:8983/solr
+MailCatcher ....................... http://localhost:1080
+Mysql ............................. localhost:3306
+Oracle ............................ localhost:1521
+SQLServer ......................... localhost:1433
 
-= Comandos úteis =========================================================
+= Comandos Úteis =========================================================
 vagrant up                        - Inicializar ambiente do SEI
 vagrant halt                      - Desligar ambiente
 vagrant destroy                   - Destruir ambiente e base de testes
@@ -118,6 +118,7 @@ vagrant ssh                       - Acessar máquina virtual
 vagrant status                    - Verificar situação atual do ambiente
 
 Utilize o parâmetro '--provision-with' para alterar o banco de dados padrão:
+
 vagrant up --provision-with [mysql|oracle|sqlserver]
 -- ou --
 vagrant provision --provision-with [mysql|oracle|sqlserver]
