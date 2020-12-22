@@ -55,13 +55,13 @@ Todos os componentes acima precisam ser instalados na máquina de desenvolviment
 
 Se a máquina localhost (desktop ou notebook) onde vai ser instalado o ambiente padrão de desenvolvimento depender de um proxy para acesso à Internet, é necessário antes configurar o proxy como variável de ambiente conforme abaixo:
 
-    set http_proxy=http://proxy.anp.net:8080
-    set https_proxy=http://proxy.anp.net:8080
+    set http_proxy=http://proxy.anp.net
+    set https_proxy=http://proxy.anp.net
 
 Se o proxy exigir autenticação é necessário incluir o nome e senha do usuário, conforme este segundo exemplo:
 
-    set http_proxy=http://<usuario>:<senha>@proxy.anp.net:8080
-    set https_proxy=http://<usuario>:<senha>@proxy.anp.net:8080
+    set http_proxy=http://<usuario>:<senha>@proxy.anp.net
+    set https_proxy=http://<usuario>:<senha>@proxy.anp.net
 
 ### 2) BIOS da máquina aceitar VM
 
@@ -79,7 +79,7 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
 
-Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost:8080/sei
+Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost/sei
 
 ### 4) Realizar a configuração inicial do Box do Vagrant/VirtualBox
 
@@ -124,12 +124,12 @@ Ao final da inicialização do ambiente de desenvolvimento, será apresentada a 
 ### 6) Testar a Aplicação
 
 **SEI**
-Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost:8080/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 Importante mencionar que o sistema que está rodando nesse endereço se baseia exatamente no código-fonte do SEI presente na diretório onde foi executado o comando vagrant up. A alteração feita no código-fonte do sistema poderá ser visto instantaneamente no sei através de um simples Refresh no browser do desenvolvedor.
 
 **SIP**
-Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost:8080/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 **Banco de dados MySQL**
 O componente chamado db , apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados do MySQL que estará acessível na máquina local através da portal 3306. O banco de dados poderá ser acesso pelo MySQL Workbench ou qualquer outra ferramenta de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:

@@ -32,7 +32,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 				'SiglaOrgaoSistema' => 'ABC',
 				'SiglaSistema' => 'SEI',
 				'PaginaLogin' => getenv('SEI_HOST_URL').'/sip/login.php',
-				'SipWsdl' => 'http://localhost:8080/sip/controlador_ws.php?servico=wsdl',
+				'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
 				'https' => false
 			),
 			
@@ -82,7 +82,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			),				
 			
 			'JODConverter' => array(
-				'Servidor' => 'http://jod:8080/converter/service'
+				'Servidor' => 'http://jod/converter/service'
 			),
 			
 			'HostWebService' => array(

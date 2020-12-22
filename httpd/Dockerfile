@@ -35,5 +35,5 @@ COPY assets/ConfiguracaoSEI.php /ConfiguracaoSEI.php
 
 ##################### FIM DA INSTALAÇÃO #####################
 
-EXPOSE 8080
+EXPOSE 80
 CMD ["/entrypoint.sh"]

@@ -35,7 +35,7 @@ chmod 0644 /etc/cron.d/sei
 crond 
 
 # Atualização do endereço de host da aplicação
-SEI_HOST_URL=${SEI_HOST_URL:-"http://localhost:8080"}
+HOST_URL=${HOST_URL:-"http://localhost"}
 SEI_DATABASE_NAME=${SEI_DATABASE_NAME:-"sei"}
 SEI_DATABASE_USER=${SEI_DATABASE_USER:-"root"}
 SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD:-"root"}
@@ -43,14 +43,25 @@ SIP_DATABASE_NAME=${SIP_DATABASE_NAME:-"sip"}
 SIP_DATABASE_USER=${SIP_DATABASE_USER:-"root"}
 SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD:-"root"}
 
-
-# Atualizar os endereços de host definidos para na inicialização
+# Atualizar os endereços de host definidos para na inicialização e sincronização de sequências
 php -r "
-    require_once '/opt/sip/web/Sip.php';
+    require_once '/opt/sip/web/Sip.php';    
     \$conexao = BancoSip::getInstance();
     \$conexao->abrirConexao();
-    \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sip' where sigla='SIP'\");
-    \$conexao->executarSql(\"update sistema set pagina_inicial='$SEI_HOST_URL/sei/inicializar.php' where sigla='SEI'\");
+    \$conexao->executarSql(\"update sistema set pagina_inicial='$HOST_URL/sip' where sigla='SIP'\");
+    \$conexao->executarSql(\"update sistema set pagina_inicial='$HOST_URL/sei/inicializar.php' where sigla='SEI'\");
+    \$conexao->setBolScript(true);
+    \$objScriptRN = new ScriptRN();
+    \$objScriptRN->atualizarSequencias();    
+" || exit 1
+
+# Atualizar os endereços de host definidos para na inicialização e sincronização de sequências
+php -r "
+    require_once '/opt/sei/web/SEI.php';
+    \$conexao = BancoSEI::getInstance();
+    \$conexao->setBolScript(true);
+    \$objScriptRN = new ScriptRN();
+    \$objScriptRN->atualizarSequencias();
 " || exit 1
 
 # Inicialização do servidor web

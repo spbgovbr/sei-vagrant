@@ -35,8 +35,8 @@ mysql sip < /tmp/sip_mysql.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip
-mysql -e "update sistema set pagina_inicial='http://localhost:8080/sip' where sigla='SIP';" sip
-mysql -e "update sistema set pagina_inicial='http://localhost:8080/sei/inicializar.php', web_service='http://localhost:8080/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip
+mysql -e "update sistema set pagina_inicial='http://localhost/sip' where sigla='SIP';" sip
+mysql -e "update sistema set pagina_inicial='http://localhost/sei/inicializar.php', web_service='http://localhost/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sei
 
 # Remove registros de auditoria presentes na base de referência
