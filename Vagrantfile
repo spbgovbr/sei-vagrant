@@ -37,13 +37,18 @@ Vagrant.configure(2) do |config|
   # Box do vagrant contendo o ambiente de desenvolvimento do SEI
   config.vm.box = "{{.BoxName}}"
   config.disksize.size = "100GB"
+  config.vbguest.auto_update = true
+  config.vbguest.no_remote = false
+  config.vbguest.iso_mount_point = "/media"
+  config.vbguest.installer_options = { allow_kernel_upgrade: true }
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096", "--usb", "off", "--audio", "none"]
   end
-
+  
   # Configuração do diretório local onde deverá estar disponibilizado os códigos-fontes do SEI (sei, sip, infra_php, infra_css, infra_js)
   config.vm.synced_folder ".", "/mnt/sei/src", mount_options: ["dmode=777", "fmode=777"]
+
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   config.vm.network :forwarded_port, guest: 80,   host: 80   # SIP e SEI (Apache)
@@ -55,11 +60,69 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
   config.vm.provision "docker-start", type: "shell", run: "always" do |s|
-    s.inline = "/bin/systemctl start docker.service"
+    s.inline = <<-EOF
+      /bin/systemctl start docker.service
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+    EOF
   end
 
-  config.vm.provision "docker-compose-start", type: "shell", run: "always" do |s|
-    s.inline = "/usr/local/bin/docker-compose -f /docker-compose.yml up -d"
+  config.vm.provision "mysql", type: "shell", run: "never" do |s|
+    s.inline = <<-EOF      
+      /bin/systemctl start docker.service
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
+      sudo ln -s --force /env-mysql /.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+    EOF
   end
+
+  config.vm.provision "sqlserver", type: "shell", run: "never" do |s|
+    s.inline = <<-EOF
+      /bin/systemctl start docker.service
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
+      sudo ln -s --force /env-sqlserver /.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+    EOF
+  end
+
+  config.vm.provision "oracle", type: "shell", run: "never" do |s|
+    s.inline = <<-EOF
+      /bin/systemctl start docker.service
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
+      sudo ln -s --force /env-oracle /.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+    EOF
+  end
+
+  config.vm.post_up_message = <<-EOF
+
+=========================================================================
+  INICIALIZAÇÃO DO AMBIENTE DE DESENVOLVIMENTO FINALIZADA COM SUCESSO ! 
+=========================================================================
+
+= Endereços de Acesso à Aplicação ========================================
+SEI ............................... http://localhost/sei
+SIP ............................... http://localhost/sip
+
+= Outros Serviços ========================================================
+Solr .............................. http://localhost:8983/solr
+MailCatcher ....................... http://localhost:1080
+Mysql ............................. localhost:3306
+Oracle ............................ localhost:1521
+SQLServer ......................... localhost:1433
+
+= Comandos Úteis =========================================================
+vagrant up                        - Inicializar ambiente do SEI
+vagrant halt                      - Desligar ambiente
+vagrant destroy                   - Destruir ambiente e base de testes
+vagrant ssh                       - Acessar máquina virtual
+vagrant status                    - Verificar situação atual do ambiente
+
+Utilize o parâmetro '--provision-with' para alterar o banco de dados padrão:
+
+vagrant up --provision-with [mysql|oracle|sqlserver]
+-- ou --
+vagrant provision --provision-with [mysql|oracle|sqlserver]
+
+EOF
 end
-

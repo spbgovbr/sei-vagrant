@@ -5,7 +5,7 @@
             "source_path": "centos/7",
             "box_name": "centos/7",
             "communicator": "ssh",
-            "output_vagrantfile": "./Vagrantfile_Distrib",
+            "output_vagrantfile": "./Vagrantfile",
             "provider": "virtualbox",
             "add_force": true,
             "output_dir": "dist"            
