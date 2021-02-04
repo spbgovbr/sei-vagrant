@@ -61,7 +61,7 @@ services:
       - SIP_DATABASE_PASSWORD_SCRIPT=${SIP_DATABASE_PASSWORD_SCRIPT}
     links:
       - database:${DATABASE_HOST}
-      - memcached:memcachedDATABASE_HEALTHCHECK=
+      - memcached:memcached
       - solr:solr
       - smtp:smtp
       - jod:jod
