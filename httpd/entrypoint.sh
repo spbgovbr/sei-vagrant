@@ -35,7 +35,7 @@ chmod 0644 /etc/cron.d/sei
 crond 
 
 # Atualização do endereço de host da aplicação
-HOST_URL=${HOST_URL:-"http://localhost"}
+HOST_URL=${HOST_URL:-"http://localhost:8000"}
 SEI_DATABASE_NAME=${SEI_DATABASE_NAME:-"sei"}
 SEI_DATABASE_USER=${SEI_DATABASE_USER:-"root"}
 SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD:-"root"}
@@ -50,6 +50,7 @@ php -r "
     \$conexao->abrirConexao();
     \$conexao->executarSql(\"update sistema set pagina_inicial='$HOST_URL/sip' where sigla='SIP'\");
     \$conexao->executarSql(\"update sistema set pagina_inicial='$HOST_URL/sei/inicializar.php' where sigla='SEI'\");
+    \$conexao->executarSql(\"update sistema set web_service='$HOST_URL/sei/controlador_ws.php?servico=sip' where sigla='SEI'\");
     \$conexao->setBolScript(true);
     \$objScriptRN = new ScriptRN();
     \$objScriptRN->atualizarSequencias();    

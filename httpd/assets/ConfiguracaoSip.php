@@ -31,8 +31,8 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 			'SessaoSip' => array(
 				'SiglaOrgaoSistema' => 'ABC',
 				'SiglaSistema' => 'SIP',
-				'PaginaLogin' => getenv('SEI_HOST_URL').'/sip/login.php',
-				'SipWsdl' => 'http://localhost/sip/controlador_ws.php?servico=wsdl',
+				'PaginaLogin' => getenv('SEI_HOST_URL') . '/sip/login.php',
+				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=wsdl',
 				'https' => false
 			),
 			
@@ -65,20 +65,20 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 			),
 			
 			'HostWebService' => array(
-				'Replicacao' => array('*'),  //endereÁo ou IP da m·quina que implementa o serviÁo de replicaÁ„o de usu·rios
-				'Pesquisa' => array('*'),    //endereÁos/IPs das m·quinas do SEI
-				'Autenticacao' => array('*') //endereÁos/IPs das m·quinas do SEI
+				'Replicacao' => array('*'),  //endereÔøΩo ou IP da mÔøΩquina que implementa o serviÔøΩo de replicaÔøΩÔøΩo de usuÔøΩrios
+				'Pesquisa' => array('*'),    //endereÔøΩos/IPs das mÔøΩquinas do SEI
+				'Autenticacao' => array('*') //endereÔøΩos/IPs das mÔøΩquinas do SEI
 			), 
 				
 				'InfraMail' => array(
-					'Tipo' => '2', //1 = sendmail (neste caso n„o È necess·rio configurar os atributos abaixo), 2 = SMTP
+					'Tipo' => '2', //1 = sendmail (neste caso nÔøΩo ÔøΩ necessÔøΩrio configurar os atributos abaixo), 2 = SMTP
 					'Servidor' => 'smtp',
 					'Porta' => '1025',
 					'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
 					'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
 					'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
 					'Seguranca' => '', //TLS, SSL ou vazio
-					'Autenticar' => false, //se true ent„o informar Usuario e Senha
+					'Autenticar' => false, //se true entÔøΩo informar Usuario e Senha
 					'Usuario' => '',
 					'Senha' => '',
 					'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substitu√≠do por este valor (evita envio incorreto de email)

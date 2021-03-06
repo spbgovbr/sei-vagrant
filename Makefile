@@ -1,6 +1,6 @@
 .PHONY: build-containers build-vm install-vm clean
 
-VERSAO_CONTAINERS='8.0'
+VERSAO_CONTAINERS='8.1'
 
 build: build-containers build-vm
 

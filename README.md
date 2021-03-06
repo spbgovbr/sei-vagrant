@@ -102,7 +102,6 @@ Outra alternativa para configuração pode ambiente pode ser realizada pelos scr
 ### 5) Iniciar o Ambiente de Desenvolvimento Virtualizado
 
 No mesmo diretório, execute o comando:
-PS: Linux e Mac precisam executar comando abaixo como usuário root devido a utilização da porta 80
 
     # vagrant up
 
