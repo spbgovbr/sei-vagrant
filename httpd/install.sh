@@ -15,7 +15,7 @@ yum -y install php56w php56w-common php56w-cli php56w-pear php56w-bcmath php56w-
 localedef pt_BR -i pt_BR -f ISO-8859-1
 
 # Instalação do componentes UploadProgress
-pecl install uploadprogress 
+pecl install uploadprogress-1.0.3.1
 echo "extension=uploadprogress.so" >> /etc/php.d/uploadprogress.ini
 
 # Instalação de pacote de fontes do windows
