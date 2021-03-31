@@ -1,46 +1,56 @@
 version: '2'
 services:
   jod:  
-    image: guilhermeadc/sei3_jod-2.2.2:${ENVIRONMENT_VERSION}
+    image: guilhermeadc/sei4_jod:${ENVIRONMENT_VERSION}
+    build: ./jod/
     container_name: jod
 
   smtp:
-    image: guilhermeadc/sei3_mailcatcher:${ENVIRONMENT_VERSION}
+    image: guilhermeadc/sei4_mailcatcher:${ENVIRONMENT_VERSION}
+    build: ./mailcatcher/
     container_name: smtp
     ports:
       - "1080:1080"
 
   memcached:
-    image: guilhermeadc/sei3_memcached:${ENVIRONMENT_VERSION}
+    image: guilhermeadc/sei4_memcached:${ENVIRONMENT_VERSION}
+    build: ./memcached/
     container_name: memcached
     ports:
       - "11211:11211"
 
   database:
     image: ${DATABASE_IMAGE}:${ENVIRONMENT_VERSION}
+    build: ./mysql/
     container_name: ${DATABASE_HOST}
-    ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
+    restart: always
     volumes:
       - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
       - /var/sei/${DATABASE_HOST}/backup:/backup
+      - ./docker/mysql:/etc/mysql/conf.d
+      - ./mysql-files:/var/lib/mysql-files
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
 
   solr:
-    image: guilhermeadc/sei3_solr-6.1:${ENVIRONMENT_VERSION}
+    image: guilhermeadc/sei4_solr:${ENVIRONMENT_VERSION}
+    build: ./solr/
     container_name: solr
     ports:
       - "8983:8983"
 
   http:
-    image: guilhermeadc/sei3_httpd-2.4:${ENVIRONMENT_VERSION}
+    image: guilhermeadc/sei4_httpd:${ENVIRONMENT_VERSION}
     container_name: http
+    build: ./httpd/
     restart: on-failure
     ports:
       - "8000:8000"
     depends_on: 
       - database
     volumes:
-      - /mnt/sei/src:/opt
+#      - /mnt/sei/src:/opt
+      - C:\Projetos\SEI\SEI_v4.0_Oficial\fontes\sei\src\main\php:/opt
     environment:
       - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
       - HOST_URL=http://localhost:8000

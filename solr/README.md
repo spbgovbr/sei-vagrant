@@ -1,0 +1,1 @@
+Versão do Solr: 6.1

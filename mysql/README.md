@@ -1,0 +1,1 @@
+Versão do Mysql 8.0.23

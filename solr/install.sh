@@ -1,9 +1,10 @@
 #!/usr/bin/env sh
 
-set -e
 
 # Instalação do pacote Java JDK e utilitários utilizados no provisionamento
-#apk update && apk add lsof curl bash openjdk8-jre
+
+
+
 yum -y update && yum -y install lsof curl wget java-1.8.0-openjdk
 
 # Instalação de pacote de fontes do windows
