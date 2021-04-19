@@ -24,11 +24,11 @@ services:
     build: ./mysql/
     container_name: ${DATABASE_HOST}
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
       - /var/sei/${DATABASE_HOST}/backup:/backup
-      - ./docker/mysql:/etc/mysql/conf.d
-      - ./mysql-files:/var/lib/mysql-files
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
 
@@ -43,16 +43,17 @@ services:
     image: guilhermeadc/sei4_httpd:${ENVIRONMENT_VERSION}
     container_name: http
     build: ./httpd/
-    restart: on-failure
+    restart: always
     ports:
       - "8000:8000"
     depends_on: 
       - database
+    privileged: true
     volumes:
-#      - /mnt/sei/src:/opt
+#      - /mnt/sei/src:/opt:
       - C:\Projetos\SEI\SEI_v4.0_Oficial\fontes\sei\src\main\php:/opt
     environment:
-      - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
+      - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=172.22.32.1yu remote_connect_back=1"
       - HOST_URL=http://localhost:8000
       - DATABASE_TYPE=${DATABASE_TYPE}
       - DATABASE_HOST=${DATABASE_HOST}

@@ -25,7 +25,9 @@ COPY entrypoint.sh /entrypoint.sh
 RUN bash /install.sh
 
 # Configuração dos parâmetros do SEI e SIP
+COPY assets/uploadprogress/ /uploadprogress/
 COPY assets/LEIAME.txt /var/www/html/
+COPY assets/info.php /var/www/html/info.php
 COPY assets/php.ini /etc/php.d/sei.ini
 COPY assets/httpd.conf /etc/httpd/conf.d/sei.conf
 COPY assets/cron.conf /etc/cron.d/sei

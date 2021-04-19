@@ -1,23 +1,6 @@
 #!/usr/bin/env sh
-set -e
 
-#yum -y update
-
-# Instalar o MySQL 5.6
-#yum install -y wget
-#wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm -O /tmp/mysql-community-release-el7-5.noarch.rpm
-#rpm -ivh /tmp/mysql-community-release-el7-5.noarch.rpm
-#yum -y install mysql-server
-
-# Inicialização do diretório de armazenamento do MySQL.
-# PS: Utilizando configuração insegura apenas para propósito de desenvolvimento
-rm -rf /var/lib/mysql/*
-#chown -R mysql:mysql /var/lib/mysql dock
-#mysql_install_db --user=mysql --datadir="/var/lib/mysql" --rpm --keep-my-cnf
-# mysqld --initalize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-/etc/init.d/mysqld start
-
-/usr/bin/mysqladmin -u root password 'root'
+yum -y update
 
 # Criação dos bancos de dados do sistema
 mysqladmin create sip
@@ -35,8 +18,8 @@ mysql sip < /tmp/sip_mysql.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip
-mysql -e "update sistema set pagina_inicial='http://localhost/sip' where sigla='SIP';" sip
-mysql -e "update sistema set pagina_inicial='http://localhost/sei/inicializar.php', web_service='http://localhost/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip
+mysql -e "update sistema set pagina_inicial='http://localhost:8000/sip' where sigla='SIP';" sip
+mysql -e "update sistema set pagina_inicial='http://localhost:8000/sei/inicializar.php', web_service='http://localhost:8000/sei/controlador_ws.php?servico=sip' where sigla='SEI';" sip
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sei
 
 # Remove registros de auditoria presentes na base de referência

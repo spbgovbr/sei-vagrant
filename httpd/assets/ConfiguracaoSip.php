@@ -13,27 +13,28 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 	
 	public function getArrConfiguracoes(){
 		return array(
-			'Sip' => array(
-				'URL' => getenv('HOST_URL').'/sip',
-				'Producao' => false,
-				'NumLoginSemCaptcha' => 3,
-				'TempoLimiteValidacaoLogin' => 60,
-				'Modulos' => array(
-					//'ABCExemploIntegracao' => 'abc/exemplo',
-				),				
-			),
-			
+            'Sip' => array(
+                'URL' => 'http://localhost:8000/sip',
+                'Producao' => false,
+                'NumLoginSemCaptcha' => 3,
+                'TempoLimiteValidacaoLogin' => 60,
+                'Modulos' => array(
+                    //'ABCExemploIntegracao' => 'abc/exemplo',
+                ),
+            ),
+
 			'PaginaSip' => array(
 				'NomeSistema' => 'SIP',
-				'NomeSistemaComplemento' => '',				
+				'NomeSistemaComplemento' => '',
 			),
-			
+
 			'SessaoSip' => array(
 				'SiglaOrgaoSistema' => 'ABC',
 				'SiglaSistema' => 'SIP',
 				'PaginaLogin' => getenv('SEI_HOST_URL') . '/sip/login.php',
-				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=wsdl',
-				'https' => false
+				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
+                'ChaveAcesso' => 'd27791b8f59ac40ff0f38d9353211a149445fce6ac8e26fe4fb6c6157e66de001d56383f', //Chave para validação de acesso aos webservices do SIP. Gerar uma nova chave logando como Administrador no SIP, menu "Sistemas/Listar" e acionar a ação ?Gerar Chave de Acesso? para o sistema SIP.
+                'https' => false,
 			),
 			
 			'BancoSip'  => array(
@@ -48,14 +49,17 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'PesquisaCaseInsensitive' => false,				
 			), 	
 			
-			'BancoAuditoriaSip'  => array(
-				'Servidor' => 'mysql',
-				'Porta' => '3306',
-				'Banco' => 'sip',
-				'Usuario' => 'sip_user',
-				'Senha' => 'sip_user',
-				'Tipo' => 'MySql', //MySql, SqlServer ou Oracle
-			),
+//			'BancoAuditoriaSip'  => array(
+//                'Servidor' => getenv('DATABASE_HOST'),
+//                'Porta' => getenv('DATABASE_PORT'),
+//                'Banco' => getenv('SIP_DATABASE_NAME'),
+//                'Usuario' => getenv('SIP_DATABASE_USER'),
+//                'Senha' => getenv('SIP_DATABASE_PASSWORD'),
+//                'UsuarioScript' => getenv('SIP_DATABASE_USER_SCRIPT'),
+//                'SenhaScript' => getenv('SIP_DATABASE_PASSWORD_SCRIPT'),
+//                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+//                'PesquisaCaseInsensitive' => false,
+//            ),
 			
 			'CacheSip' => array(
 				'Servidor' => 'memcached',			
@@ -64,27 +68,43 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'Tempo' => 3600,				
 			),
 			
-			'HostWebService' => array(
-				'Replicacao' => array('*'),  //endereï¿½o ou IP da mï¿½quina que implementa o serviï¿½o de replicaï¿½ï¿½o de usuï¿½rios
-				'Pesquisa' => array('*'),    //endereï¿½os/IPs das mï¿½quinas do SEI
-				'Autenticacao' => array('*') //endereï¿½os/IPs das mï¿½quinas do SEI
-			), 
-				
-				'InfraMail' => array(
-					'Tipo' => '2', //1 = sendmail (neste caso nï¿½o ï¿½ necessï¿½rio configurar os atributos abaixo), 2 = SMTP
-					'Servidor' => 'smtp',
-					'Porta' => '1025',
-					'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
-					'MaxDestinatarios' => 999, //numero maximo de destinatarios por mensagem
-					'MaxTamAnexosMb' => 999, //tamanho maximo dos anexos em Mb por mensagem
-					'Seguranca' => '', //TLS, SSL ou vazio
-					'Autenticar' => false, //se true entï¿½o informar Usuario e Senha
-					'Usuario' => '',
-					'Senha' => '',
-					'Protegido' => 'desenv@instituicao.gov.br' //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituÃ­do por este valor (evita envio incorreto de email)
-					)
-				);
-			}
-		}
-		
-		
+//			'HostWebService' => array(
+//				'Replicacao' => array('*'),  //endere?o ou IP da m?quina que implementa o servi?o de replica??o de usu?rios
+//				'Pesquisa' => array('*'),    //endere?os/IPs das m?quinas do SEI
+//				'Autenticacao' => array('*') //endere?os/IPs das m?quinas do SEI
+//			),
+
+            'InfraMail' => array(
+                'Tipo' => '1', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
+                'Servidor' => 'smtp',
+                'Porta' => '1025',
+                'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
+                'Autenticar' => false, //se true então informar Usuario e Senha
+                'Usuario' => '',
+                'Senha' => '',
+                'Seguranca' => '', //TLS, SSL ou vazio
+                'MaxDestinatarios' => 25, //numero maximo de destinatarios por mensagem
+                'MaxTamAnexosMb' => 15, //tamanho maximo dos anexos em Mb por mensagem
+                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
+                /*  Abaixo chave opcional desativada com exemplo de preenchimento
+                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se não existir um domínio mapeado então utilizará os atributos gerais da chave InfraMail.
+                    'abc.jus.br' => array(
+                        'Tipo' => '2',
+                        'Servidor' => '10.1.3.12',
+                        'Porta' => '25',
+                        'Codificacao' => '8bit',
+                        'Autenticar' => false,
+                        'Usuario' => '',
+                        'Senha' => '',
+                        'Seguranca' => 'TLS',
+                        'MaxDestinatarios' => 25,
+                        'MaxTamAnexosMb' => 15,
+                        'Protegido' => '',
+                        ),
+                    ),
+                    */
+            ),
+        );
+    }
+}
+?>
