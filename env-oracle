@@ -1,6 +1,6 @@
 ENVIRONMENT_VERSION=9.0
 
-DATABASE_IMAGE=guilhermeadc/sei3_oracle-11g
+DATABASE_IMAGE=guilhermeadc/sei4_oracle
 DATABASE_TYPE=Oracle
 DATABASE_HOST=oracle
 DATABASE_PORT=1521

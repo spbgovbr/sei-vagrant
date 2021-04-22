@@ -33,7 +33,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'SiglaSistema' => 'SIP',
 				'PaginaLogin' => getenv('SEI_HOST_URL') . '/sip/login.php',
 				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
-                'ChaveAcesso' => 'd27791b8f59ac40ff0f38d9353211a149445fce6ac8e26fe4fb6c6157e66de001d56383f', //Chave para validação de acesso aos webservices do SIP. Gerar uma nova chave logando como Administrador no SIP, menu "Sistemas/Listar" e acionar a ação ?Gerar Chave de Acesso? para o sistema SIP.
+                'ChaveAcesso' => 'd27791b8767f696ba6d989e373da18e5aff2ce6b20cbd4cf65e6f8d9035fabde179b619c', //Chave para validação de acesso aos webservices do SIP. Gerar uma nova chave logando como Administrador no SIP, menu "Sistemas/Listar" e acionar a ação ?Gerar Chave de Acesso? para o sistema SIP.
                 'https' => false,
 			),
 			

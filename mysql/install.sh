@@ -1,10 +1,20 @@
 #!/usr/bin/env sh
 
-yum -y update
+mysql_secure_installation <<EOF
+root
+y
+y
+root
+root
+n
+n
+n
+y
+EOF
 
 # Criação dos bancos de dados do sistema
-mysqladmin create sip
-mysqladmin create sei
+#mysqladmin create sip
+#mysqladmin create sei
 
 # Criação dos usuários utilizados na conexão com SEI e SIP
 mysql -e "CREATE USER 'sip_user'@'%' IDENTIFIED BY 'sip_user'" sip
@@ -13,8 +23,8 @@ mysql -e "GRANT ALL PRIVILEGES ON sip.* TO 'sip_user'@'%'" sip
 mysql -e "GRANT ALL PRIVILEGES ON sei.* TO 'sei_user'@'%'" sei
 
 # Restauração dos bancos de dados
-mysql sei < /tmp/sei_mysql.sql
-mysql sip < /tmp/sip_mysql.sql
+mysql sei < /docker-entrypoint-initdb.d/4_sei_4_0_0_BD_Ref_Exec.sql
+mysql sip < /docker-entrypoint-initdb.d/5_sip_4_0_0_BD_Ref_Exec.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip
@@ -30,12 +40,5 @@ mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 
 # Atribuição de permissões de acesso externo para o usuário root, senha root
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
-
-# Remover arquivos temporários
-rm -rf /tmp/*
-yum clean all
-
-# Configuração de permissões de execução no script de inicialização do container
-chmod +x /entrypoint.sh
 
 exit 0

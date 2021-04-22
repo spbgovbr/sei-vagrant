@@ -15,55 +15,55 @@ clean:
 
 
 build-containers: clean
-	docker build -t sei3_solr-6.1 solr/
-	docker tag sei3_solr-6.1 guilhermeadc/sei3_solr-6.1:latest
-	docker tag sei3_solr-6.1 guilhermeadc/sei3_solr-6.1:$(VERSAO_CONTAINERS)
+	docker build -t sei4_solr solr/
+	docker tag sei4_solr guilhermeadc/sei4_solr:latest
+	docker tag sei4_solr guilhermeadc/sei4_solr:9.0
 
-	docker build -t sei3_jod-2.2.2 jod/
-	docker tag  sei3_jod-2.2.2 guilhermeadc/sei3_jod-2.2.2:latest
-	docker tag  sei3_jod-2.2.2 guilhermeadc/sei3_jod-2.2.2:$(VERSAO_CONTAINERS)
+	docker build -t sei4_jod jod/
+	docker tag sei4_jod guilhermeadc/sei4_jod:latest
+	docker tag sei4_jod guilhermeadc/sei4_jod:9.0
 
-	docker build -t sei3_mysql-5.7 mysql/
-	docker tag sei3_mysql-5.7 guilhermeadc/sei3_mysql-5.7:latest
-	docker tag sei3_mysql-5.7 guilhermeadc/sei3_mysql-5.7:$(VERSAO_CONTAINERS)
+	docker build -t sei4_mysql mysql/
+	docker tag sei4_mysql guilhermeadc/sei4_mysql:latest
+	docker tag sei4_mysql guilhermeadc/sei4_mysql:9.0
 
-	docker build -t sei3_oracle-11g oracle/
-	docker tag  sei3_oracle-11g guilhermeadc/sei3_oracle-11g:latest
-	docker tag  sei3_oracle-11g guilhermeadc/sei3_oracle-11g:$(VERSAO_CONTAINERS)
+	docker build -t sei4_oracle oracle/
+	docker tag sei4_oracle guilhermeadc/sei4_oracle:latest
+	docker tag sei4_oracle guilhermeadc/sei4_oracle:9.0
 
-	docker build -t sei3_httpd-2.4 httpd/
-	docker tag sei3_httpd-2.4 guilhermeadc/sei3_httpd-2.4:latest
-	docker tag sei3_httpd-2.4 guilhermeadc/sei3_httpd-2.4:$(VERSAO_CONTAINERS)
+	docker build -t sei4_httpd httpd/
+	docker tag sei4_httpd guilhermeadc/sei4_httpd:latest
+	docker tag sei4_httpd guilhermeadc/sei4_httpd:9.0
 
-	docker build -t sei3_mailcatcher mailcatcher
-	docker tag sei3_mailcatcher guilhermeadc/sei3_mailcatcher:latest
-	docker tag sei3_mailcatcher guilhermeadc/sei3_mailcatcher:$(VERSAO_CONTAINERS)
+	docker build -t sei4_mailcatcher mailcatcher
+	docker tag sei4_mailcatcher guilhermeadc/sei4_mailcatcher:latest
+	docker tag sei4_mailcatcher guilhermeadc/sei4_mailcatcher:9.0
 
-	docker build -t sei3_memcached memcached
-	docker tag sei3_memcached  guilhermeadc/sei3_memcached:latest
-	docker tag sei3_memcached  guilhermeadc/sei3_memcached:$(VERSAO_CONTAINERS)
+	docker build -t sei4_memcached memcached
+	docker tag sei4_memcached  guilhermeadc/sei4_memcached:latest
+	docker tag sei4_memcached  guilhermeadc/sei4_memcached:9.0
 
-	docker build -t sei3_sqlserver-2017 sqlserver
-	docker tag sei3_sqlserver-2017 guilhermeadc/sei3_sqlserver-2017:latest
-	docker tag sei3_sqlserver-2017 guilhermeadc/sei3_sqlserver-2017:$(VERSAO_CONTAINERS)
+	docker build -t sei4_sqlserver sqlserver
+	docker tag sei4_sqlserver guilhermeadc/sei4_sqlserver:latest
+	docker tag sei4_sqlserver guilhermeadc/sei4_sqlserver:9.0
 
-	docker push guilhermeadc/sei3_solr-6.1:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_jod-2.2.2:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_mysql-5.7:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_oracle-11g:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_httpd-2.4:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_mailcatcher:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_memcached:$(VERSAO_CONTAINERS)
-	docker push guilhermeadc/sei3_sqlserver-2017:$(VERSAO_CONTAINERS)
+	docker push guilhermeadc/sei4_solr:9.0
+	docker push guilhermeadc/sei4_jod:9.0
+	docker push guilhermeadc/sei4_mysql:9.0
+	docker push guilhermeadc/sei4_oracle:9.0
+	docker push guilhermeadc/sei4_httpd:9.0
+	docker push guilhermeadc/sei4_mailcatcher:9.0
+	docker push guilhermeadc/sei4_memcached:9.0
+	docker push guilhermeadc/sei4_sqlserver:9.0
 
-	docker push guilhermeadc/sei3_solr-6.1:latest
-	docker push guilhermeadc/sei3_jod-2.2.2:latest
-	docker push guilhermeadc/sei3_mysql-5.7:latest
-	docker push guilhermeadc/sei3_oracle-11g:latest
-	docker push guilhermeadc/sei3_httpd-2.4:latest
-	docker push guilhermeadc/sei3_mailcatcher:latest
-	docker push guilhermeadc/sei3_memcached:latest
-	docker push guilhermeadc/sei3_sqlserver-2017:latest
+	docker push guilhermeadc/sei4_solr:latest
+	docker push guilhermeadc/sei4_jod:latest
+	docker push guilhermeadc/sei4_mysql:latest
+	docker push guilhermeadc/sei4_oracle:latest
+	docker push guilhermeadc/sei4_httpd:latest
+	docker push guilhermeadc/sei4_mailcatcher:latest
+	docker push guilhermeadc/sei4_memcached:latest
+	docker push guilhermeadc/sei4_sqlserver:latest
 
 
 build-vm:
