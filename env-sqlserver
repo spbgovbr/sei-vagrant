@@ -1,6 +1,6 @@
 ENVIRONMENT_VERSION=9.0
 
-DATABASE_IMAGE=guilhermeadc/sei4_sqlserver
+DATABASE_IMAGE=processoeletronico/sei4_sqlserver
 DATABASE_TYPE=SqlServer
 DATABASE_HOST=sqlserver
 DATABASE_PORT=1433
