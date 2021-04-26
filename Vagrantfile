@@ -101,22 +101,21 @@ Vagrant.configure(2) do |config|
 =========================================================================
 
 = Endereços de Acesso à Aplicação ========================================
-SEI ............................... http://localhost:8000/sei
-SIP ............................... http://localhost:8000/sip
+SEI ........................... http://localhost:8000/sei
+SIP ........................... http://localhost:8000/sip
 
-Outros endereços úteis:
-Acesso de Usuário Externo ..... http://localhost:8000/sei/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
-Autenticidade de Documentos ... http://localhost:8000/sei/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
-Publicações Eletrônicas ....... http://localhost:8000/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
-WSDL de integração do SEI ..... http://localhost:8000/sei/ws/SeiWS.php
+Acesso de Usuário Externo ..... [SEI]/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
+Autenticidade de Documentos ... [SEI]/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
+Publicações Eletrônicas ....... [SEI]/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
+WSDL de integração do SEI ..... [SEI]/ws/SeiWS.php
 
 
 = Outros Serviços ========================================================
-Solr .............................. http://localhost:8983/solr
-MailCatcher ....................... http://localhost:1080
-Mysql ............................. localhost:3306
-Oracle ............................ localhost:1521
-SQLServer ......................... localhost:1433
+Solr .......................... http://localhost:8983/solr
+MailCatcher ................... http://localhost:1080
+Mysql ......................... localhost:3306
+Oracle ........................ localhost:1521
+SQLServer ..................... localhost:1433
 
 = Comandos Úteis =========================================================
 vagrant up                        - Inicializar ambiente do SEI
@@ -132,7 +131,7 @@ vagrant up --provision-with [mysql|oracle|sqlserver]
 vagrant provision --provision-with [mysql|oracle|sqlserver]
 
 = Debug =========================================================
-PHP xDebug 3
+PHP xDebug3
 Porta: 9003
 
 EOF
