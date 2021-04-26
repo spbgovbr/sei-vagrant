@@ -5,16 +5,8 @@
 ################################################################################
 
 FROM schickling/mailcatcher
-LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV TERM xterm
 
-#COPY install.sh /install.sh
-#COPY entrypoint.sh /entrypoint.sh
-
-#RUN sh /install.sh
-############################## FIM DA INSTALAÇÃO ###############################
-
 EXPOSE 1080
-#CMD ["/entrypoint.sh"]

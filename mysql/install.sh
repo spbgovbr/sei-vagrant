@@ -23,8 +23,8 @@ mysql -e "GRANT ALL PRIVILEGES ON sip.* TO 'sip_user'@'%'" sip
 mysql -e "GRANT ALL PRIVILEGES ON sei.* TO 'sei_user'@'%'" sei
 
 # Restauração dos bancos de dados
-mysql sei < /docker-entrypoint-initdb.d/4_sei_4_0_0_BD_Ref_Exec.sql
-mysql sip < /docker-entrypoint-initdb.d/5_sip_4_0_0_BD_Ref_Exec.sql
+mysql sei < /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
+mysql sip < /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
 
 # Atualização dos parâmetros do SEI e do SIP
 mysql -e "update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;" sip

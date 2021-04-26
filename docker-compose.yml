@@ -1,17 +1,17 @@
 version: '2'
 services:
   jod:  
-    image: guilhermeadc/sei4_jod:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_jod:${ENVIRONMENT_VERSION}
     container_name: jod
 
   smtp:
-    image: guilhermeadc/sei4_mailcatcher:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_mailcatcher:${ENVIRONMENT_VERSION}
     container_name: smtp
     ports:
       - "1080:1080"
 
   memcached:
-    image: guilhermeadc/sei4_memcached:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_memcached:${ENVIRONMENT_VERSION}
     container_name: memcached
     ports:
       - "11211:11211"
@@ -29,25 +29,23 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
 
   solr:
-    image: guilhermeadc/sei4_solr:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_solr:${ENVIRONMENT_VERSION}
     container_name: solr
     ports:
       - "8983:8983"
 
-  http:
-    image: guilhermeadc/sei4_httpd:${ENVIRONMENT_VERSION}
-    container_name: http
+  httpd:
+    image: processoeletronico/vagrant_sei4_httpd:${ENVIRONMENT_VERSION}
+    container_name: httpd
     restart: always
     ports:
       - "8000:8000"
     depends_on: 
       - database
-    privileged: true
     volumes:
-#      - /mnt/sei/src:/opt:
-      - C:\Projetos\SEI\SEI_v4.0_Oficial\fontes\sei\src\main\php:/opt
+      - /mnt/sei/src:/opt
     environment:
-      - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=${HOST_IP} remote_connect_back=1"
+      - XDEBUG_CONFIG="idekey=default client_host=${HOST_IP} client_port=9003 discover_client_host=1"
       - XDEBUG_SESSION=default
       - XDEBUG_MODE=debug
       - HOST_URL=http://localhost:8000
@@ -55,12 +53,14 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
 
+      - SEI_CHAVE_ACESSO=${SEI_CHAVE_ACESSO}
       - SEI_DATABASE_NAME=${SEI_DATABASE_NAME}
       - SEI_DATABASE_USER=${SEI_DATABASE_USER}
       - SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD}
       - SEI_DATABASE_USER_SCRIPT=${SEI_DATABASE_USER_SCRIPT}
       - SEI_DATABASE_PASSWORD_SCRIPT=${SEI_DATABASE_PASSWORD_SCRIPT}
-      
+
+      - SIP_CHAVE_ACESSO=${SIP_CHAVE_ACESSO}
       - SIP_DATABASE_NAME=${SIP_DATABASE_NAME}
       - SIP_DATABASE_USER=${SIP_DATABASE_USER}
       - SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD}
