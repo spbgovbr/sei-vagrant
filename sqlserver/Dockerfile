@@ -7,15 +7,14 @@
 ################################################################################
 
 FROM microsoft/mssql-server-linux
-LABEL maintainer="Guilherme Andrade Del Cantoni <guilherme.cantoni@economia.gov.br>"
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD='yourStrong(!)Password'
 
-COPY sei-db-ref-executivo/sqlserver/v3.1.0/sei_3_1_0_BD_Ref_Exec.bak /tmp/sei_sqlserver.bak
-COPY sei-db-ref-executivo/sqlserver/v3.1.0/sip_3_1_0_BD_Ref_Exec.bak /tmp/sip_sqlserver.bak
+COPY sei-db-ref-executivo/sqlserver/v4.0.0/sei_4_0_0_BD_Ref_Exec.bak /tmp/sei_sqlserver.bak
+COPY sei-db-ref-executivo/sqlserver/v4.0.0/sip_4_0_0_BD_Ref_Exec.bak /tmp/sip_sqlserver.bak
 COPY assets/restore.sql /tmp/restore.sql
 COPY install.sh /install.sh
 

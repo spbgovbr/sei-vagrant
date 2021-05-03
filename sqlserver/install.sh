@@ -12,7 +12,7 @@ apt-get -y --allow-unauthenticated install libodbc1 freetds-dev freetds-bin
 /opt/mssql/bin/sqlservr &
 sleep 30
 
-tsql -S localhost -U sa -P 'yourStrong(!)Password' < /tmp/restore.sql
+tsql -S localhost -U sa -P $SA_PASSWORD < /tmp/restore.sql
 
 # Remover arquivos temporários
 rm -rf /tmp/*

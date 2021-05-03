@@ -51,7 +51,7 @@ Vagrant.configure(2) do |config|
 
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
-  config.vm.network :forwarded_port, guest: 8000,   host: 8000   # SIP e SEI (Apache)
+  config.vm.network :forwarded_port, guest: 8000, host: 8000 # SIP e SEI (Apache)
   config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
   config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
@@ -104,6 +104,13 @@ Vagrant.configure(2) do |config|
 SEI ............................... http://localhost:8000/sei
 SIP ............................... http://localhost:8000/sip
 
+Outros endereços úteis:
+Acesso de Usuário Externo ..... http://localhost:8000/sei/controlador_externo.php?acao=usuario_externo_logar&id_orgao_acesso_externo=0
+Autenticidade de Documentos ... http://localhost:8000/sei/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
+Publicações Eletrônicas ....... http://localhost:8000/sei/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
+WSDL de integração do SEI ..... http://localhost:8000/sei/ws/SeiWS.php
+
+
 = Outros Serviços ========================================================
 Solr .............................. http://localhost:8983/solr
 MailCatcher ....................... http://localhost:1080
@@ -123,6 +130,10 @@ Utilize o parâmetro '--provision-with' para alterar o banco de dados padrão:
 vagrant up --provision-with [mysql|oracle|sqlserver]
 -- ou --
 vagrant provision --provision-with [mysql|oracle|sqlserver]
+
+= Debug =========================================================
+PHP xDebug 3
+Porta: 9003
 
 EOF
 end

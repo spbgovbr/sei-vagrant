@@ -1,17 +1,17 @@
 version: '2'
 services:
   jod:  
-    image: guilhermeadc/sei3_jod-2.2.2:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_jod:${ENVIRONMENT_VERSION}
     container_name: jod
 
   smtp:
-    image: guilhermeadc/sei3_mailcatcher:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_mailcatcher:${ENVIRONMENT_VERSION}
     container_name: smtp
     ports:
       - "1080:1080"
 
   memcached:
-    image: guilhermeadc/sei3_memcached:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_memcached:${ENVIRONMENT_VERSION}
     container_name: memcached
     ports:
       - "11211:11211"
@@ -19,22 +19,25 @@ services:
   database:
     image: ${DATABASE_IMAGE}:${ENVIRONMENT_VERSION}
     container_name: ${DATABASE_HOST}
-    ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
       - /var/sei/${DATABASE_HOST}/backup:/backup
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
 
   solr:
-    image: guilhermeadc/sei3_solr-6.1:${ENVIRONMENT_VERSION}
+    image: processoeletronico/vagrant_sei4_solr:${ENVIRONMENT_VERSION}
     container_name: solr
     ports:
       - "8983:8983"
 
-  http:
-    image: guilhermeadc/sei3_httpd-2.4:${ENVIRONMENT_VERSION}
-    container_name: http
-    restart: on-failure
+  httpd:
+    image: processoeletronico/vagrant_sei4_httpd:${ENVIRONMENT_VERSION}
+    container_name: httpd
+    restart: always
     ports:
       - "8000:8000"
     depends_on: 
@@ -42,18 +45,22 @@ services:
     volumes:
       - /mnt/sei/src:/opt
     environment:
-      - XDEBUG_CONFIG="idekey=default remote_enable=1 remote_mode=req remote_port=9000 remote_host=10.0.2.2 remote_connect_back=1"
+      - XDEBUG_CONFIG="idekey=default client_host=${HOST_IP} client_port=9003 discover_client_host=1"
+      - XDEBUG_SESSION=default
+      - XDEBUG_MODE=debug
       - HOST_URL=http://localhost:8000
       - DATABASE_TYPE=${DATABASE_TYPE}
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
 
+      - SEI_CHAVE_ACESSO=${SEI_CHAVE_ACESSO}
       - SEI_DATABASE_NAME=${SEI_DATABASE_NAME}
       - SEI_DATABASE_USER=${SEI_DATABASE_USER}
       - SEI_DATABASE_PASSWORD=${SEI_DATABASE_PASSWORD}
       - SEI_DATABASE_USER_SCRIPT=${SEI_DATABASE_USER_SCRIPT}
       - SEI_DATABASE_PASSWORD_SCRIPT=${SEI_DATABASE_PASSWORD_SCRIPT}
-      
+
+      - SIP_CHAVE_ACESSO=${SIP_CHAVE_ACESSO}
       - SIP_DATABASE_NAME=${SIP_DATABASE_NAME}
       - SIP_DATABASE_USER=${SIP_DATABASE_USER}
       - SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD}

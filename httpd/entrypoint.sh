@@ -65,5 +65,7 @@ php -r "
     \$objScriptRN->atualizarSequencias();
 " || exit 1
 
+memcached -u memcached -d -m 30 -l 127.0.0.1 -p 11211
+
 # Inicialização do servidor web
 /usr/sbin/httpd -DFOREGROUND
