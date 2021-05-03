@@ -69,25 +69,25 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 			),
 			
 //			'HostWebService' => array(
-//				'Replicacao' => array('*'),  //endere?o ou IP da m?quina que implementa o servi?o de replica??o de usu?rios
-//				'Pesquisa' => array('*'),    //endere?os/IPs das m?quinas do SEI
-//				'Autenticacao' => array('*') //endere?os/IPs das m?quinas do SEI
+//				'Replicacao' => array('*'),  //endereço ou IP da máquina que implementa o serviço de replicação de usuário
+//				'Pesquisa' => array('*'),    //endereços/IPs das máquinas do SEI
+//				'Autenticacao' => array('*') //endereços/IPs das máquinas do SEI
 //			),
 
             'InfraMail' => array(
-                'Tipo' => '1', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
+                'Tipo' => '1', //1 = sendmail (neste caso n?o ? necess?rio configurar os atributos abaixo), 2 = SMTP
                 'Servidor' => 'smtp',
                 'Porta' => '1025',
                 'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
-                'Autenticar' => false, //se true então informar Usuario e Senha
+                'Autenticar' => false, //se true ent?o informar Usuario e Senha
                 'Usuario' => '',
                 'Senha' => '',
                 'Seguranca' => '', //TLS, SSL ou vazio
                 'MaxDestinatarios' => 25, //numero maximo de destinatarios por mensagem
                 'MaxTamAnexosMb' => 15, //tamanho maximo dos anexos em Mb por mensagem
-                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
+                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido então todos os emails enviados terão o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
                 /*  Abaixo chave opcional desativada com exemplo de preenchimento
-                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se não existir um domínio mapeado então utilizará os atributos gerais da chave InfraMail.
+                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se n?o existir um dom?nio mapeado então utilizará os atributos gerais da chave InfraMail.
                     'abc.jus.br' => array(
                         'Tipo' => '2',
                         'Servidor' => '10.1.3.12',
