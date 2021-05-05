@@ -79,7 +79,7 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
 
-Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost/sei
+Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost:8000/sei
 
 ### 4) Realizar a configuração inicial do Box do Vagrant/VirtualBox
 
