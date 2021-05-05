@@ -17,12 +17,14 @@ yum -y install build-essential libmcrypt httpd memcached openssl wget curl unzip
 
 # Instalação do PHP e demais extenções necessárias para o projeto
 yum -y install php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib php-zts php-soap php-gd php-bcmath \
-               php73.x86_64 php-bcmath.x86_64 php-cli.x86_64 php-common.x86_64 php-devel.x86_64 php-gd.x86_64 \
-               php73pat-php-gmp.x86_64 php-imap.x86_64 php-intl.x86_64 php-ldap.x86_64 php-mbstring.x86_64 php-mysqlnd.x86_64 \
-               php-mysqli php-mysqli php-odbc.x86_64 php-pdo.x86_64 php-pear.noarch php-pecl-apcu.x86_64 php-pecl-apcu-devel.x86_64 \
-               php-pecl-memcache php-pecl-memcache.x86_64 php-pecl-xdebug.x86_64 php-pspell.x86_64 php-snmp.x86_64 \
-               php-pecl-igbinary.x86_64 php-pecl-igbinary-devel.x86_64  php-soap.x86_64 php-xml.x86_64 php-xmlrpc.x86_64 php-xdebug               
+               php73 php-bcmath php-cli php-common php-devel php-gd php73pat-php-gmp php-imap php-intl php-ldap php-mbstring \
+               php-mysqlnd php-mysqli php-mysqli php-odbc php-pdo php-pear.noarch php-pecl-apcu php-pecl-apcu-devel \
+               php-pecl-memcache php-pecl-memcache php-pspell php-snmp php-pecl-igbinary php-pecl-igbinary-devel \
+               php-soap php-xml php-xmlrpc
 
+
+# Instalação do XDebug, versão 3
+pecl install xdebug-3.0.4   
 
 # Configuração do pacote de línguas pt_BR
 localedef pt_BR -i pt_BR -f ISO-8859-1
