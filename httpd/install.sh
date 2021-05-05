@@ -38,6 +38,7 @@ make
 make install
 echo "extension=uploadprogress.so" > /etc/php.d/uploadprogress.ini
 
+pecl install xdebug
 
 # Instalação de pacote de fontes do windows
 rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
