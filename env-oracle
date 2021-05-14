@@ -1,4 +1,4 @@
-ENVIRONMENT_VERSION=9.0
+ENVIRONMENT_VERSION=9.4
 
 DATABASE_IMAGE=processoeletronico/vagrant_sei4_oracle
 DATABASE_TYPE=Oracle

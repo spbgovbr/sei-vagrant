@@ -60,37 +60,38 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
 
   config.vm.provision "docker-start", type: "shell", run: "always" do |s|
-    s.inline = <<-EOF
+    s.inline = <<-EOF      
       /bin/systemctl start docker.service
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env down
+      [ ! -f "/mnt/sei/src/.env" ] && cp -f /env-mysql /mnt/sei/src/.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env up -d
     EOF
   end
 
   config.vm.provision "mysql", type: "shell", run: "never" do |s|
     s.inline = <<-EOF      
       /bin/systemctl start docker.service
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
-      sudo ln -s --force /env-mysql /.env
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env down
+      cp -f /env-mysql /mnt/sei/src/.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env up -d
     EOF
   end
 
   config.vm.provision "sqlserver", type: "shell", run: "never" do |s|
     s.inline = <<-EOF
       /bin/systemctl start docker.service
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
-      sudo ln -s --force /env-sqlserver /.env
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env down
+      cp -f /env-sqlserver /mnt/sei/src/.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env up -d
     EOF
   end
 
   config.vm.provision "oracle", type: "shell", run: "never" do |s|
     s.inline = <<-EOF
       /bin/systemctl start docker.service
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env down
-      sudo ln -s --force /env-oracle /.env
-      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /.env up -d
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env down
+      cp -f /env-oracle /mnt/sei/src/.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env up -d
     EOF
   end
 
@@ -108,7 +109,7 @@ Acesso de Usuário Externo ..... [SEI]/controlador_externo.php?acao=usuario_exte
 Autenticidade de Documentos ... [SEI]/controlador_externo.php?acao=documento_conferir&id_orgao_acesso_externo=0
 Publicações Eletrônicas ....... [SEI]/publicacoes/controlador_publicacoes.php?acao=publicacao_pesquisar&id_orgao_publicacao=0
 WSDL de integração do SEI ..... [SEI]/ws/SeiWS.php
-
+PHP Info ...................... http://localhost:8000/info.php
 
 = Outros Serviços ========================================================
 Solr .......................... http://localhost:8983/solr

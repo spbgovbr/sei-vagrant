@@ -22,7 +22,6 @@ if [ ! -f /opt/sip/config/ConfiguracaoSip.php ]; then
 fi
 
 # Ajustes de permissões diversos para desenvolvimento do SEI
-chmod +x /opt/sei/bin/wkhtmltopdf-amd64
 chmod +x /opt/sei/bin/pdfboxmerge.jar
 chmod -R 777 /opt/sei/temp
 chmod -R 777 /opt/sip/temp

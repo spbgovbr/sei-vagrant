@@ -29,7 +29,6 @@ COPY assets/php.ini /etc/php.d/sei.ini
 COPY assets/httpd.conf /etc/httpd/conf.d/sei.conf
 COPY assets/cron.conf /etc/cron.d/sei
 COPY assets/xdebug.ini /etc/php.d/xdebug.ini
-COPY assets/freetds.conf /etc/freetds.conf
 
 # Configuração dos parâmetros do SEI e SIP
 COPY assets/ConfiguracaoSip.php /ConfiguracaoSip.php
