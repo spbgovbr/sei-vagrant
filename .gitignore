@@ -13,3 +13,7 @@ mysql-files/
 *.swp
 *.box
 *.log
+
+mysql/sei-db-ref-executivo
+oracle/sei-db-ref-executivo
+sqlserver/sei-db-ref-executivo

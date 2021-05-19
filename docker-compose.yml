@@ -21,10 +21,10 @@ services:
     container_name: ${DATABASE_HOST}
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: P@ssword
     volumes:
       - ${DATABASE_HOST}:${DATABASE_DATA_DIR}
-      - /var/sei/${DATABASE_HOST}/backup:/backup
+      - /var/sei/backup/${DATABASE_HOST}:/backup
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
 
@@ -43,8 +43,11 @@ services:
     depends_on: 
       - database
     volumes:
-      - /mnt/sei/src:/opt
+      - /mnt/sei/src/sei:/opt/sei
+      - /mnt/sei/src/sip:/opt/sip
+      - /mnt/sei/src/infra:/opt/infra
     environment:
+      - LANG=pt_BR.ISO-8859-1
       - XDEBUG_CONFIG="idekey=default client_host=${HOST_IP} client_port=9003 discover_client_host=1"
       - XDEBUG_SESSION=default
       - XDEBUG_MODE=debug

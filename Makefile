@@ -1,6 +1,6 @@
 .PHONY: build-containers build-vm install-vm clean
 
-VERSAO_CONTAINERS='9.4'
+VERSAO_CONTAINERS='9.6'
 
 build: build-containers publish-containers build-vm
 
@@ -14,7 +14,7 @@ clean:
 	docker rmi --force vagrant_sei4_sqlserver || true
 
 
-build-containers: clean
+build-containers: 
 	docker build -t vagrant_sei4_httpd httpd/
 	docker tag vagrant_sei4_httpd processoeletronico/vagrant_sei4_httpd:$(VERSAO_CONTAINERS)
 	docker tag vagrant_sei4_httpd processoeletronico/vagrant_sei4_httpd:latest

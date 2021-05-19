@@ -7,7 +7,7 @@
 FROM mariadb:10.5 as builder
 
 ############################# INÍCIO DA INSTALAÇÃO #############################
-ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_ROOT_PASSWORD=P@ssword
 
 COPY assets/my.cnf /etc/mysql/mariadb.conf.d/sei.cnf
 COPY assets/pre-install.sql /docker-entrypoint-initdb.d/1_pre-install.sql

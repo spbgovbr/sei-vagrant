@@ -1,14 +1,12 @@
 #!/usr/bin/env sh
 
 mysql_secure_installation <<EOF
-root
+P@ssword
 y
+n
+n
+n
 y
-root
-root
-n
-n
-n
 y
 EOF
 
@@ -39,6 +37,6 @@ mysql -e "delete from auditoria_protocolo;" sei
 mysql -e "update orgao set sin_autenticar='N' where id_orgao=0;" sip
 
 # Atribuição de permissões de acesso externo para o usuário root, senha root
-mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'P@ssword' WITH GRANT OPTION;"
 
 exit 0

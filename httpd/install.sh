@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Instalação dos componentes básicos do servidor web apache
-yum -y install epel-release yum-utils
+yum install -y epel-release yum-utils
 
 # Configurando para instalar a versão 7.3 do PHP e desabilitando a 5.4
-yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum-config-manager --disable remi-php54
 yum-config-manager --enable remi-php73
-yum -y update
+yum update -y 
 
 yum install -y http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 yum install -y https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.x86_64.rpm
@@ -18,7 +18,7 @@ yum install -y build-essential libmcrypt httpd memcached openssl wget curl unzip
 
 
 # Instalação do PHP e demais extenções necessárias para o projeto
-yum -y install php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib php-zts php-soap php-gd php-bcmath \
+yum install -y php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib php-zts php-soap php-gd php-bcmath \
                php-cli php-common php73pat-php-gmp php-imap php-intl php-ldap php-mbstring \
                php-mysqlnd php-mysqli php-odbc php-pdo php-pecl-apcu php-pecl-apcu-devel php-curl \
                php-pecl-memcache php-pspell php-snmp php-pecl-igbinary php-pecl-igbinary-devel \
@@ -47,10 +47,9 @@ rpm -Uvh /tmp/msttcore-fonts-2.0-3.noarch.rpm
 bash /tmp/install_oracle.sh
 
 # Instalação dos componentes de conexão do SQL Server
-#yum -y install freetds freetds-devel php-mssql
 curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
 ACCEPT_EULA=Y yum install -y msodbcsql17
-yum -y install unixODBC unixODBC-devel php-mssql php-pdo
+yum install -y libodbc1 unixODBC unixODBC-devel php-mssql php-pdo
 pecl install sqlsrv pdo_sqlsrv
 printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php.d/20-sqlsrv.ini
 printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php.d/30-pdo_sqlsrv.ini

@@ -4,11 +4,7 @@ O objetivo dessa documentação é descrever os procedimentos para preparar um a
 
 Antes, gostariamos de reforçar a necessidade que todo o desenvolvimento esteja alinhado com as diretivas e padrões de interface, codificação php e modelagem de banco de dados utilizados pelo SEI. A documentação dos padrões estão disponíveis na comunidade do SEI:
 
-* [Documentação Técnica do SEI](https://softwarepublico.gov.br/social/sei/manuais/documentacao-de-apoio "Clique para acessar")
-* [Padrão de Codificação PHP](https://softwarepublico.gov.br/social/sei/manuais/padrao-de-codificacao-php/sumario "Clique para acessar")
-* [Padrão de Modelagem de Dados](https://softwarepublico.gov.br/social/sei/manuais/padrao-de-modelagem-de-dados/sumario "Clique para acessar")
-
-Outra fator importante de ser feito, antes do início dos trabalhos de desenvolvimento, é a indicação da demanda previamente aprovada ([Lista de Demandas do Projeto](https://softwarepublico.gov.br/gitlab/groups/sei/issues?project_id=&scope=all&state=opened "Clique para acessar")), juntamente com a Especificação de Requisitos, para avaliação, revisão e aprovação do Comitê Gestor. De acordo com o padrão trabalho estabelecido, todos as novas funcionalidades que serão implementadas no SEI precisarão de uma aprovação prévia do Comitê Gestor para que possam ser implementadas e, posteriormente, homologadas e integradas ao sistema.
+* [Documentação Técnica do SEI](https://www.gov.br/economia/pt-br/assuntos/processo-eletronico-nacional/destaques/material-de-apoio-2/material-de-apoio-sei "Clique para acessar")
 
 Voltando para à configuração do ambiente de desenvolvimento, as tecnologias utilizadas nesse trabalho foram as listadas abaixo. Sugerimos uma breve leitura de suas documentações para melhor entendimento.
 
@@ -24,8 +20,7 @@ Outros recursos para melhor entendimento das tecnologias citadas acima:
 * http://pt.slideshare.net/RenanMartinsPimentel/vagrant-26647815
 * http://pt.slideshare.net/rogeriopradoj/desenvolvimento-php-com-vagrant-15511228
 
-O provisionamento dos componentes do sistema é implementado através da plataforma de containers do [Docker](https://www.docker.com), portanto, as imagens dos containers
-podem ser reutilizados isoladamente em outras configurações de infraestrutura para testes, sendo que todos os containers utilizados neste projeto estão publicados no [DockerHub](https://hub.docker.com/r/guilhermeadc/). Um exemplo de utilização dos container do Docker para preparação de ambiente de desenvolvimento do SEI pode ser visto no arquivo [docker-compose.yml](https://github.com/spbgovbr/sei-vagrant/blob/master/docker-compose.yml) utilizado internamento pelo projeto.
+O provisionamento dos componentes do sistema é implementado através da plataforma de containers do [Docker](https://www.docker.com), portanto, as imagens dos containers podem ser reutilizados isoladamente em outras configurações de infraestrutura para testes, sendo que todos os containers utilizados neste projeto estão publicados no [DockerHub](https://hub.docker.com/r/guilhermeadc/). Um exemplo de utilização dos container do Docker para preparação de ambiente de desenvolvimento do SEI pode ser visto no arquivo [docker-compose.yml](https://github.com/spbgovbr/sei-vagrant/blob/master/docker-compose.yml) utilizado internamento pelo projeto.
 
 O Docker utiliza recursos do Kernel do Linux para gerenciar o isolamento provido pelos container, o que obriga a utilização deste sistema operacional para uso da "virtualização". Para resolver esta limitação é utilizado o Vagrant, responsável por criar uma virtualização para servir de host para o Docker e permitir sua utilização em outr
 os Sistemas Operacionais, como Windows e MacOS. Sua função é semelhante ao provido pelos projetos [Boot2Docker](http://boot2docker.io/) e [Docker Machine](https://docs.docker.com/machine/).
@@ -79,15 +74,15 @@ O diretório é o mesmo disponibilizado para instalação e dentro dele deve con
 
 Esses arquivos serão compartilhados para dentro das máquinas virtuais criada pelo Vagrant para ativação do sistema.
 
-Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost/sei
+Com isso, as alterações feitas diretamente nos arquivos php durante do desenvolvimento refletirão de forma automática no ambiente que estará disponível em http://localhost:8000/sei
 
 ### 4) Realizar a configuração inicial do Box do Vagrant/VirtualBox
 
 No diretório citado anteriormente, execute o seguinte comando:
 
-Para a versão 3.0.X, execute:
+Para a versão 4.0.X, execute:
 
-    vagrant init processoeletronico/sei-3.0.0
+    vagrant init processoeletronico/sei-4.0
 
 
 Para a versão 3.1.X, execute:
@@ -109,6 +104,10 @@ Esse comando irá iniciar a construção do ambiente de desenvolvimento começan
 
 É normal que a primeira execução desse comando demore vários minutos para ser concluído, pois a imagem/box, com cerca de 2GB, será baixada para a máquina de desenvolvimento. Após o fim da transferência, o ambiente estará disponível em questão de minutos.
 
+Na versão 4.0, é possível indicar qual base de dados será utilizada no ambiente local, as opções disponíveis sendo Oracle, SQLServer e MySQL (padrão). Caso deseja selecionar outro banco de dados, execute o comando _vagrant up_ com o parâmetro _--provision-with [oracle, mysql ou sqlserver]_
+
+    # vagrant up --provision-with [oracle, sqlserver ou mysql]
+
 Após a conclusão do primeiro provisionamento, o ambiente poderá ser destruído e recriado rapidamente já que vagrant armazenará a BOX/Imagem de referência em seu cache.
 
 Ao final da inicialização do ambiente de desenvolvimento, será apresentada a mensagem abaixo, indicando que todos os serviços do SEI já estão em operação na máquina de desenvolvimento:
@@ -122,22 +121,39 @@ Ao final da inicialização do ambiente de desenvolvimento, será apresentada a 
 
 ### 6) Testar a Aplicação
 
-**SEI**
-Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+#### SEI
+Após a finalização do provisionamento do ambiente e a apresentação das mensagens acima, o SEI estará disponível para testes na máquina local de desenvolvimento através do acesso ao endereço http://localhost:8000/sei. O usuário para acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
 Importante mencionar que o sistema que está rodando nesse endereço se baseia exatamente no código-fonte do SEI presente na diretório onde foi executado o comando vagrant up. A alteração feita no código-fonte do sistema poderá ser visto instantaneamente no sei através de um simples Refresh no browser do desenvolvedor.
 
-**SIP**
-Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
+#### SIP
+Da mesma forma como descrito anteriormente, o sip estará disponível no endereço http://localhost:8000/sip e o usuário de acesso será o login: teste / senha: teste, o mesmo configurado na base inicial do sistema.
 
-**Banco de dados MySQL**
-O componente chamado db , apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados do MySQL que estará acessível na máquina local através da portal 3306. O banco de dados poderá ser acesso pelo MySQL Workbench ou qualquer outra ferramenta de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:
+#### BANCOS DE DADOS
+O componente chamado db, apresentado logo após o provisionamento do ambiente, se refere ao serviço de banco de dados escolhido durante o provisionamento do ambiente, podendo ser o MySQL (padrão, Oracle ou SQLServer. A base poderá ser acesso por qualquer utilitário de conexão á banco de dados. Este serviço estará com os 2 bancos de dados utilizados pelo SEI (sei e sip) e poderá ser acessados com os seguintes usuários:
 
-    Usuário Root do MySQL: login:root / senha:root
+##### MySQL
+    Usuário Root do MySQL: login:root / senha:P@ssword
     Usuário da Base de Dados do SEI: login: sei_user / senha: sei_user
     Usuário da Base de Dados do SIP: login: sip_user / senha: sip_user
 
     Ex: mysql -h 127.0.0.1 -u root -p sei
+
+##### Oracle
+    Usuário Root do Oracle: login:sys / senha:P@ssword
+    Usuário de sistema do Oracle: login:system / senha:P@ssword
+    Usuário da Base de Dados do SEI: login: sei_user / senha: sei_user
+    Usuário da Base de Dados do SIP: login: sip_user / senha: sip_user
+
+    Ex: sqlplus sys/P@ssword as sysdba
+
+##### SQLServer
+    Usuário Root do SQLServer: login:sa / senha:P@ssword
+    Usuário da Base de Dados do SEI: login: sei_user / senha: sei_user
+    Usuário da Base de Dados do SIP: login: sip_user / senha: sip_user
+
+    Ex: tsql -S 127.0.0.1 -U sa -P P@ssword 
+
 
 * **Apache Solr** O Apache Solr também estará disponível para testes e poderá ser acessado pelo endereço: http://localhost:8983/solr
 * **Memcached** Servidor de cache utilizado pela aplicação SEI e SIP http://localhost:11211
@@ -239,11 +255,9 @@ Vagrant para compartilhamento. Esta ferramenta pode ser encontrada em https://ww
 
 ### 4) Construir e empacotar uma Vagrant Box
 
-Para simplificar o processo de construção dos componentes internos do SEI, sugerimos utilizar o script bash 
-update-containers.sh, localizado na raiz do projeto, para automatizar todos os passos descritos abaixo:
+Para simplificar o processo de construção dos componentes internos do SEI, sugerimos utilizar os comandos disponíveis no Makefile, localizado na raiz do projeto, para automatizar todos os passos descritos abaixo:
 
-* destruir o ambiente corrente do vagrant
-* construir imagens de todos os containers docker
-* registrar uma nova linha de base para os containers
-* adicionar todos os containers dockers em uma nova VM do Vagrant
-* empacotar box do ambiente para distribuição no Vagrant Cloud 
+* `make build-containers`: Constrói todas as imagens dos containers da aplicação no docker
+* `make publish-containers`: Publica as imagens no dockerhub do projeto (autorização necessária)
+* `make build-vm`: Constroi a BOX do vagrant (virtualbox) contendo os containers docker na versão e configuração correta
+* `make install-vm`: Instala localmente a box em desenvolvimento para testes, utilizando no nome sei-vagrant
