@@ -14,7 +14,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 	public function getArrConfiguracoes(){
 		return array(
             'Sip' => array(
-                'URL' => 'http://localhost:8000/sip',
+                'URL' => getenv('HOST_URL').'/sip',
                 'Producao' => false,
                 'NumLoginSemCaptcha' => 3,
                 'TempoLimiteValidacaoLogin' => 60,
@@ -33,7 +33,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'SiglaSistema' => 'SIP',
 				'PaginaLogin' => getenv('SEI_HOST_URL') . '/sip/login.php',
 				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
-                'ChaveAcesso' => getenv('SIP_CHAVE_ACESSO'), //ATENÇÃO: gerar uma nova chave para o SIP após a instalação (ver documento de instalação)
+                'ChaveAcesso' => getenv('SIP_CHAVE_ACESSO'), //ATENï¿½ï¿½O: gerar uma nova chave para o SIP apï¿½s a instalaï¿½ï¿½o (ver documento de instalaï¿½ï¿½o)
                 'https' => false,
 			),
 			
@@ -69,9 +69,9 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 			),
 			
 //			'HostWebService' => array(
-//				'Replicacao' => array('*'),  //endereço ou IP da máquina que implementa o serviço de replicação de usuário
-//				'Pesquisa' => array('*'),    //endereços/IPs das máquinas do SEI
-//				'Autenticacao' => array('*') //endereços/IPs das máquinas do SEI
+//				'Replicacao' => array('*'),  //endereï¿½o ou IP da mï¿½quina que implementa o serviï¿½o de replicaï¿½ï¿½o de usuï¿½rio
+//				'Pesquisa' => array('*'),    //endereï¿½os/IPs das mï¿½quinas do SEI
+//				'Autenticacao' => array('*') //endereï¿½os/IPs das mï¿½quinas do SEI
 //			),
 
             'InfraMail' => array(
@@ -85,9 +85,9 @@ class ConfiguracaoSip extends InfraConfiguracao  {
                 'Seguranca' => '', //TLS, SSL ou vazio
                 'MaxDestinatarios' => 25, //numero maximo de destinatarios por mensagem
                 'MaxTamAnexosMb' => 15, //tamanho maximo dos anexos em Mb por mensagem
-                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido então todos os emails enviados terão o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
+                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entï¿½o todos os emails enviados terï¿½o o destinatario ignorado e substituï¿½do por este valor (evita envio incorreto de email)
                 /*  Abaixo chave opcional desativada com exemplo de preenchimento
-                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se n?o existir um dom?nio mapeado então utilizará os atributos gerais da chave InfraMail.
+                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domï¿½nio de conta remetente. Se n?o existir um dom?nio mapeado entï¿½o utilizarï¿½ os atributos gerais da chave InfraMail.
                     'abc.jus.br' => array(
                         'Tipo' => '2',
                         'Servidor' => '10.1.3.12',
