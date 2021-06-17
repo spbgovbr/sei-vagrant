@@ -51,7 +51,8 @@ Vagrant.configure(2) do |config|
 
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
-  config.vm.network :forwarded_port, guest: 8000, host: 8000 # SIP e SEI (Apache)
+  config.vm.network :forwarded_port, guest: 8000, host: 8000 # SIP e SEI (Apache - HTTP)
+  config.vm.network :forwarded_port, guest: 8443, host: 8443 # SIP e SEI (Apache - HTTPS)
   config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
   config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)

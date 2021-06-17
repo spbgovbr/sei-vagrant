@@ -38,11 +38,11 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			),
 			
 			'SessaoSEI' => array(
-				'SiglaOrgaoSistema' => 'ABC',
+				'SiglaOrgaoSistema' => getenv('SEI_SIGLA_ORGAO'),
 				'SiglaSistema' => 'SEI',
 				'PaginaLogin' => getenv('HOST_URL') . '/sip/login.php',
 				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
-                'ChaveAcesso' => getenv('SEI_CHAVE_ACESSO'), //ATENÇAO: gerar uma nova chave para o SEI ap?s a instação (ver documento de instação)
+                'ChaveAcesso' => getenv('SEI_CHAVE_ACESSO'), //ATENï¿½AO: gerar uma nova chave para o SEI ap?s a instaï¿½ï¿½o (ver documento de instaï¿½ï¿½o)
                 'https' => false,
 			),
 
@@ -86,12 +86,12 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 
             'Federacao' => array(
                 'Habilitado' => false,
-                'NumSegundosAcaoRemota' => 10,  //Tempo máximo que um link de ação do SEI Federação pode ser executado.
-                'NumSegundosSincronizacao' => 300,  //Diferença máxima em segundos entre os horários das instalações.
-                'NumDiasTentativasReplicacao' => 3,  //Informa por quanto tempo o sistema tentará replicar sinalizações em processos para outras instalações do SEI Federação.
-                'ReplicarAcessosOnline' => true,  //Sinaliza se as concessões de acessos para ór-gãos de outras instalações devem ser replicadas no mesmo instante. Se o valor for false ou se ocorrer um erro então as replicações serão tratadas pelo agendamento de replicações.
-                'NumMaxProtocolosConsulta' => 100,  //Número máximo de protocolos do processo que serão retornados quando outra instituição consultar pelo SEI Federa-ção (acima deste valor será realizada paginação).
-                'NumMaxAndamentosConsulta' => 100,  //Número máximo de andamentos do processo que serão retornados quando outra instituição consultar pelo SEI Federação (acima deste valor será realizada paginação).
+                'NumSegundosAcaoRemota' => 10,  //Tempo mï¿½ximo que um link de aï¿½ï¿½o do SEI Federaï¿½ï¿½o pode ser executado.
+                'NumSegundosSincronizacao' => 300,  //Diferenï¿½a mï¿½xima em segundos entre os horï¿½rios das instalaï¿½ï¿½es.
+                'NumDiasTentativasReplicacao' => 3,  //Informa por quanto tempo o sistema tentarï¿½ replicar sinalizaï¿½ï¿½es em processos para outras instalaï¿½ï¿½es do SEI Federaï¿½ï¿½o.
+                'ReplicarAcessosOnline' => true,  //Sinaliza se as concessï¿½es de acessos para ï¿½r-gï¿½os de outras instalaï¿½ï¿½es devem ser replicadas no mesmo instante. Se o valor for false ou se ocorrer um erro entï¿½o as replicaï¿½ï¿½es serï¿½o tratadas pelo agendamento de replicaï¿½ï¿½es.
+                'NumMaxProtocolosConsulta' => 100,  //Nï¿½mero mï¿½ximo de protocolos do processo que serï¿½o retornados quando outra instituiï¿½ï¿½o consultar pelo SEI Federa-ï¿½ï¿½o (acima deste valor serï¿½ realizada paginaï¿½ï¿½o).
+                'NumMaxAndamentosConsulta' => 100,  //Nï¿½mero mï¿½ximo de andamentos do processo que serï¿½o retornados quando outra instituiï¿½ï¿½o consultar pelo SEI Federaï¿½ï¿½o (acima deste valor serï¿½ realizada paginaï¿½ï¿½o).
             ),
 
             'XSS' => array(
@@ -107,19 +107,19 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
             ),
 
             'Limites' => array(
-                //Nível 1 é afeto a Operações em geral
-                'Nivel1TempoSeg' => 60,  //Esta chave define o Tempo máximo em segundos para execução do script.
-                'Nivel1MemoriaMb' => 256,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar.
-                //Nível 2 é afeto a Download de documentos, Estatísticas, Geração de PDF, Migração de Unidade, Indexação Individual e Substituição de contatos
-                'Nivel2TempoSeg' => 600,  //Esta chave define o Tempo máximo em segundos para execução do script.
-                'Nivel2MemoriaMb' => 2048,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar.
-                //Nível 3 é afeto a Scripts, Agendamentos, Indexação Massiva, Critérios de Controle Interno e Web Services
-                'Nivel3TempoSeg' => 0,  //Esta chave define o Tempo máximo em segundos para execução do script. Este nível aceita o valor ?0? para indicar sem limite de tempo.
-                'Nivel3MemoriaMb' => 4096,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar. Este nível aceita o valor ?-1? para indicar sem limite de memória.
+                //Nï¿½vel 1 ï¿½ afeto a Operaï¿½ï¿½es em geral
+                'Nivel1TempoSeg' => 60,  //Esta chave define o Tempo mï¿½ximo em segundos para execuï¿½ï¿½o do script.
+                'Nivel1MemoriaMb' => 256,  //Esta chave define a Quantidade mï¿½xima de memï¿½ria em Megabytes que o script pode utilizar.
+                //Nï¿½vel 2 ï¿½ afeto a Download de documentos, Estatï¿½sticas, Geraï¿½ï¿½o de PDF, Migraï¿½ï¿½o de Unidade, Indexaï¿½ï¿½o Individual e Substituiï¿½ï¿½o de contatos
+                'Nivel2TempoSeg' => 600,  //Esta chave define o Tempo mï¿½ximo em segundos para execuï¿½ï¿½o do script.
+                'Nivel2MemoriaMb' => 2048,  //Esta chave define a Quantidade mï¿½xima de memï¿½ria em Megabytes que o script pode utilizar.
+                //Nï¿½vel 3 ï¿½ afeto a Scripts, Agendamentos, Indexaï¿½ï¿½o Massiva, Critï¿½rios de Controle Interno e Web Services
+                'Nivel3TempoSeg' => 0,  //Esta chave define o Tempo mï¿½ximo em segundos para execuï¿½ï¿½o do script. Este nï¿½vel aceita o valor ?0? para indicar sem limite de tempo.
+                'Nivel3MemoriaMb' => 4096,  //Esta chave define a Quantidade mï¿½xima de memï¿½ria em Megabytes que o script pode utilizar. Este nï¿½vel aceita o valor ?-1? para indicar sem limite de memï¿½ria.
             ),
 
             'RH' => array(
-                'CargoFuncao' => '',  //Endereço para o serviço de recuperação de Cargos/Funções para assinatura de documentos (opcional).
+                'CargoFuncao' => '',  //Endereï¿½o para o serviï¿½o de recuperaï¿½ï¿½o de Cargos/Funï¿½ï¿½es para assinatura de documentos (opcional).
             ),
 
 			'Solr' => array(
@@ -139,23 +139,23 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			'HostWebService' => array(
 				'Sip' => array('*'), //Refer?ncias (IP e nome na rede) de todas as m?quinas que executam o SIP.
 				'Publicacao' => array('*'), //Refer?ncias (IP e nome na rede) das m?quinas de ve?culos de publica??o externos cadastrados no SEI.
-				'Ouvidoria' => array('*'), //Refer?ncias (IP e nome na rede) da m?quina que hospeda o formul?rio de Ouvidoria personalizado. Se utilizar o formul?rio padr?o do SEI, ent?o configurar com as m?quinas dos nós de aplica??o do SEI.
+				'Ouvidoria' => array('*'), //Refer?ncias (IP e nome na rede) da m?quina que hospeda o formul?rio de Ouvidoria personalizado. Se utilizar o formul?rio padr?o do SEI, ent?o configurar com as m?quinas dos nï¿½s de aplica??o do SEI.
 			),
 
             'InfraMail' => array(
-                'Tipo' => '2', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
+                'Tipo' => '2', //1 = sendmail (neste caso nï¿½o ï¿½ necessï¿½rio configurar os atributos abaixo), 2 = SMTP
                 'Servidor' => 'smtp',
                 'Porta' => '1025',
                 'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
-                'Autenticar' => false, //se true então informar Usuario e Senha
+                'Autenticar' => false, //se true entï¿½o informar Usuario e Senha
                 'Usuario' => '',
                 'Senha' => '',
                 'Seguranca' => '', //TLS, SSL ou vazio
                 'MaxDestinatarios' => 25, //numero maximo de destinatarios por mensagem
                 'MaxTamAnexosMb' => 15, //tamanho maximo dos anexos em Mb por mensagem
-                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
+                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituï¿½do por este valor (evita envio incorreto de email)
                 /*  Abaixo chave opcional desativada com exemplo de preenchimento
-                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se não existir um domínio mapeado então utilizará os atributos gerais da chave InfraMail.
+                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domï¿½nio de conta remetente. Se nï¿½o existir um domï¿½nio mapeado entï¿½o utilizarï¿½ os atributos gerais da chave InfraMail.
                     'abc.jus.br' => array(
                         'Tipo' => '2',
                         'Servidor' => '10.1.3.12',

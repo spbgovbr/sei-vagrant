@@ -40,6 +40,7 @@ services:
     restart: always
     ports:
       - "8000:8000"
+      - "8443:8443"
     depends_on: 
       - database
     volumes:
@@ -56,6 +57,7 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
 
+      - SEI_SIGLA_ORGAO=${SEI_SIGLA_ORGAO}
       - SEI_CHAVE_ACESSO=${SEI_CHAVE_ACESSO}
       - SEI_DATABASE_NAME=${SEI_DATABASE_NAME}
       - SEI_DATABASE_USER=${SEI_DATABASE_USER}
