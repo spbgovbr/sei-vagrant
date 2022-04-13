@@ -42,7 +42,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 				'SiglaSistema' => 'SEI',
 				'PaginaLogin' => getenv('HOST_URL') . '/sip/login.php',
 				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
-                'ChaveAcesso' => getenv('SEI_CHAVE_ACESSO'), //ATENÇAO: gerar uma nova chave para o SEI ap?s a instação (ver documento de instação)
+                'ChaveAcesso' => getenv('SEI_CHAVE_ACESSO'), //ATENCAO: gerar uma nova chave para o SEI após a instalação (ver documento de instalação)
                 'https' => false,
 			),
 
@@ -59,8 +59,6 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 				'Banco' => getenv('SEI_DATABASE_NAME'),
 				'Usuario' => getenv('SEI_DATABASE_USER'),
 				'Senha' => getenv('SEI_DATABASE_PASSWORD'),
-				'UsuarioScript' => getenv('SEI_DATABASE_USER_SCRIPT'),
-				'SenhaScript' => getenv('SEI_DATABASE_PASSWORD_SCRIPT'),
 				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
 				'PesquisaCaseInsensitive' => false,
 			),
@@ -71,8 +69,6 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 //                'Banco' => getenv('SEI_DATABASE_NAME'),
 //                'Usuario' => getenv('SEI_DATABASE_USER'),
 //                'Senha' => getenv('SEI_DATABASE_PASSWORD'),
-//                'UsuarioScript' => getenv('SEI_DATABASE_USER_SCRIPT'),
-//                'SenhaScript' => getenv('SEI_DATABASE_PASSWORD_SCRIPT'),
 //                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
 //                'PesquisaCaseInsensitive' => false,
 //			),
@@ -89,13 +85,13 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
                 'NumSegundosAcaoRemota' => 10,  //Tempo máximo que um link de ação do SEI Federação pode ser executado.
                 'NumSegundosSincronizacao' => 300,  //Diferença máxima em segundos entre os horários das instalações.
                 'NumDiasTentativasReplicacao' => 3,  //Informa por quanto tempo o sistema tentará replicar sinalizações em processos para outras instalações do SEI Federação.
-                'ReplicarAcessosOnline' => true,  //Sinaliza se as concessões de acessos para ór-gãos de outras instalações devem ser replicadas no mesmo instante. Se o valor for false ou se ocorrer um erro então as replicações serão tratadas pelo agendamento de replicações.
-                'NumMaxProtocolosConsulta' => 100,  //Número máximo de protocolos do processo que serão retornados quando outra instituição consultar pelo SEI Federa-ção (acima deste valor será realizada paginação).
+                'ReplicarAcessosOnline' => true,  //Sinaliza se as concessões de acessos para órgãos de outras instalações devem ser replicadas no mesmo instante. Se o valor for false ou se ocorrer um erro então as replicações serão tratadas pelo agendamento de replicações.
+                'NumMaxProtocolosConsulta' => 100,  //Número máximo de protocolos do processo que serão retornados quando outra instituição consultar pelo SEI Federação (acima deste valor será realizada paginação).
                 'NumMaxAndamentosConsulta' => 100,  //Número máximo de andamentos do processo que serão retornados quando outra instituição consultar pelo SEI Federação (acima deste valor será realizada paginação).
             ),
 
             'XSS' => array(
-                'NivelVerificacao' => 'A',
+                'NivelVerificacao' => 'A', //B=Básico, A=Avançado, N=Nenhum
                 'ProtocolosExcecoes' => null,
                 'NivelBasico' => array(
                     'ValoresNaoPermitidos' => null,
@@ -114,8 +110,8 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
                 'Nivel2TempoSeg' => 600,  //Esta chave define o Tempo máximo em segundos para execução do script.
                 'Nivel2MemoriaMb' => 2048,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar.
                 //Nível 3 é afeto a Scripts, Agendamentos, Indexação Massiva, Critérios de Controle Interno e Web Services
-                'Nivel3TempoSeg' => 0,  //Esta chave define o Tempo máximo em segundos para execução do script. Este nível aceita o valor ?0? para indicar sem limite de tempo.
-                'Nivel3MemoriaMb' => 4096,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar. Este nível aceita o valor ?-1? para indicar sem limite de memória.
+                'Nivel3TempoSeg' => 0,  //Esta chave define o Tempo máximo em segundos para execução do script. Este nível aceita o valor 0 para indicar sem limite de tempo.
+                'Nivel3MemoriaMb' => 4096,  //Esta chave define a Quantidade máxima de memória em Megabytes que o script pode utilizar. Este nível aceita o valor -1 para indicar sem limite de memória.
             ),
 
             'RH' => array(
@@ -134,12 +130,6 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 			
 			'JODConverter' => array(
 				'Servidor' => 'http://jod/converter/service'
-			),
-			
-			'HostWebService' => array(
-				'Sip' => array('*'), //Refer?ncias (IP e nome na rede) de todas as m?quinas que executam o SIP.
-				'Publicacao' => array('*'), //Refer?ncias (IP e nome na rede) das m?quinas de ve?culos de publica??o externos cadastrados no SEI.
-				'Ouvidoria' => array('*'), //Refer?ncias (IP e nome na rede) da m?quina que hospeda o formul?rio de Ouvidoria personalizado. Se utilizar o formul?rio padr?o do SEI, ent?o configurar com as m?quinas dos nós de aplica??o do SEI.
 			),
 
             'InfraMail' => array(
