@@ -33,7 +33,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'SiglaSistema' => 'SIP',
 				'PaginaLogin' => getenv('SEI_HOST_URL') . '/sip/login.php',
 				'SipWsdl' => getenv('HOST_URL') . '/sip/controlador_ws.php?servico=sip',
-                'ChaveAcesso' => getenv('SIP_CHAVE_ACESSO'), //ATEN��O: gerar uma nova chave para o SIP ap�s a instala��o (ver documento de instala��o)
+                'ChaveAcesso' => getenv('SIP_CHAVE_ACESSO'), //ATENCAO: gerar uma nova chave para o SIP após a instalação (ver documento de instalação)
                 'https' => false,
 			),
 			
@@ -43,8 +43,6 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'Banco' => getenv('SIP_DATABASE_NAME'),
 				'Usuario' => getenv('SIP_DATABASE_USER'),
 				'Senha' => getenv('SIP_DATABASE_PASSWORD'),
-				'UsuarioScript' => getenv('SIP_DATABASE_USER_SCRIPT'),
-				'SenhaScript' => getenv('SIP_DATABASE_PASSWORD_SCRIPT'),
 				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
 				'PesquisaCaseInsensitive' => false,				
 			), 	
@@ -55,8 +53,6 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 //                'Banco' => getenv('SIP_DATABASE_NAME'),
 //                'Usuario' => getenv('SIP_DATABASE_USER'),
 //                'Senha' => getenv('SIP_DATABASE_PASSWORD'),
-//                'UsuarioScript' => getenv('SIP_DATABASE_USER_SCRIPT'),
-//                'SenhaScript' => getenv('SIP_DATABASE_PASSWORD_SCRIPT'),
 //                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
 //                'PesquisaCaseInsensitive' => false,
 //            ),
@@ -67,27 +63,21 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'Timeout' => 2,
 				'Tempo' => 3600,				
 			),
-			
-//			'HostWebService' => array(
-//				'Replicacao' => array('*'),  //endere�o ou IP da m�quina que implementa o servi�o de replica��o de usu�rio
-//				'Pesquisa' => array('*'),    //endere�os/IPs das m�quinas do SEI
-//				'Autenticacao' => array('*') //endere�os/IPs das m�quinas do SEI
-//			),
 
             'InfraMail' => array(
-                'Tipo' => '2', //1 = sendmail (neste caso n?o ? necess?rio configurar os atributos abaixo), 2 = SMTP
+                'Tipo' => '2', //1 = sendmail (neste caso não é necessário configurar os atributos abaixo), 2 = SMTP
                 'Servidor' => 'smtp',
                 'Porta' => '1025',
                 'Codificacao' => '8bit', //8bit, 7bit, binary, base64, quoted-printable
-                'Autenticar' => false, //se true ent?o informar Usuario e Senha
+                'Autenticar' => false, //se true então informar Usuario e Senha
                 'Usuario' => '',
                 'Senha' => '',
                 'Seguranca' => '', //TLS, SSL ou vazio
                 'MaxDestinatarios' => 25, //numero maximo de destinatarios por mensagem
                 'MaxTamAnexosMb' => 15, //tamanho maximo dos anexos em Mb por mensagem
-                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido ent�o todos os emails enviados ter�o o destinatario ignorado e substitu�do por este valor (evita envio incorreto de email)
+                'Protegido' => '', //campo usado em desenvolvimento, se tiver um email preenchido entao todos os emails enviados terao o destinatario ignorado e substituído por este valor (evita envio incorreto de email)
                 /*  Abaixo chave opcional desativada com exemplo de preenchimento
-                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada dom�nio de conta remetente. Se n?o existir um dom?nio mapeado ent�o utilizar� os atributos gerais da chave InfraMail.
+                'Dominios' => array(	// Opcional. Permite especificar o conjunto de atributos acima individualmente para cada domínio de conta remetente. Se não existir um domínio mapeado então utilizará os atributos gerais da chave InfraMail.
                     'abc.jus.br' => array(
                         'Tipo' => '2',
                         'Servidor' => '10.1.3.12',
