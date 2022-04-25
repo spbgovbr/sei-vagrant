@@ -1,6 +1,6 @@
 .PHONY: build-containers build-vm install-vm clean
 
-VERSAO_CONTAINERS='9.8'
+VERSAO_CONTAINERS='9.9'
 
 build: build-containers publish-containers build-vm
 

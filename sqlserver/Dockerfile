@@ -6,7 +6,7 @@
 # ambiente de produção
 ################################################################################
 
-FROM microsoft/mssql-server-linux
+FROM liaisonintl/mssql-server-linux
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
