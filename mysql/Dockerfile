@@ -22,9 +22,6 @@ RUN sed -i '1i use sip; \n' /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.
 RUN ["sed", "-i", "s/exec \"$@\"/echo \"not running $@\"/", "/usr/local/bin/docker-entrypoint.sh"]
 RUN ["/usr/local/bin/docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db"]
 
-# Instalação do SEI e demais componentes acessórios
-# COPY install.sh /install.sh
-# RUN bash /install.sh
 
 ############################## FIM DA INSTALAÇÃO ###########################
 FROM mariadb:10.5

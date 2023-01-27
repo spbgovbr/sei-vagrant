@@ -32,7 +32,12 @@
             "type": "file",
             "source": "env-sqlserver",
             "destination": "/tmp/env-sqlserver"
-        },                
+        },        
+        {
+            "type": "file",
+            "source": "env-postgresql",
+            "destination": "/tmp/env-postgresql"
+        },                   
         {
             "type":  "shell",
             "inline": [ 
@@ -40,6 +45,7 @@
                 "sudo cp /tmp/env-mysql /",
                 "sudo cp /tmp/env-oracle /",
                 "sudo cp /tmp/env-sqlserver /",
+                "sudo cp /tmp/env-postgresql /",
                 "sudo mkdir -p /mnt/sei/src/",
                 "sudo cp --force /env-mysql /mnt/sei/src/.env"
             ]

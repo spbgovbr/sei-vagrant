@@ -51,8 +51,6 @@ php -r "
     \$conexao->executarSql(\"update sistema set pagina_inicial='$HOST_URL/sei/inicializar.php' where sigla='SEI'\");
     \$conexao->executarSql(\"update sistema set web_service='$HOST_URL/sei/controlador_ws.php?servico=sip' where sigla='SEI'\");
     \$conexao->setBolScript(true);
-    \$objScriptRN = new ScriptRN();
-    \$objScriptRN->atualizarSequencias();    
 " || exit 1
 
 # Atualizar os endereços de host definidos para na inicialização e sincronização de sequências
@@ -60,8 +58,6 @@ php -r "
     require_once '/opt/sei/web/SEI.php';
     \$conexao = BancoSEI::getInstance();
     \$conexao->setBolScript(true);
-    \$objScriptRN = new ScriptRN();
-    \$objScriptRN->atualizarSequencias();
 " || exit 1
 
 memcached -u memcached -d -m 30 -l 127.0.0.1 -p 11211

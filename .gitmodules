@@ -7,4 +7,6 @@
 [submodule "sqlserver/sei-db-ref-executivo"]
         path = sqlserver/sei-db-ref-executivo
         url = https://github.com/spbgovbr/sei-db-ref-executivo.git
-
+[submodule "postgresql/sei-db-ref-executivo"]
+        path = postgresql/sei-db-ref-executivo
+        url = https://github.com/spbgovbr/sei-db-ref-executivo.git

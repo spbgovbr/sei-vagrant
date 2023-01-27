@@ -9,8 +9,10 @@ yum-config-manager --disable remi-php54
 yum-config-manager --enable remi-php73
 yum update -y 
 
+# Referências para repositórios utilizados na instalação
 yum install -y http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 yum install -y https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.x86_64.rpm
+yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 
 # Instalação de ferramentas utilitárias e dependências do SEI 4.0
 yum install -y build-essential libmcrypt httpd memcached openssl wget curl unzip gcc java-1.8.0-openjdk \
@@ -23,6 +25,7 @@ yum install -y php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib
                php-mysqlnd php-mysqli php-odbc php-pdo php-pecl-apcu php-pecl-apcu-devel php-curl \
                php-pecl-memcache php-pspell php-snmp php-pecl-igbinary php-pecl-igbinary-devel \
                php-xml php-xmlrpc php-zip php-json php-sodium
+
 
 
 # Instalação do XDebug, versão 3
@@ -53,6 +56,9 @@ yum install -y libodbc1 unixODBC unixODBC-devel php-mssql php-pdo
 pecl install sqlsrv pdo_sqlsrv
 printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php.d/20-sqlsrv.ini
 printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php.d/30-pdo_sqlsrv.ini
+
+# Instalação dos componentes de conexão do PostegreSQL
+yum install -y libpq postgresql15 postgresql15-libs php-pgsql php-pecl-pq
 
 # Configuração de permissão do diretório de arquivos
 mkdir -p /var/sei/arquivos
