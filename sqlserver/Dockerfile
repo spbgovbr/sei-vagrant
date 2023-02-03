@@ -8,13 +8,16 @@
 
 FROM liaisonintl/mssql-server-linux
 
+ARG VERSAO_BASE=v4.0.x.1
+ARG REPOSITORIO_BASE=https://github.com/supergovbr/super-db-ref-executivo/blob/master/sqlserver/$VERSAO_BASE
+
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
 ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD='yourStrong(!)Password'
+ENV SA_PASSWORD='P@ssword'
 
-COPY sei-db-ref-executivo/sqlserver/v4.0.0/sei_4_0_0_BD_Ref_Exec.bak /tmp/sei_sqlserver.bak
-COPY sei-db-ref-executivo/sqlserver/v4.0.0/sip_4_0_0_BD_Ref_Exec.bak /tmp/sip_sqlserver.bak
+ADD $REPOSITORIO_BASE/sei_super_4.0.x.1_BD_Ref_Exec.bak?raw=true /tmp/sei_sqlserver.bak
+ADD $REPOSITORIO_BASE/sip_super_4.0.x.1_BD_Ref_Exec.bak?raw=true /tmp/sip_sqlserver.bak
 COPY assets/restore.sql /tmp/restore.sql
 COPY install.sh /install.sh
 

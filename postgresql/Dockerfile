@@ -6,27 +6,23 @@
 
 FROM postgres:15 as builder
 
+ARG VERSAO_BASE=v4.0.x.1
+ARG REPOSITORIO_BASE=https://github.com/supergovbr/super-db-ref-executivo/blob/master/postgresql/$VERSAO_BASE
+
+############################# INÍCIO DA INSTALACAO #############################
 ENV POSTGRES_PASSWORD=P@ssword
 ENV POSTGRES_HOST_AUTH_METHOD=scram-sha-256
 ENV POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
 ENV PGDATA=/initialized-db
 
-# ENV LANG pt_BR.ISO-8859-1
-# ENV LC_ALL pt_BR.ISO-8859-1
-# RUN localectl set-locale LANG=pt_BR.ISO-8859-1
-# RUN sed -i -e 's/# pt_BR ISO-8859-1/pt_BR ISO-8859-1/' /etc/locale.gen
-# RUN localedef -i pt_BR -c -f ISO-8859-1 -A /usr/share/locale/locale.alias pt_BR.ISO-8859-1
-# RUN localedef pt_BR -i pt_BR -f ISO-8859-1
-# RUN dpkg-reconfigure --frontend=noninteractive locales
-
-
 COPY assets/postgres.conf /etc/postgresql/postgresql.conf
 COPY assets/pre-install.sql /docker-entrypoint-initdb.d/1_pre-install.sql
-COPY sei-db-ref-executivo/postgresql/v4.0.0/sei_4_0_0_BD_Ref_Exec.sql /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
-COPY sei-db-ref-executivo/postgresql/v4.0.0/sip_4_0_0_BD_Ref_Exec.sql /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sei_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sip_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
 COPY assets/pos-install.sql /docker-entrypoint-initdb.d/9_pos-install.sql
 
 RUN mkdir /initialized-db && chown -R postgres /initialized-db 
+RUN chmod -R 777 /docker-entrypoint-initdb.d/
 RUN chmod 644 /etc/postgresql/postgresql.conf
 RUN sed -i '1i \\\c sei; \n' /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
 RUN sed -i '1i \\\c sip; \n' /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql

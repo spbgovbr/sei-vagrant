@@ -6,14 +6,18 @@
 
 FROM oracleinanutshell/oracle-xe-11g
 
+
+ARG VERSAO_BASE=v4.0.x.1
+ARG REPOSITORIO_BASE=https://github.com/supergovbr/super-db-ref-executivo/blob/master/oracle/$VERSAO_BASE
+
+
 ############################# INÍCIO DA INSTALACAO #############################
 ENV TERM xterm
 ENV ORACLE_ALLOW_REMOTE=true
 ENV NLS_LANG=PORTUGUESE_BRAZIL.WE8MSWIN1252
 
-COPY sei-db-ref-executivo/oracle/v4.0.0/sei_4_0_0_BD_Ref_Exec.dmp /tmp/sei_oracle.dmp
-COPY sei-db-ref-executivo/oracle/v4.0.0/sip_4_0_0_BD_Ref_Exec.dmp /tmp/sip_oracle.dmp
-
+ADD $REPOSITORIO_BASE/sei_super_4.0.x.1_BD_Ref_Exec.dmp?raw=true /tmp/sei_oracle.dmp
+ADD $REPOSITORIO_BASE/sip_super_4.0.x.1_BD_Ref_Exec.dmp?raw=true /tmp/sip_oracle.dmp
 COPY assets/pre-install.sql /tmp/pre-install.sql
 COPY assets/sei-config.sql /tmp/sei-config.sql
 COPY assets/sip-config.sql /tmp/sip-config.sql

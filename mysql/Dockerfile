@@ -6,15 +6,19 @@
 
 FROM mariadb:10.5 as builder
 
+ARG VERSAO_BASE=v4.0.x.1
+ARG REPOSITORIO_BASE=https://github.com/supergovbr/super-db-ref-executivo/blob/master/mysql/$VERSAO_BASE
+
 ############################# INÍCIO DA INSTALAÇÃO #############################
 ENV MYSQL_ROOT_PASSWORD=P@ssword
 
 COPY assets/my.cnf /etc/mysql/mariadb.conf.d/sei.cnf
 COPY assets/pre-install.sql /docker-entrypoint-initdb.d/1_pre-install.sql
-COPY sei-db-ref-executivo/mysql/v4.0.0/sei_4_0_0_BD_Ref_Exec.sql /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
-COPY sei-db-ref-executivo/mysql/v4.0.0/sip_4_0_0_BD_Ref_Exec.sql /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sei_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sip_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
 COPY assets/pos-install.sql /docker-entrypoint-initdb.d/9_pos-install.sql
 
+RUN chmod -R 777 /docker-entrypoint-initdb.d/
 RUN chmod 644 /etc/mysql/mariadb.conf.d/sei.cnf
 RUN sed -i '1i use sei; \n' /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
 RUN sed -i '1i use sip; \n' /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql

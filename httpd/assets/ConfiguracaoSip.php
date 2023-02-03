@@ -43,7 +43,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 				'Banco' => getenv('SIP_DATABASE_NAME'),
 				'Usuario' => getenv('SIP_DATABASE_USER'),
 				'Senha' => getenv('SIP_DATABASE_PASSWORD'),
-				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer, Oracle ou PostgreSQL
 				'PesquisaCaseInsensitive' => false,				
 			), 	
 			
@@ -53,7 +53,7 @@ class ConfiguracaoSip extends InfraConfiguracao  {
 //                'Banco' => getenv('SIP_DATABASE_NAME'),
 //                'Usuario' => getenv('SIP_DATABASE_USER'),
 //                'Senha' => getenv('SIP_DATABASE_PASSWORD'),
-//                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+//                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer, Oracle ou PostgreSQL
 //                'PesquisaCaseInsensitive' => false,
 //            ),
 			

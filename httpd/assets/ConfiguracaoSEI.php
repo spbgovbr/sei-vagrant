@@ -59,7 +59,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 				'Banco' => getenv('SEI_DATABASE_NAME'),
 				'Usuario' => getenv('SEI_DATABASE_USER'),
 				'Senha' => getenv('SEI_DATABASE_PASSWORD'),
-				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+				'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer, Oracle ou PostgreSQL
 				'PesquisaCaseInsensitive' => false,
 			),
 
@@ -69,7 +69,7 @@ class ConfiguracaoSEI extends InfraConfiguracao  {
 //                'Banco' => getenv('SEI_DATABASE_NAME'),
 //                'Usuario' => getenv('SEI_DATABASE_USER'),
 //                'Senha' => getenv('SEI_DATABASE_PASSWORD'),
-//                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer ou Oracle
+//                'Tipo' => getenv('DATABASE_TYPE'), //MySql, SqlServer, Oracle ou PostgreSQL
 //                'PesquisaCaseInsensitive' => false,
 //			),
 

@@ -1,4 +1,5 @@
 \c sei;
+ALTER DATABASE sei OWNER TO sei_user;
 GRANT ALL PRIVILEGES ON DATABASE sei TO sei_user;
 GRANT ALL PRIVILEGES ON SCHEMA public TO sei_user;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO sei_user;
@@ -7,6 +8,7 @@ update orgao set sigla='ABC', descricao='ORGAO ABC' where id_orgao=0;
 delete from auditoria_protocolo;
 
 \c sip;
+ALTER DATABASE sip OWNER TO sip_user;
 GRANT ALL PRIVILEGES ON DATABASE sip TO sip_user;
 GRANT ALL PRIVILEGES ON SCHEMA public TO sip_user;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO sip_user;

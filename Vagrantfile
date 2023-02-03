@@ -95,6 +95,15 @@ Vagrant.configure(2) do |config|
     EOF
   end
 
+  config.vm.provision "postgresql", type: "shell", run: "never" do |s|
+    s.inline = <<-EOF
+      /bin/systemctl start docker.service
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env down
+      cp -f /env-postgresql /mnt/sei/src/.env
+      /usr/local/bin/docker-compose -f /docker-compose.yml --env-file /mnt/sei/src/.env up -d
+    EOF
+  end
+
   config.vm.post_up_message = <<-EOF
 
 =========================================================================
@@ -127,9 +136,9 @@ vagrant status                    - Verificar situação atual do ambiente
 
 Utilize o parâmetro '--provision-with' para alterar o banco de dados padrão:
 
-vagrant up --provision-with [mysql|oracle|sqlserver]
+vagrant up --provision-with [mysql|oracle|sqlserver|postgresql]
 -- ou --
-vagrant provision --provision-with [mysql|oracle|sqlserver]
+vagrant provision --provision-with [mysql|oracle|sqlserver|postgresql]
 
 = Debug =========================================================
 PHP xDebug3
