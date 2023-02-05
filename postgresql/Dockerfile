@@ -6,8 +6,8 @@
 
 FROM postgres:15 as builder
 
-ARG VERSAO_BASE=v4.0.x.1
-ARG REPOSITORIO_BASE=https://github.com/supergovbr/super-db-ref-executivo/blob/master/postgresql/$VERSAO_BASE
+ARG VERSAO_BASE=v4.0.0
+ARG REPOSITORIO_BASE=https://github.com/spbgovbr/sei-db-ref-executivo/blob/master/postgresql/$VERSAO_BASE
 
 ############################# INÍCIO DA INSTALACAO #############################
 ENV POSTGRES_PASSWORD=P@ssword
@@ -17,8 +17,8 @@ ENV PGDATA=/initialized-db
 
 COPY assets/postgres.conf /etc/postgresql/postgresql.conf
 COPY assets/pre-install.sql /docker-entrypoint-initdb.d/1_pre-install.sql
-ADD $REPOSITORIO_BASE/sei_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
-ADD $REPOSITORIO_BASE/sip_super_4.0.x.1_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sei_4_0_0_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/2_sei_4_0_0_BD_Ref_Exec.sql
+ADD $REPOSITORIO_BASE/sip_4_0_0_BD_Ref_Exec.sql?raw=true /docker-entrypoint-initdb.d/3_sip_4_0_0_BD_Ref_Exec.sql
 COPY assets/pos-install.sql /docker-entrypoint-initdb.d/9_pos-install.sql
 
 RUN mkdir /initialized-db && chown -R postgres /initialized-db 

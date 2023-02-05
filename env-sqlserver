@@ -1,4 +1,4 @@
-ENVIRONMENT_VERSION=9.9
+ENVIRONMENT_VERSION=10.0
 
 DATABASE_IMAGE=processoeletronico/vagrant_sei4_sqlserver
 DATABASE_TYPE=SqlServer

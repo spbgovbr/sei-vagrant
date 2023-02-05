@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-mkdir -p /opt/sip/config/
 mkdir -p /opt/sei/config/
+mkdir -p /opt/sei/temp/
+mkdir -p /opt/sip/config/
+mkdir -p /opt/sip/temp/
 
 # Atribuição dos parâmetros de configuração do SEI
 if [ -f /opt/sei/config/ConfiguracaoSEI.php ] && [ ! -f /opt/sei/config/ConfiguracaoSEI.php~ ]; then

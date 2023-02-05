@@ -31,8 +31,11 @@ yum install -y php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib
 # Instalação do XDebug, versão 3
 pecl install xdebug-3.0.4   
 
-# Configuração do pacote de línguas pt_BR
+# Configuração do pacote de línguas
 localedef pt_BR -i pt_BR -f ISO-8859-1
+localedef pt_BR.ISO-8859-1 -i pt_BR -f ISO-8859-1
+localedef en_US -i en_US -f ISO-8859-1
+localedef en_US.ISO-8859-1 -i en_US -f ISO-8859-1
 
 # Instalação do componentes UploadProgress
 tar -zxvf /tmp/uploadprogress.tgz

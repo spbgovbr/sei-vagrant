@@ -52,9 +52,10 @@ Vagrant.configure(2) do |config|
 
   # Configuração do redirecionamento entre Máquina Virtual e Host
   config.vm.network :forwarded_port, guest: 8000, host: 8000 # SIP e SEI (Apache)
-  config.vm.network :forwarded_port, guest: 1521, host: 1521 # Banco de Dados (Oracle)
-  config.vm.network :forwarded_port, guest: 1433, host: 1433 # Banco de Dados (SQL Server)
-  config.vm.network :forwarded_port, guest: 3306, host: 3306 # Banco de Dados (Mysql)
+  config.vm.network :forwarded_port, guest: 1521, host: 1521 # Oracle
+  config.vm.network :forwarded_port, guest: 1433, host: 1433 # SQL Server
+  config.vm.network :forwarded_port, guest: 3306, host: 3306 # Mysql
+  config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSql
   config.vm.network :forwarded_port, guest: 8983, host: 8983 # Solr Indexer (Jetty)
   config.vm.network :forwarded_port, guest: 8080, host: 8080 # Jod Converter
   config.vm.network :forwarded_port, guest: 1080, host: 1080 # MailCatcher
@@ -121,11 +122,12 @@ WSDL de integração do SEI ..... [SEI]/ws/SeiWS.php
 PHP Info ...................... http://localhost:8000/info.php
 
 = Outros Serviços ========================================================
-Solr .......................... http://localhost:8983/solr
-MailCatcher ................... http://localhost:1080
 Mysql ......................... localhost:3306
 Oracle ........................ localhost:1521
 SQLServer ..................... localhost:1433
+PostgreSQL .................... localhost:5432
+Solr .......................... http://localhost:8983/solr
+MailCatcher ................... http://localhost:1080
 
 = Comandos Úteis =========================================================
 vagrant up                        - Inicializar ambiente do SEI
