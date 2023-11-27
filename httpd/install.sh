@@ -18,7 +18,6 @@ yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_6
 yum install -y build-essential libmcrypt httpd memcached openssl wget curl unzip gcc java-1.8.0-openjdk \
                libxml2 crontabs mysql netstat net-tools vim git nc libgearman-dev libgearman-devel ffmpeg
 
-
 # Instalação do PHP e demais extenções necessárias para o projeto
 yum install -y php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib php-zts php-soap php-gd php-bcmath \
                php-cli php-common php73pat-php-gmp php-imap php-intl php-ldap php-mbstring \
@@ -26,10 +25,13 @@ yum install -y php php-pear php-devel php-calendar php-mcrypt php-shmop php-zlib
                php-pecl-memcache php-pspell php-snmp php-pecl-igbinary php-pecl-igbinary-devel \
                php-xml php-xmlrpc php-zip php-json php-sodium
 
+yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+yum install -y libpq postgresql15 postgresql15-libs php-pgsql php-pecl-pq
 
 
 # Instalação do XDebug, versão 3
-pecl install xdebug-3.0.4   
+pecl install xdebug-3.0.4
 
 # Configuração do pacote de línguas
 localedef pt_BR -i pt_BR -f ISO-8859-1
